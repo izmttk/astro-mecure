@@ -100,7 +100,6 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
   const BtnComponent = isLink ? 'a' : 'button';
   const prevEdgeComponent = active === 1 ? (
     <div
-      title='first'
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -112,7 +111,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
     <BtnComponent
       href={isLink && pageUrls.length ? `${pageUrls[0]}` : undefined}
       onClick={isLink ? undefined : first}
-      title={'first'}
+      aria-label={'first'}
       disabled={active === 1}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -123,7 +122,6 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
   );
   const prevControlComponent = active === 1 ? (
     <div
-      title='prev'
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -135,7 +133,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
     <BtnComponent
       href={isLink && pageUrls.length && active - 2 >= 0 ? `${pageUrls[active - 2]}` : undefined}
       onClick={isLink ? undefined : previous}
-      title={'prev'}
+      aria-label={'prev'}
       disabled={active === 1}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -146,7 +144,6 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
   );
   const nextEdgeComponent = active === total ? (
     <div
-      title='next'
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -158,7 +155,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
     <BtnComponent
       href={isLink && pageUrls.length && active < pageUrls.length ? `${pageUrls[active]}` : undefined}
       onClick={isLink ? undefined : next}
-      title={'next'}
+      aria-label={'next'}
       disabled={active === total}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -169,7 +166,6 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
   );
   const nextControlComponent = active === total ? (
     <div
-      title='last'
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
@@ -181,7 +177,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
     <BtnComponent
       href={isLink && pageUrls.length ? `${pageUrls[pageUrls.length - 1]}` : undefined}
       onClick={isLink ? undefined : last}
-      title={'last'}
+      aria-label={'last'}
       disabled={active === total}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',

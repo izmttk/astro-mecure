@@ -66,7 +66,7 @@ export default function ThemeToggle({
     colorMode === 'dark' ? <IconMoon className='h-5 w-5' /> : null;
   return (
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
-      <DropdownMenu.Trigger title='Theme Toggle' className={twMerge(
+      <DropdownMenu.Trigger aria-label='Theme Toggle' className={twMerge(
         'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
         className,
       )} {...rest}>{stateIcon}</DropdownMenu.Trigger>

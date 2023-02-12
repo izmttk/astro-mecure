@@ -38,7 +38,7 @@ function SideToggle() {
     }
   }
   return (
-    <button title='Sidebar Toggle' className={twMerge(
+    <button aria-label='Sidebar Toggle' className={twMerge(
       'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
     )} onClick={handleClick}><IconSidebarExpand className='h-5 w-5' /></button>
   )
@@ -155,7 +155,7 @@ export default function CustomNavbar({
               </Navbar.Trigger>
             </Navbar.Content>
           )}
-          <Navbar.Logo as='a' href={import.meta.env.BASE_URL} className={isMd ? 'mr-3' : 'mx-auto'}>
+          <Navbar.Logo as='a' href={import.meta.env.BASE_URL} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
             <Logo className='h-10' />
           </Navbar.Logo>
           {isMd && (

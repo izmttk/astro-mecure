@@ -60,7 +60,7 @@ function DrawerClose({
     <Dialog.Close className={twMerge(
       'bg-gray-400/20 rounded-md w-7 h-7 flex justify-center items-center',
       className,
-    )} title='close' {...rest}>
+    )} aria-label='close' {...rest}>
       {children ? children : <IconX />}
     </Dialog.Close>
   )
