@@ -35,14 +35,14 @@ const {
     background: image ? `url(${image}) center/cover` : undefined
   }}></div>
   {image && (
-    <div class={twMerge(
+    <a class={twMerge(
       'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink',
       imagePosition === 'left'
         ? 'md:clip-path-polygon-[0_0,100%_0%,94%_100%,0%_100%]'
         : 'md:clip-path-polygon-[6%_0,100%_0%,100%_100%,0%_100%]'
-    )}>
+    )} href={url} aria-label='cover'>
       <img src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
-    </div>
+    </a>
   )}
   <PostDetails
     class={twMerge(

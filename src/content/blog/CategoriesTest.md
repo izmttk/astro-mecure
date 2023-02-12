@@ -13,7 +13,7 @@ category:
 - test6
 - test7
 - test8
-image: https://image.wider.ink/static/20210219101714.jpg
+image: https://image.wider.ink/static/20210219101714.jpg!/both/1200x800
 
 ---
 

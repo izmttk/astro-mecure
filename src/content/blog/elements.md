@@ -1,7 +1,7 @@
 ---
 title: Elements
 date: 2013-12-24 23:29:08
-image: https://image.wider.ink/static/20210219101953.jpg
+image: https://image.wider.ink/static/20210219101953.jpg!/both/1200x800
 
 ---
 

@@ -5,7 +5,7 @@ tags:
   - Foo
   - Bar
 
-image: https://image.wider.ink/static/20210128152049.jpg
+image: https://image.wider.ink/static/20210128152049.jpg!/both/1200x800
 ---
 
 This post is originated from [here](https://gist.github.com/apackeer/4159268) and is used for testing markdown style. This post contains nearly every markdown usage. Make sure all the markdown elements below show up correctly.

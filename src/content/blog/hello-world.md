@@ -1,6 +1,6 @@
 ---
 title: Hello World
-image: https://image.wider.ink/static/20210128152049.jpg
+image: https://image.wider.ink/static/20210128152049.jpg!/both/1200x800
 category:
 - Diary
 tags:

@@ -7,7 +7,7 @@ photos:
 - /assets/wallpaper-878514.jpg
 - http://placehold.it/350x150.jpg
 
-image: https://image.wider.ink/static/20210219104637.jpg
+image: https://image.wider.ink/static/20210219104637.jpg!/both/1200x800
 
 ---
 

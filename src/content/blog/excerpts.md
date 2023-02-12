@@ -1,7 +1,7 @@
 ---
 title: Excerpts
 date: 2013-12-25 00:23:23
-image: https://image.wider.ink/static/20210219104308.jpg
+image: https://image.wider.ink/static/20210219104308.jpg!/both/1200x800
 
 ---
 

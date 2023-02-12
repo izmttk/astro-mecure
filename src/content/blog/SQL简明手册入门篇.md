@@ -9,7 +9,7 @@ category:
 - 编程
 - 语言
 - SQL
-image: https://image.wider.ink/static/20210219102400.jpg
+image: https://image.wider.ink/static/20210219102400.jpg!/both/1200x800
 ---
 
 # SQL 简明手册 入门篇

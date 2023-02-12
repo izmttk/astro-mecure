@@ -1,7 +1,7 @@
 ---
 title: Code Highlight Style test
 date: 2019-07-25 16:43:00
-image: https://image.wider.ink/static/20210219102326.jpg
+image: https://image.wider.ink/static/20210219102326.jpg!/both/1200x800
 
 ---
 

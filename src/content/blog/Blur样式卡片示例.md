@@ -7,7 +7,7 @@ tags:
 - Blur
 category:
 - 测试
-image: https://image.wider.ink/static/202201261653775.jpg
+image: https://image.wider.ink/static/202201261653775.jpg!/both/1200x800
 ---
 
 ![Test](https://image.wider.ink/static/20210219104308.jpg)

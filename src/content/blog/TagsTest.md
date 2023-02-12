@@ -27,7 +27,7 @@ tags:
 - CNN
 - 心情
 
-image: https://image.wider.ink/static/20210128152049.jpg
+image: https://image.wider.ink/static/20210128152049.jpg!/both/1200x800
 ---
 
 This post contains 3 tags. Make sure your theme can display all of the tags.

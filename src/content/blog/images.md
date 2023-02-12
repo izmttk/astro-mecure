@@ -1,7 +1,7 @@
 ---
 title: Images
 date: 2013-12-26 22:46:49
-image: https://image.wider.ink/static/20210219150705.jpg
+image: https://image.wider.ink/static/20210219150705.jpg!/both/1200x800
 
 ---
 
