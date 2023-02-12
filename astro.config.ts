@@ -32,8 +32,8 @@ import { remarkCodeHike } from "@code-hike/mdx";
 import theme from "shiki/themes/github-dark.json";
 // https://astro.build/config
 const config: AstroUserConfig = {
-  site: 'https://www.my-site.dev/blog/',
-  base: 'blog',
+  site: 'https://wider.netlify.app/',
+  // base: 'blog',
   // output: 'server',
   // adapter: node({
   //   mode: 'standalone'

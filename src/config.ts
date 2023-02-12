@@ -58,7 +58,7 @@ const config: Config = {
     ]
   },
   hero: {
-    bg: '/blog/assets/hero-bg.webp',
+    bg: urlJoin(import.meta.env.BASE_URL, '/assets/hero-bg.webp'),
     // title: '银河渡舟',
     description: '醉后不知天在水，满船清梦压星河。',
   },
@@ -68,8 +68,8 @@ const config: Config = {
         name: 'profile',
         author: '银河渡舟',
         description: '醉后不知天在水，满船清梦压星河。',
-        avatar: '/blog/assets/avatar.png',
-        background: '/blog/assets/profile-bg.webp',
+        avatar: urlJoin(import.meta.env.BASE_URL, '/assets/avatar.png'),
+        background: urlJoin(import.meta.env.BASE_URL, '/assets/profile-bg.webp'),
         socialIcons: [
           {
             label: 'github',
