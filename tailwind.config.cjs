@@ -94,6 +94,10 @@ module.exports = {
               color: 'inherit',
               fontWeight: 'inherit',
             },
+            'table': {
+              display: 'block',
+              overflow: 'scroll'
+            },
             kbd: {
               background: theme('colors.gray.100'),
               borderWidth: '1px',
