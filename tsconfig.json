@@ -1,0 +1,14 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "types": [
+      "unplugin-icons/types/react",
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+    }
+  },
+}

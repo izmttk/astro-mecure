@@ -1,0 +1,49 @@
+---
+import PostDetails from './PostDetails.astro';
+import type { PlainPostCardProps as PostCardProps } from '.';
+import { twMerge } from 'tailwind-merge';
+
+export type PlainPostCardProps = Omit<PostCardProps, 'variant'>;
+export type Props = PlainPostCardProps;
+
+
+const {
+  class: className,
+  title,
+  excerpt,
+  url,
+  image,
+  imagePosition = 'left',
+  tags,
+  category,
+  date,
+  wordCount,
+  readingTime,
+} = Astro.props;
+---
+
+<div class={twMerge(
+  'md:h-[14.5rem] rounded-xl flex flex-col md:flex-row flex-nowrap overflow-hidden',
+  'plate-bg',
+  className
+)}>
+  {image && (
+    <div class='flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink'>
+      <img src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
+    </div>
+  )}
+  <PostDetails
+    class={twMerge(
+      'flex-auto',
+      imagePosition === 'left' ? 'md:order-last' : 'md:order-first'
+    )}
+    title={title}
+    excerpt={excerpt}
+    url={url}
+    date={date}
+    wordCount={wordCount}
+    readingTime={readingTime}
+    tags={tags}
+    category={category}
+  />
+</div>

@@ -1,0 +1,95 @@
+.waline {
+  --waline-theme-color: theme(colors.primary.500);
+  --waline-active-color: theme(colors.primary.400);
+  --waline-border: 1px solid var( --waline-border-color);
+  --waline-info-color: theme(colors.gray.500);
+  --waline-border-color: #e5e7eb;
+
+  --waline-color: theme(colors.gray.700);
+  --waline-bgcolor-light: theme(colors.gray.200 / 50%);
+  --waline-bgcolor-hover: theme(colors.gray.200);
+  --waline-light-grey: theme(colors.gray.400);
+  --waline-dark-grey: theme(colors.gray.600);
+
+  --waline-disable-bgcolor: theme(colors.gray.300);
+  --waline-disable-color: theme(colors.gray.600);
+
+  --waline-code-bgcolor: theme(colors.gray.800);
+
+  --waline-avatar-radius: .25rem;
+}
+
+:global(.dark) .waline {
+  --waline-border: none;
+  --waline-border-color: theme(colors.gray.700);
+
+  --waline-color: theme(colors.gray.400);
+  --waline-bgcolor: theme(colors.gray.800);
+  --waline-bgcolor-light: theme(colors.gray.900 / 50%);
+  --waline-bgcolor-hover: theme(colors.gray.700);
+  --waline-light-grey: theme(colors.gray.600);
+  --waline-dark-grey: theme(colors.gray.400);
+
+  --waline-disable-bgcolor: theme(colors.gray.600);
+  --waline-disable-color: theme(colors.gray.300);
+
+  --waline-code-bgcolor: theme(colors.gray.900);
+}
+
+.waline :global(.wl-panel) {
+  margin: 0;
+}
+
+.waline :global(.wl-header) {
+  padding-left: .5rem;
+  padding-right: .5rem;
+  border-bottom: 1px solid var(--waline-border-color);
+}
+
+.waline :global(.wl-header label) {
+  font-size: .8125rem;
+  padding: .25rem .5rem;
+  margin: .5rem 0;
+}
+.waline :global(.wl-header .wl-header-item) {
+  border: none;
+}
+
+.waline :global(.wl-header input) {
+  font-size: .8125rem;
+  padding: .25rem .5rem;
+  margin: .5rem 0;
+  border-radius: .25rem;
+}
+
+.waline :global(#wl-edit) {
+  margin: .5rem;
+  padding: .5rem;
+  width: calc(100% - 2.25em);
+  border-radius: .25rem;
+}
+
+.waline :global(.wl-footer .wl-action) {
+  display: flex;
+}
+
+.waline :global(.wl-comment-actions) {
+  @apply space-x-2;
+}
+
+.waline :global(.wl-card) {
+  border: none;
+}
+
+.waline :global(.wl-emoji) {
+  height: 2rem;
+}
+
+.waline :global(.wl-content) {
+  padding: 0;
+}
+
+
+.waline :global(.wl-card .wl-quote) {
+  border: none;
+}

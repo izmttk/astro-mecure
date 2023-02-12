@@ -1,0 +1,35 @@
+.collapsibleContent {
+  overflow: hidden;
+}
+.collapsibleContent[data-state='open'] {
+  animation: expand 200ms ease-out;
+}
+.collapsibleContent[data-state='closed'] {
+  animation: collapse 200ms ease-out;
+}
+
+@keyframes expand {
+  from {
+    height: 0;
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes collapse {
+  from {
+    height: var(--radix-collapsible-content-height);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}

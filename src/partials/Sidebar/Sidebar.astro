@@ -1,0 +1,58 @@
+---
+import Sidebar from './Sidebar';
+
+import Profile from '../../components/Profile';
+import TagCloud from '../../components/TagCloud';
+import CategoryTree from '../../components/CategoryTree';
+import Toc from "../../components/Toc";
+import type { SidebarConfig } from '.';
+import type { ProfileProps } from '../../components/Profile';
+import type { TagCloudProps } from '../../components/TagCloud';
+import type { CategoryTreeProps } from '../../components/CategoryTree';
+import type { TocProps } from '../../components/Toc';
+export interface Props {
+  config: SidebarConfig;
+  class?: string;
+  showSidebarOnDesktop?: boolean;
+}
+
+const { 
+  config, 
+  showSidebarOnDesktop, 
+  class: className,
+} = Astro.props;
+
+const { widgets } = config;
+
+---
+
+<Sidebar className={className} showSidebarOnDesktop={showSidebarOnDesktop} client:load>
+  <div class="flex flex-col gap-3">
+    {widgets?.map(widget => {
+      const { name, title, show, ...props} = widget;
+      if (show === false) {
+        return null;
+      }
+      switch (name) {
+        case 'profile':
+          return (
+            <Profile {...props as ProfileProps} />
+          );
+        case 'tag-cloud':
+          return (
+            <TagCloud {...props as TagCloudProps} />
+          );
+        case 'category-tree':
+          return (
+            <CategoryTree {...props as CategoryTreeProps} client:load />
+          );
+        case 'toc':
+          return (
+            <Toc {...props as TocProps} client:load />
+          );
+        default:
+          return null;
+      }
+    })}
+  </div>
+</Sidebar>

@@ -1,0 +1,128 @@
+---
+title: Mdx Example
+image: /blog/assets/postcard-bg.jpg
+---
+export const authors = [
+    { name: "Jane", email: "hi@jane.c   om" },
+    { name: "John", twitter: "@john2002" },
+];
+export const published = new Date("2022-02-01");
+
+
+
+## Hello world!
+
+Written by: {new Intl.ListFormat('en').format(authors.map(d => d.name))}.
+
+Published on: {new Intl.DateTimeFormat('en', {dateStyle: 'long'}).format(published)}.
+
+## Toc
+
+## Latex
+
+### inline
+Formula: $f(x) = \sin (x^2 + y^2) + {1 \over x + y}$
+
+### block
+$$
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
+
+
+## Graph
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+
+## Emoji
+
+:sweat_smile:
+:laughing:
+:vomiting_face:
+:hot_face:
+:scream:
+:clown_face:
+
+Also Emoticons are supported :-) (if enabled)
+
+## Admonition
+
+:::note
+    this is an admonition with type note
+:::
+:::info
+    this is an admonition with type info
+:::
+:::tip
+    this is an admonition with type tip
+:::
+:::caution
+    this is an admonition with type caution
+:::
+:::danger
+    this is an admonition with type danger
+:::
+:::note{title="这里可以添加可选的title"}
+This is what a note looks like
+:::
+
+:::caution
+You can't nest them
+* but
+* you
+* can
+* nest
+* other
+* markdown
+
+```javascript
+// you can even use block elements
+```
+:::
+
+
+## Footnote
+`remark-numbered-footnote-labels` is a quality plugin[^quality]!
+
+[^quality]: If you do not find it so, please file a GitHub issue or pull request!
+
+
+## Syntax highlighting
+
+We also support syntax highlighting in MDX out-of-the-box! This example uses our default [Shiki theme](https://github.com/shikijs/shiki). See the [MDX integration docs](https://docs.astro.build/en/guides/integrations-guide/mdx/#syntax-highlighting) for configuration options.
+
+```astro
+---
+const weSupportAstro = true;
+---
+
+<h1>Hey, what theme is that? Looks nice!</h1>
+```
+
+
+import Example from '../../components/Example'
+import ExampleAstro from '../../components/Example.astro'
+
+<Example client:load>
+  <ExampleAstro />
+  <Example client:load />
+</Example>

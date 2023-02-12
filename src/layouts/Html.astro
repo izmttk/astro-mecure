@@ -1,0 +1,59 @@
+---
+export interface Props {
+  title?: string;
+  favicon?: string;
+  description?: string;
+  author?: string;
+  generator?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  favicon,
+  author,
+  generator,
+  canonical,
+} = Astro.props;
+import "@fontsource/inter"
+import "@fontsource/inter/variable.css"
+import "@fontsource/fira-code"
+import "@fontsource/fira-code/variable.css"
+import "../styles/global.css"
+// import "@code-hike/mdx/dist/index.css"
+// import "../styles/ch-style.css"
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    {description && <meta name="description" content={description} />}
+    {author && <meta name="author" content={author} />}
+    {generator && <meta name="generator" content={generator} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href={favicon} />
+    {title && <title>{title}</title>}
+    <script is:inline>
+      const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? 'auto');
+      let presetTheme;
+      if (storedTheme === 'auto') {
+        presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      } else {
+        presetTheme = storedTheme;
+      }
+      if (presetTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      document.documentElement.style.colorScheme = presetTheme;
+    </script>
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <noscript><b>Enable JavaScript to run this website.</b></noscript>
+    <slot />
+  </body>
+</html>

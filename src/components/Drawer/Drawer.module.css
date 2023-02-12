@@ -1,0 +1,58 @@
+.drawerOverlay[data-state='open'] {
+  animation: fadeIn .15s ease-out;
+}
+
+.drawerOverlay[data-state='closed'] {
+  animation: fadeOut .15s ease-out;
+}
+
+
+.drawerContent[data-state='open'] {
+  animation: slideIn .3s ease;
+}
+
+.drawerContent[data-state='closed'] {
+  animation: slideOut .3s ease;
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,16 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  favicon?: string;
+}
+
+const { title, description, favicon } = Astro.props;
+import Html from './Html.astro';
+
+---
+
+<Html title={title} description={description} favicon={favicon} generator={Astro.generator} canonical={Astro.url.href}>
+  <slot name="head" slot="head" />
+  <slot />
+</Html>

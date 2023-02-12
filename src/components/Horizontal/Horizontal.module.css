@@ -1,0 +1,11 @@
+.gradientMaskLeft {
+  mask-image: linear-gradient(to left, transparent 1.25rem, #fff 2.5rem);
+}
+
+.gradientMaskRight {
+  mask-image: linear-gradient(to right, transparent 1.25rem, #fff 2.5rem);
+}
+
+.gradientMaskBoth {
+  mask-image: linear-gradient(to right, transparent 1.25rem, #fff 2.5rem, #fff calc(100% - 2.5rem), transparent calc(100% - 1.25rem));
+}

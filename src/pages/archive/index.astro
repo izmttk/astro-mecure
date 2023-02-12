@@ -1,0 +1,49 @@
+---
+import compareDesc from "date-fns/compareDesc";
+import PageLayout from "../../layouts/PageLayout.astro";
+import type { Page } from "../../types";
+import getPosts from "../../utils/getPosts";
+import groupBy from "../../utils/groupBy";
+import { getYear, getMonth } from 'date-fns';
+import Archive, { ArchiveConfig } from "../../partials/Archive";
+
+
+const allPosts = (await getPosts()).filter(post => !post.draft).sort((a, b) => compareDesc(a.date, b.date));
+
+const groupedByYear = groupBy(allPosts, post => getYear(post.date));
+
+const page: Page = {
+  type: 'archive',
+  title: '归档',
+  posts: allPosts
+}
+---
+
+<PageLayout page={page} hasSidebar={false}>
+  <div class="space-y-4">
+    {Object.keys(groupedByYear).sort((a, b) => Number(b) - Number(a)).map(year => {
+      const posts = groupedByYear[year];
+      const groupedByMonth = groupBy(posts, post => getMonth(post.date));
+      const config: ArchiveConfig = {
+        title: `${year}年`,
+        timeline: Object.keys(groupedByMonth).sort((a, b) => Number(b) - Number(a)).map(month => {
+          const posts = groupedByMonth[month];
+          return {
+            label: `${Number(month) + 1}月`,
+            posts: posts.map((post) => ({
+              title: post.title,
+              image: post.image,
+              date: post.date,
+              description: post.excerpt,
+              url: post.url,
+            }))
+          }
+        })
+      }
+      return (
+        <Archive config={config} />
+      )
+    })}
+  </div>
+
+</PageLayout>

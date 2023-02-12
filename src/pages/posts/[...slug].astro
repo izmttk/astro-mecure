@@ -1,0 +1,29 @@
+---
+import PostLayout from '../../layouts/PostLayout.astro';
+import type { Post } from '../../types';
+import getPosts from '../../utils/getPosts';
+import MDXComponents from '../../components/MDXComponents'
+export interface Props {
+  post: Post;
+}
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const allPosts = await getPosts();
+  return allPosts.map(post => ({
+    params: {
+      slug: post.slug,
+    },
+    props: {
+      post: post,
+    },
+  }))
+}
+
+const { post: postProp } = Astro.props;
+const { Content, ...post } = postProp;
+---
+
+<PostLayout post={post}>
+  <Content components={MDXComponents} />
+</PostLayout>

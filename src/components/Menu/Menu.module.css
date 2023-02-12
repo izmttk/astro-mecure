@@ -1,0 +1,31 @@
+.dropdownMenuContent[data-state='open'] {
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+  animation: scaleIn .15s ease-out;
+}
+
+/* .dropdownMenuContent[data-state='closed'] {
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+  animation: scaleOut .15s ease-out;
+} */
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(.7);
+  }
+}

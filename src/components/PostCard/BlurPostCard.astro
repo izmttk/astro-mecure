@@ -1,0 +1,62 @@
+---
+import PostDetails from './PostDetails.astro';
+import type { BlurPostCardProps as PostCardProps } from '.';
+import { twMerge } from 'tailwind-merge';
+
+export type BlurPostCardProps = Omit<PostCardProps, 'variant'>;
+export type Props = BlurPostCardProps;
+const {
+  class: className,
+  title,
+  excerpt,
+  url,
+  image,
+  imagePosition = 'left',
+  tags,
+  category,
+  date,
+  wordCount,
+  readingTime,
+  ...rest
+} = Astro.props;
+
+---
+
+<div class={twMerge(
+  'relative md:h-[14.5rem] rounded-xl flex flex-col md:flex-row flex-nowrap overflow-hidden',
+  'bg-[#0b0f19]',
+  className
+)} {...rest}>
+  <div class={twMerge(
+    'absolute brightness-[0.8] md:brightness-[0.7] blur-xl',
+    'w-[calc(100%_+_64px)] h-[calc(100%_+_64px)] ml-[-32px] mt-[-32px]',
+    'scale-y-[200%] md:scale-y-100 origin-bottom md:origin-center',
+  )} style={{
+    background: image ? `url(${image}) center/cover` : undefined
+  }}></div>
+  {image && (
+    <div class={twMerge(
+      'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink',
+      imagePosition === 'left'
+        ? 'md:clip-path-polygon-[0_0,100%_0%,94%_100%,0%_100%]'
+        : 'md:clip-path-polygon-[6%_0,100%_0%,100%_100%,0%_100%]'
+    )}>
+      <img src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
+    </div>
+  )}
+  <PostDetails
+    class={twMerge(
+      'z-10 flex-auto text-gray-100',
+      imagePosition === 'left' ? 'md:order-last' : 'md:order-first'
+    )}
+    title={title}
+    excerpt={excerpt}
+    url={url}
+    date={date}
+    wordCount={wordCount}
+    readingTime={readingTime}
+    tags={tags}
+    category={category}
+    shadow
+  />
+</div>

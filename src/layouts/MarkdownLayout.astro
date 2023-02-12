@@ -1,0 +1,32 @@
+---
+import type { Post, Page } from "../types";
+import PageLayout from "./PageLayout.astro";
+
+const { frontmatter } = Astro.props;
+
+const page: Page = {
+  title: frontmatter.title,
+  description: frontmatter.description,
+  image: frontmatter.image
+}
+
+const hasComment = frontmatter.comment ?? false;
+const hasSidebar = frontmatter.sidebar ?? true;
+const hasFooter = frontmatter.footer ?? true;
+const hasHero = frontmatter.hero ?? true;
+const hasNavbar = frontmatter.navbar ?? true;
+---
+
+<PageLayout 
+  page={page} 
+  hasFooter={hasFooter}
+  hasHero={hasHero}
+  hasNavbar={hasNavbar}
+  hasComment={hasComment} 
+  hasSidebar={hasSidebar}
+>
+  <slot name="head" slot="head" />
+  <article class="prose dark:prose-invert dark:prose-dark prose-a:text-primary-500 plate-bg border-highlight p-4 md:p-8 rounded-xl">
+    <slot />
+  </article>
+</PageLayout>

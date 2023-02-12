@@ -1,0 +1,80 @@
+---
+import BlurPostCard from './BlurPostCard.astro'
+import MaterialPostCard from './MaterialPostCard.astro';
+import FullPostCard from './FullPostCard.astro';
+import PlainPostCard from './PlainPostCard.astro';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+export interface BasePostCardProps {
+  class?: string;
+  title: string;
+  excerpt?: string;
+  url: string;
+  date: Date;
+  image?: string;
+  tags?: Array<{
+    label: string;
+    url: string;
+  }>;
+  category?: {
+    label: string;
+    url: string;
+  };
+  wordCount?: number;
+  readingTime?: number;
+}
+
+
+export interface BlurPostCardProps extends BasePostCardProps {
+  imagePosition?: 'left' | 'right';
+  variant?: 'blur';
+}
+
+export interface FullPostCardProps extends BasePostCardProps {
+  variant?: 'full';
+}
+
+export interface MaterialPostCardProps extends BasePostCardProps {
+  imagePosition?: 'left' | 'right';
+  variant?: 'material';
+}
+
+export interface PlainPostCardProps extends BasePostCardProps {
+  imagePosition?: 'left' | 'right';
+  variant?: 'plain';
+}
+
+export type PostCardProps = BlurPostCardProps | MaterialPostCardProps | FullPostCardProps | PlainPostCardProps;
+export type Props = PostCardProps;
+
+const variantComponents = {
+  blur: BlurPostCard,
+  material: MaterialPostCard,
+  full: FullPostCard,
+  plain: PlainPostCard,
+}
+// import 'atropos/css'
+// import Atropos from 'atropos/react';
+
+const {
+  variant = 'plain',
+  class: className,
+  ...rest
+} = Astro.props;
+const VariantPostCard = variantComponents[variant];
+
+---
+
+<!-- <Atropos className={cx(
+  className
+)} innerClassName='p-px'
+  rotateXMax={5} rotateYMax={5} shadow={false} highlight={true}> -->
+
+  <BlurPostCard class={twMerge(
+    'transition-transform duration-300 md:hover:scale-[1.025]',
+    'ring-1 ring-gray-600/10 dark:ring-white/5',
+    'border-highlight plate-shadow z-10',
+    className
+  )} {...rest} />
+<!-- </Atropos> -->

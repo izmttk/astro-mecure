@@ -1,0 +1,40 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs
+
+# backups
+**/*.backup.*
+**/*.back.*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_*
+
+# VisualStudioCode
+.vscode
+
+# Ignore all local history of files
+.history
+.ionide
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+
+# astro
+.astro
+stats.html

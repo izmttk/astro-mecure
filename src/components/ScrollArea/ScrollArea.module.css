@@ -1,0 +1,87 @@
+.scrollbar[data-state='visible'] {
+  animation: fadeIn .15s ease-out;
+}
+.scrollbar[data-state='hidden'] {
+  animation: fadeOut .15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.gradientMask {
+  --mask-margin: 2.5rem;
+  --left-mask: linear-gradient(#000, #000) left/var(--mask-margin) calc(100% - var(--mask-margin) * 2) no-repeat;
+  --right-mask: linear-gradient(#000, #000) right/var(--mask-margin) calc(100% - var(--mask-margin) * 2) no-repeat;
+  --top-mask: linear-gradient(#000, #000) top/calc(100% - var(--mask-margin) * 2) var(--mask-margin) no-repeat;
+  --bottom-mask: linear-gradient(#000, #000) bottom/calc(100% - var(--mask-margin) * 2) var(--mask-margin) no-repeat;
+  --left-top-mask: linear-gradient(#000, #000) left top/var(--mask-margin) var(--mask-margin) no-repeat;
+  --left-bottom-mask: linear-gradient(#000, #000) left bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+  --right-top-mask: linear-gradient(#000, #000) right top/var(--mask-margin) var(--mask-margin) no-repeat;
+  --right-bottom-mask: linear-gradient(#000, #000) right bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+  mask: 
+    var(--left-mask), 
+    var(--right-mask), 
+    var(--top-mask), 
+    var(--bottom-mask),
+    var(--left-top-mask),
+    var(--left-bottom-mask),
+    var(--right-top-mask),
+    var(--right-bottom-mask),
+    linear-gradient(to top, #000, #000) center center/calc(100% - var(--mask-margin) * 2) calc(100% - var(--mask-margin) * 2) no-repeat;
+}
+
+.gradientMask.leftMask {
+  --left-mask: linear-gradient(to right, transparent, #000) left/var(--mask-margin) calc(100% - var(--mask-margin) * 2) no-repeat;
+  --left-top-mask: linear-gradient(to right, transparent, #000) left top/var(--mask-margin) var(--mask-margin) no-repeat;
+  --left-bottom-mask: linear-gradient(to right, transparent, #000) left bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.rightMask {
+  --right-mask: linear-gradient(to left, transparent, #000) right/var(--mask-margin) calc(100% - var(--mask-margin) * 2)no-repeat;
+  --right-top-mask: linear-gradient(to left, transparent, #000) right top/var(--mask-margin) var(--mask-margin) no-repeat;
+  --right-bottom-mask: linear-gradient(to left, transparent, #000) right bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.topMask {
+  --top-mask: linear-gradient(to bottom, transparent, #000) top/calc(100% - var(--mask-margin) * 2)var(--mask-margin) no-repeat;
+  --left-top-mask: linear-gradient(to bottom, transparent, #000) left top/var(--mask-margin) var(--mask-margin) no-repeat;
+  --right-top-mask: linear-gradient(to bottom, transparent, #000) right top/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.bottomMask {
+  --bottom-mask: linear-gradient(to top, transparent, #000) bottom/calc(100% - var(--mask-margin) * 2) var(--mask-margin) no-repeat;
+  --left-bottom-mask: linear-gradient(to top, transparent, #000) left bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+  --right-bottom-mask: linear-gradient(to top, transparent, #000) right bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.leftMask.topMask {
+  --left-top-mask: radial-gradient(farthest-side at right bottom, #000, transparent) left top/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.leftMask.bottomMask {
+  --left-bottom-mask: radial-gradient(farthest-side at right top, #000, transparent) left bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.rightMask.topMask {
+  --right-top-mask: radial-gradient(farthest-side at left bottom, #000, transparent) right top/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+
+.gradientMask.rightMask.bottomMask {
+  --right-bottom-mask: radial-gradient(farthest-side at left top, #000, transparent) right bottom/var(--mask-margin) var(--mask-margin) no-repeat;
+}
+

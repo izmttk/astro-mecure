@@ -1,0 +1,25 @@
+---
+import type { Post, Page } from "../types";
+import PageLayout from "./PageLayout.astro";
+
+interface Props {
+  post: Omit<Post, 'Content'>;
+}
+
+const { post } = Astro.props;
+const page: Page = {
+  title: post.title,
+  image: post.image,
+  type: 'post',
+  post: post,
+}
+
+import "katex/dist/katex.min.css"
+---
+
+<PageLayout page={page} hasComment={true}>
+  <slot name="head" slot="head" />
+  <article class="prose dark:prose-invert dark:prose-dark prose-a:text-primary-500 plate-bg border-highlight p-4 md:p-8 rounded-xl">
+    <slot />
+  </article>
+</PageLayout>

@@ -1,0 +1,20 @@
+---
+layout: '@/layouts/MarkdownLayout.astro'
+title: 友情链接
+description: My friends are here!
+sidebar: false
+comment: true
+---
+
+import Friend from '@/components/Friend';
+import avatar from '/public/assets/avatar.png';
+
+<section class="mb-6 not-prose">
+  <h2 class="text-xl font-bold mb-3">我的朋友</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <Friend avatar={avatar.src} name='银河渡舟' description='醉后不知天在水，满船清梦压星河' url='#' />
+    <Friend avatar={avatar.src} name='银河渡舟' description='醉后不知天在水，满船清梦压星河' url='#' bgColor='#8574D3' textColor='#fff' />
+  </div>
+</section>
+
+虚位以待

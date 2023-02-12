@@ -1,0 +1,60 @@
+:root {
+  @apply antialiased scroll-pt-16 scroll-smooth;
+  color-scheme: light;
+  @apply text-[15px] md:text-[16px];
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background-light dark:bg-background-dark text-primary;
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 6px; /*滚动条的宽度*/
+    height: 6px; /*滚动条的高度*/
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gray-500/30;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    /*滚动条的hover样式*/
+    @apply bg-gray-500/50;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    /*滚动条的点击样式*/
+    @apply bg-gray-500/70;
+  }
+  ::-webkit-scrollbar-corner {
+    /*滚动条的角落样式*/
+    @apply bg-transparent;
+  }
+}
+
+/* code block line number for shiki */
+.astro-code code {
+  counter-reset: step;
+}
+
+.astro-code code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1.4em;
+  margin-right: .8rem;
+  display: inline-block;
+  direction: rtl;
+  color: rgba(139, 148, 158, .75);
+}
+
+
+.prose .math {
+  overflow: auto;
+}
+
+/* FireFox ScrollBar Thin Style */
+* {
+  scrollbar-width: thin;
+}

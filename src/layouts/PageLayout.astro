@@ -1,0 +1,165 @@
+---
+import Navbar from '../partials/Navbar';
+import Footer from '../partials/Footer';
+import Sidebar, { SidebarConfig, TocConfig } from '../partials/Sidebar';
+import getTags from "../utils/getTags";
+import getCategories from "../utils/getCategories";
+import type { Page } from '../types';
+import BaseLayout from "./BaseLayout.astro";
+import Hero, { HeroConfig } from '../partials/Hero';
+import Pagination from '../partials/Pagination';
+import Comment from '../partials/Comment';
+import config from '../config';
+import sortByProperty from '../utils/sortByProperty';
+import { twMerge } from 'tailwind-merge';
+import generateToc from '../utils/generateToc';
+
+export interface Props {
+  page: Page;
+  hasNavbar?: boolean;
+  hasSidebar?: boolean;
+  hasHero?: boolean;
+  hasComment?: boolean;
+  hasFooter?: boolean;
+}
+
+const { 
+  page,
+  hasNavbar = true,
+  hasSidebar = true,
+  hasHero = true,
+  hasComment = false,
+  hasFooter = true,
+} = Astro.props;
+
+const allTags = (await getTags());
+const allCategotries = (await getCategories()).sort((a, b) => b.count - a.count);
+
+const {
+  navbar,
+  hero,
+  sidebar,
+  pagination,
+  comment,
+  footer,
+} = config;
+
+
+function getHeroInfo(page: Page): HeroConfig['info'] {
+  if (page.type === 'post') {
+    return {
+      type: 'post',
+      date: page.post.date,
+      updateDate: page.post.updateDate,
+      draft: page.post.draft,
+      category: page.post.category,
+      tags: page.post.tags,
+      author: page.post.author,
+      readingTime: Math.ceil(page.post.readingTime ?? 0),
+      wordCount: page.post.wordCount,
+    }
+  } else if (page.type === 'categories') {
+    return {
+      type: 'categories',
+      count: page.categories.length,
+    }
+  } else if (page.type === 'tags') {
+    return {
+      type: 'tags',
+      count: page.tags.length,
+    }
+  } else if (page.type === 'posts') {
+    return {
+      type: 'posts',
+      count: page.posts.length,
+    } 
+  } else if (page.type === 'archive') {
+    return {
+      type: 'archive',
+      count: page.posts.length,
+    }
+  }
+}
+
+const heroConfig: HeroConfig | false = hero ? {
+  bg: page.image ?? hero.bg,
+  title: page.type === 'index' ? hero.title : page.title,
+  description: page.type === 'index' ? hero.description : page.description,
+  info: getHeroInfo(page),
+} : false;
+
+const widgetConfig: SidebarConfig['widgets'] = sidebar && sidebar.widgets ? 
+  sidebar.widgets.map(widget => {
+    if (widget.name === 'tag-cloud') {
+      return {
+        name: widget.name,
+        tags: sortByProperty(
+          allTags,
+          widget.sortBy ?? 'count',
+          widget.order ?? 'desc'
+        ).slice(0, widget.limit ?? 30),
+      }
+    } else if (widget.name === 'category-tree') {
+      return {
+        name: widget.name,
+        expandDepth: widget.expandDepth ?? 2,
+        categories: sortByProperty(
+          allCategotries,
+          widget.sortBy ?? 'count',
+          widget.order ?? 'desc'
+        ).slice(0, widget.limit),
+      }
+    } else {
+      return widget;
+    }
+  }) : [];
+
+const tocConfig: TocConfig | null = page.type === 'post' && page.post.headings.length > 0 ? {
+  name: 'toc',
+  toc: generateToc(page.post.headings),
+} : null;
+
+if (tocConfig) {
+  widgetConfig.unshift(tocConfig);
+}
+
+const sidebarConfig: SidebarConfig | false = sidebar ? {
+  ...sidebar,
+  widgets: widgetConfig
+} : false;
+
+---
+
+<BaseLayout 
+  title={page.type === 'index' ? config.title : page.title}
+  description={page.description ?? config.description}
+  favicon={config.favicon}
+>
+  <slot name="head" slot="head" />
+  {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar}  client:load />}
+  {hasHero && heroConfig && <Hero className='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} client:load />}
+  <main class="mx-auto w-full lg:max-w-[74rem] my-3 flex-grow flex">
+    <div class={twMerge(
+      "p-3 min-w-0 w-full",
+      hasSidebar && sidebarConfig && "md:w-[calc(100%_-_17rem)]",
+    )}>
+      <slot />
+      {hasComment && comment && (
+        <div class="mt-6">
+          <Comment config={comment} client:load />
+        </div>
+      )}
+    </div>
+    {sidebarConfig && <Sidebar class="w-[17rem] flex-none" config={sidebarConfig} showSidebarOnDesktop={hasSidebar} />}
+  </main>
+  {('paginator' in page && page.paginator) && pagination && (
+    <Pagination
+      className='my-6 mx-auto'
+      current={page.paginator.current}
+      total={page.paginator.total}
+      pageUrls={page.paginator.pageUrls}
+      config={pagination}
+    />
+  )}
+  {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
+</BaseLayout>

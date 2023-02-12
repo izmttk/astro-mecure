@@ -1,0 +1,23 @@
+.profileBg {
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1),
+    cubic-bezier(1, 0, 0.75, 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.socialIcon {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 9999px;
+    background-color: currentColor;
+    opacity: 0.25;
+  }
+}
