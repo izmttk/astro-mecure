@@ -36,7 +36,7 @@ import "../styles/global.css"
     <link rel="icon" href={favicon} />
     {title && <title>{title}</title>}
     <script is:inline>
-      const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? 'auto');
+      const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
       let presetTheme;
       if (storedTheme === 'auto') {
         presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
