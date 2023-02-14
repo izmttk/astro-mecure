@@ -1,6 +1,6 @@
 import GiscusComponent from '@giscus/react';
 import type { GiscusProps as GiscusComponentProps } from '@giscus/react';
-import useTheme from '../../hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 
 
 export interface GiscusOptions extends Omit<GiscusComponentProps, 'id'> {}

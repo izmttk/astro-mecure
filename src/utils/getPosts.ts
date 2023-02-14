@@ -1,4 +1,4 @@
-import type { Post } from "../types";
+import type { Post } from "@/types";
 import { slug } from "github-slugger";
 import { CollectionEntry, getCollection } from 'astro:content';
 

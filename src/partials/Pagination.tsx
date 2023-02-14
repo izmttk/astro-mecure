@@ -1,5 +1,5 @@
 import React from 'react'
-import Pagination, { PaginationProps } from '../components/Pagination'
+import Pagination, { PaginationProps } from '@/components/Pagination'
 
 
 export interface PaginationConfig extends Pick<PaginationProps, 'siblings' | 'boundaries' | 'hasEdges' | 'hasControls'> {};

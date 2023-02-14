@@ -1,10 +1,10 @@
 export { default } from './Sidebar.astro';
 export * from './Sidebar.astro';
 
-import type { ProfileProps } from '../../components/Profile';
-import type { TagCloudProps } from '../../components/TagCloud';
-import type { CategoryTreeProps } from '../../components/CategoryTree';
-import type { TocProps } from '../../components/Toc';
+import type { ProfileProps } from '@/components/Profile';
+import type { TagCloudProps } from '@/components/TagCloud';
+import type { CategoryTreeProps } from '@/components/CategoryTree';
+import type { TocProps } from '@/components/Toc';
 
 export interface WidgetConfig {
   name: string;

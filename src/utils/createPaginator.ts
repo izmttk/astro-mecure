@@ -1,6 +1,6 @@
 import type { Page } from "astro"
 import urlJoin from "url-join"
-import type { Paginator, Post } from "../types"
+import type { Paginator, Post } from "@/types"
 
 
 export function createPaginator(page: Page<Omit<Post, 'Content'>>, options: {

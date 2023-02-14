@@ -11,7 +11,7 @@ import { useScroll } from 'react-use';
 import IconChevronLeft from '~icons/tabler/chevron-left';
 import IconChevronRight from '~icons/tabler/chevron-right';
 import styles from './Horizontal.module.css';
-import useElementSize from '../../hooks/useElementSize';
+import useElementSize from '@/hooks/useElementSize';
 import { twMerge } from 'tailwind-merge';
 
 

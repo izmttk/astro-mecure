@@ -122,6 +122,12 @@ export type PaginationConfig = PaginationPartialConfig;
 export type CommentConfig = CommentPartialConfig;
 export type FooterConfig = FooterPartialConfig;
 
+export type AlgoliaConfig = {
+  appId: string;
+  apiKey: string;
+  indexName: string;
+}
+
 export interface Config {
   title: string;
   description: string;
@@ -132,4 +138,5 @@ export interface Config {
   pagination?: PaginationConfig | false;
   comment?: CommentConfig | false;
   footer?: FooterConfig | false;
+  algolia?: AlgoliaConfig;
 }

@@ -5,7 +5,7 @@ import { useMeasure, useScroll } from 'react-use';
 import { useRef } from 'react';
 import styles from './ScrollArea.module.css';
 import { twMerge } from 'tailwind-merge';
-import useElementSize from '../../hooks/useElementSize';
+import useElementSize from '@/hooks/useElementSize';
 
 export interface ScrollAreaProps extends RadixScrollArea.ScrollAreaProps {
   containerClassName?: string;

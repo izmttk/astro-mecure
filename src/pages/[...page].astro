@@ -1,11 +1,11 @@
 ---
 import type { GetStaticPaths, GetStaticPathsResult, Page } from "astro";
-import PageLayout from '../layouts/PageLayout.astro';
-import PostCard from '../components/PostCard';
-import getPosts from '../utils/getPosts';
+import PageLayout from '@/layouts/PageLayout.astro';
+import PostCard from '@/components/PostCard';
+import getPosts from '@/utils/getPosts';
 import { compareDesc } from 'date-fns';
-import type { Page as PageConfig, Post } from '../types';
-import { createPaginator } from "../utils/createPaginator";
+import type { Page as PageConfig, Post } from '@/types';
+import { createPaginator } from "@/utils/createPaginator";
 
 export const prerender = true;
 

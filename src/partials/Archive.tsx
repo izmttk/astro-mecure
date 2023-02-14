@@ -1,6 +1,6 @@
 import type React from 'react'
 import { twMerge } from 'tailwind-merge';
-import Timeline from '../components/Timeline';
+import Timeline from '@/components/Timeline';
 import { format } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 

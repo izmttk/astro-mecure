@@ -1,6 +1,6 @@
 import React from 'react'
-import type { GiscusOptions } from '../components/comment/Giscus';
-import type { WalineOptions } from '../components/comment/Waline';
+import type { GiscusOptions } from '@/components/comment/Giscus';
+import type { WalineOptions } from '@/components/comment/Waline';
 
 export interface GiscusCommentConfig {
   vender: 'giscus';
@@ -18,8 +18,8 @@ export interface CommentProps {
   config: CommentConfig;
 }
 
-const Giscus = React.lazy(() => import('../components/comment/Giscus'));
-const Waline = React.lazy(() => import('../components/comment/Waline'));
+const Giscus = React.lazy(() => import('@/components/comment/Giscus'));
+const Waline = React.lazy(() => import('@/components/comment/Waline'));
 
 export default function Comment({
   config

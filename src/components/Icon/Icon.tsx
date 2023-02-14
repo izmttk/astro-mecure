@@ -4,8 +4,8 @@ import { Icon as Iconify, IconProps as IconifyProps } from '@iconify/react';
 
 
 
-// import avatarImg from '../assets/avatar.png';
-// import profileBg from '../assets/profile-bg.webp'
+// import avatarImg from '@/assets/avatar.png';
+// import profileBg from '@/assets/profile-bg.webp'
 // import IconBrandGithub from '~icons/tabler/brand-github'
 // import IconBrandBilibili from '~icons/tabler/brand-bilibili'
 // import IconBrandNeteaseMusic from '~icons/tabler/brand-netease-music'

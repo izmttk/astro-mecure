@@ -1,18 +1,19 @@
 ---
-import Navbar from '../partials/Navbar';
-import Footer from '../partials/Footer';
-import Sidebar, { SidebarConfig, TocConfig } from '../partials/Sidebar';
-import getTags from "../utils/getTags";
-import getCategories from "../utils/getCategories";
-import type { Page } from '../types';
+import Navbar from '@/partials/Navbar';
+import Footer from '@/partials/Footer';
+import Sidebar, { SidebarConfig, TocConfig } from '@/partials/Sidebar';
+import getTags from "@/utils/getTags";
+import getCategories from "@/utils/getCategories";
+import type { Page } from '@/types';
 import BaseLayout from "./BaseLayout.astro";
-import Hero, { HeroConfig } from '../partials/Hero';
-import Pagination from '../partials/Pagination';
-import Comment from '../partials/Comment';
+import Hero, { HeroConfig } from '@/partials/Hero';
+import Pagination from '@/partials/Pagination';
+import Comment from '@/partials/Comment';
 import config from '../config';
-import sortByProperty from '../utils/sortByProperty';
+import sortByProperty from '@/utils/sortByProperty';
 import { twMerge } from 'tailwind-merge';
-import generateToc from '../utils/generateToc';
+import generateToc from '@/utils/generateToc';
+import Search from '@/components/Search';
 
 export interface Props {
   page: Page;
@@ -42,6 +43,7 @@ const {
   pagination,
   comment,
   footer,
+  algolia,
 } = config;
 
 
@@ -162,4 +164,5 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
     />
   )}
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
+  {algolia && <Search {...algolia} client:load />}
 </BaseLayout>

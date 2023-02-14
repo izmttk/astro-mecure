@@ -1,11 +1,11 @@
 import type React from 'react'
-import useToc from '../../hooks/useToc';
+import useToc from '@/hooks/useToc';
 import { twMerge } from 'tailwind-merge';
 import type { MarkdownHeading } from 'astro';
 import { animated, useSpring } from '@react-spring/web';
-import useElementSize from '../../hooks/useElementSize';
+import useElementSize from '@/hooks/useElementSize';
 import { useStore } from '@nanostores/react';
-import { navbarSize as navbarSizeStore } from '../../store/states';
+import { navbarSize as navbarSizeStore } from '@/store/states';
 import IconList from '~icons/tabler/list';
 
 interface TocItem extends MarkdownHeading {

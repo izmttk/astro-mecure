@@ -1,4 +1,4 @@
-import type { Tag } from "../types";
+import type { Tag } from "@/types";
 import getPosts from "./getPosts";
 
 async function getTags(): Promise<Tag[]> {

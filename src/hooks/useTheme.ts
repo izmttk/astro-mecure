@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { theme as themeStore } from "../store/states";
+import { theme as themeStore } from "@/store/states";
 import { useLocalStorage, useMedia } from "react-use";
 import { useEffect } from "react";
 

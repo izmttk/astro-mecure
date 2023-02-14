@@ -1,18 +1,19 @@
 import type React from "react";
-import ScrollArea from "../../components/ScrollArea";
+import ScrollArea from "@/components/ScrollArea";
 
 import { useStore } from "@nanostores/react";
 import { 
   navbarSize as navbarSizeStore, 
   navbarVisible as navbarVisibleStore,
   sidebarDrawerVisible as sidebarDrawerVisibleStore,
-} from "../../store/states";
+} from "@/store/states";
 import { animated, useSpring } from "@react-spring/web";
-import Drawer from "../../components/Drawer";
+import Drawer from "@/components/Drawer";
 import { twMerge } from "tailwind-merge";
-import ThemeToggle from "../../components/ThemeToggle";
-import useBreakpoints from "../../hooks/useBreakpoints";
-import NoSSR from "../../components/NoSSR";
+import ThemeToggle from "@/components/ThemeToggle";
+import useBreakpoints from "@/hooks/useBreakpoints";
+import NoSSR from "@/components/NoSSR";
+import SearchToggle from "@/components/SearchToggle";
 
 export interface CustomSidebarProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'aside'>> {
   showSidebarOnDesktop?: boolean;
@@ -70,6 +71,7 @@ export default function CustomSidebar({
         <Drawer open={drawerVisible} onOpenChange={setDrawerVisible}>
           <Drawer.Content>
             <div className="px-3 h-14 flex gap-2 items-center">
+              <SearchToggle onOpenChange={(open) => { open && setDrawerVisible(false) }} />
               <ThemeToggle />
               <Drawer.Close className='ml-auto' />
             </div>

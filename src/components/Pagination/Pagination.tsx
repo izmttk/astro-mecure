@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import usePagination from '../../hooks/usePagination';
+import usePagination from '@/hooks/usePagination';
 import IconChevronLeft from '~icons/tabler/chevron-left';
 import IconChevronRight from '~icons/tabler/chevron-right';
 import IconChevronsLeft from '~icons/tabler/chevrons-left';

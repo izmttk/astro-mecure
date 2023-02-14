@@ -1,17 +1,17 @@
 import type React from 'react';
-import Navbar from '../components/Navbar';
-import Logo from '../assets/logo.svg';
-import ThemeToggle from '../components/ThemeToggle';
+import Navbar from '@/components/Navbar';
+import Logo from '@/assets/logo.svg';
+import ThemeToggle from '@/components/ThemeToggle';
 import { useEffect, useState } from 'react';
 
 import { useLocation, useMap } from 'react-use';
-import type { MenuConfig } from '../components/Menu';
+import type { MenuConfig } from '@/components/Menu';
 
 import IconChevronDown from '~icons/tabler/chevron-down';
 import IconSidebarExpand from '~icons/tabler/layout-sidebar-right-expand'
-import useBreakpoints from '../hooks/useBreakpoints';
-import Menu from '../components/Menu';
-import NoSSR from '../components/NoSSR';
+import useBreakpoints from '@/hooks/useBreakpoints';
+import Menu from '@/components/Menu';
+import NoSSR from '@/components/NoSSR';
 
 import IconMenu2 from '~icons/tabler/menu-2';
 import IconX from '~icons/tabler/x';
@@ -19,12 +19,13 @@ import {
   navbarSize as navbarSizeStore,
   navbarVisible as navbarVisibleStore,
   sidebarDrawerVisible as sidebarDrawerVisibleStore,
-} from '../store/states';
-import Icon from '../components/Icon';
+} from '@/store/states';
+import Icon from '@/components/Icon';
 import { useStore } from '@nanostores/react';
 import { twMerge } from 'tailwind-merge';
-import ScrollArea from '../components/ScrollArea';
-import useElementSize from '../hooks/useElementSize';
+import ScrollArea from '@/components/ScrollArea';
+import useElementSize from '@/hooks/useElementSize';
+import SearchToggle from '@/components/SearchToggle';
 
 
 
@@ -164,6 +165,7 @@ export default function CustomNavbar({
             </Navbar.Content>
           )}
           <Navbar.Content className='md:ml-3 space-x-2'>
+            {isMd && <SearchToggle />}
             {isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={(open: boolean) => set('theme', open)} />}
             {!isMd && <SideToggle />}
           </Navbar.Content>

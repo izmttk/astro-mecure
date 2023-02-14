@@ -8,10 +8,10 @@ import IconDocument from '~icons/mingcute/document-fill';
 import IconEdit from '~icons/mingcute/edit-fill';
 import IconUser from '~icons/mingcute/user-3-fill';
 
-import Logo from '../assets/animated-logo.svg'
-import type { Page, Post } from '../types';
-import Category from '../components/Category';
-import Tag from '../components/Tag';
+import Logo from '@/assets/animated-logo.svg'
+import type { Page, Post } from '@/types';
+import Category from '@/components/Category';
+import Tag from '@/components/Tag';
 interface HeroPostInfo {
   type: 'post',
   date: Post['date'],

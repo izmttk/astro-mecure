@@ -1,10 +1,10 @@
 ---
-import type { Category, Page } from '../../types';
-import PageLayout from '../../layouts/PageLayout.astro';
+import type { Category, Page } from '../@/types';
+import PageLayout from '../@/layouts/PageLayout.astro';
 import { compareDesc } from 'date-fns';
-import PostCard from '../../components/PostCard';
-import getCategories from '../../utils/getCategories';
-import getPosts from '../../utils/getPosts';
+import PostCard from '@/components/PostCard';
+import getCategories from '@/utils/getCategories';
+import getPosts from '@/utils/getPosts';
 
 export interface Props {
   category: Category;

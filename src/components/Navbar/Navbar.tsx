@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import Polymorphic, { withPolymorphic } from '../Polymorphic';
 import { useSpring, animated } from '@react-spring/web';
-import useWindowScrollDirection from '../../hooks/useWindowsScrollDirection';
-import useCallbackRef from '../../hooks/useCallbackRef';
+import useWindowScrollDirection from '@/hooks/useWindowsScrollDirection';
+import useCallbackRef from '@/hooks/useCallbackRef';
 import { twMerge } from 'tailwind-merge';
 import { useLockBodyScroll, useWindowSize } from 'react-use';
-import useElementSize from '../../hooks/useElementSize';
+import useElementSize from '@/hooks/useElementSize';
 
 const ContentConfigContext = React.createContext<{
   variant: 'underline' | 'highlight' | 'filled';

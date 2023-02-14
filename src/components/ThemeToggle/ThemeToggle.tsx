@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import IconSun from '~icons/tabler/sun';
 import IconMoon from '~icons/tabler/moon';
 import IconDeviceDesktop from '~icons/tabler/device-desktop';
-import useTheme, { Theme } from '../../hooks/useTheme';
+import useTheme, { Theme } from '@/hooks/useTheme';
 import styles from './ThemeToggle.module.css';
 import { twMerge } from 'tailwind-merge';
 
