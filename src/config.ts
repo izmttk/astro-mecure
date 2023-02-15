@@ -160,6 +160,7 @@ const config: Config = {
   footer: {
     links: [
       { label: '更新日志', url: urlJoin(import.meta.env.BASE_URL, 'changelog')},
+      { label: '引用声明', url: urlJoin(import.meta.env.BASE_URL, 'reference')},
       { label: '关于', url: urlJoin(import.meta.env.BASE_URL, 'about')},
       { label: '归档', url: urlJoin(import.meta.env.BASE_URL, 'archive')},
       { label: '友情链接', url: urlJoin(import.meta.env.BASE_URL, 'friends')},
