@@ -4,15 +4,12 @@ import getPosts from "./getPosts";
 
 interface RssFeedOptions {
   title: string;
-  description: string;
+  description?: string;
   site: string;
-  author: string;
-  favicon: string;
+  author?: string;
+  favicon?: string;
   format: 'xml' | 'json';
 }
-import React from 'react'
-import { renderMarkdown } from "@astrojs/markdown-remark";
-
 
 export default async function generateRssFeed(options: RssFeedOptions) {
   const {
@@ -31,8 +28,8 @@ export default async function generateRssFeed(options: RssFeedOptions) {
     link: new URL(site).href,
     language: "zh-CN",
     copyright: `Copyright © ${getYear(new Date())} ${author}`,
-    image: new URL(favicon, site).href,
-    favicon: new URL(favicon, site).href,
+    image: favicon && new URL(favicon, site).href,
+    favicon: favicon && new URL(favicon, site).href,
     updated: new Date(),
     author: {
       name: author,

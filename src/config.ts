@@ -5,6 +5,7 @@ import urlJoin from 'url-join';
 const config: Config = {
   title: '银河渡舟',
   description: '醉后不知天在水，满船清梦压星河。',
+  author: 'Wider',
   favicon: urlJoin(import.meta.env.BASE_URL, 'favicon.svg'),
   navbar: {
     menu: [

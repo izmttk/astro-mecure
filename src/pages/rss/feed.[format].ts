@@ -1,5 +1,6 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import generateRssFeed from '@/utils/generateRSSFeed';
+import config from '@/config'
 
 export const get: APIRoute = async ({params, site}) => {
   if (!site) {
@@ -8,11 +9,11 @@ export const get: APIRoute = async ({params, site}) => {
   const format = params.format as 'xml' | 'json';
   return {
     body: await generateRssFeed({
-      title: 'Title',
-      description: 'Description',
+      title: config.title,
+      description: config.description,
       site: site.href,
-      author: 'author',
-      favicon: '/favicon.svg',
+      author: config.author,
+      favicon: config.favicon,
       format: format,
     })
   }

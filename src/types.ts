@@ -131,6 +131,7 @@ export type AlgoliaConfig = {
 export interface Config {
   title: string;
   description: string;
+  author: string;
   favicon: string;
   navbar?: NavbarConfig | false;
   hero?: HeroConfig | false;

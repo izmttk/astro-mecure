@@ -135,6 +135,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 <BaseLayout 
   title={page.type === 'index' ? config.title : page.title}
   description={page.description ?? config.description}
+  author={page.type === 'post' && page.post.author ? page.post.author : config.author}
   favicon={config.favicon}
 >
   <slot name="head" slot="head" />
