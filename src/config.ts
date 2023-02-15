@@ -56,7 +56,9 @@ const config: Config = {
           },
         ]
       },
-    ]
+    ],
+    hasSearchToggle: true,
+    hasThemeToggle: true,
   },
   hero: {
     bg: urlJoin(import.meta.env.BASE_URL, '/assets/hero-bg.webp'),

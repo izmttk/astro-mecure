@@ -19,6 +19,8 @@ import {
   navbarSize as navbarSizeStore,
   navbarVisible as navbarVisibleStore,
   sidebarDrawerVisible as sidebarDrawerVisibleStore,
+  hasThemeToggle as hasThemeToggleStore,
+  hasSearchToggle as hasSearchToggleStore,
 } from '@/store/states';
 import Icon from '@/components/Icon';
 import { useStore } from '@nanostores/react';
@@ -48,6 +50,8 @@ function SideToggle() {
 
 export interface NavbarConfig {
   menu?: MenuConfig;
+  hasThemeToggle?: boolean;
+  hasSearchToggle?: boolean;
 }
 
 export interface CustomNavbarProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'nav'>>{
@@ -72,10 +76,21 @@ export default function CustomNavbar({
   config,
   ...rest
 }: CustomNavbarProps) {
-  const menu = config.menu ?? [];
+  const {
+    menu = [],
+    hasThemeToggle = true,
+    hasSearchToggle = true,
+  } = config;
   const [map, {set, setAll}] = useMap<{[key: string]: boolean}>({});
 
   const show = useStore(navbarVisibleStore);
+
+  useEffect(() => {
+    hasSearchToggleStore.set(hasSearchToggle);
+  }, [hasSearchToggle]);
+  useEffect(() => {
+    hasSearchToggleStore.set(hasThemeToggle);
+  }, [hasThemeToggle]);
 
   const onShowChange = (isShow: boolean) => {
     navbarVisibleStore.set(isShow);
@@ -165,8 +180,8 @@ export default function CustomNavbar({
             </Navbar.Content>
           )}
           <Navbar.Content className='md:ml-3 space-x-2'>
-            {isMd && <SearchToggle />}
-            {isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={(open: boolean) => set('theme', open)} />}
+            {hasSearchToggle && isMd && <SearchToggle />}
+            {hasThemeToggle && isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={(open: boolean) => set('theme', open)} />}
             {!isMd && <SideToggle />}
           </Navbar.Content>
         </div>

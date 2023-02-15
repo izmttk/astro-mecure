@@ -13,3 +13,6 @@ export const theme = atom<'light' | 'dark' | 'auto'>('auto');
 
 export const sidebarDrawerVisible = atom<boolean>(false);
 export const searchModelOpen = atom<boolean>(false);
+
+export const hasThemeToggle = atom<boolean>(false);
+export const hasSearchToggle = atom<boolean>(false);

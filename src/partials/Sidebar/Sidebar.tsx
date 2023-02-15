@@ -6,6 +6,8 @@ import {
   navbarSize as navbarSizeStore, 
   navbarVisible as navbarVisibleStore,
   sidebarDrawerVisible as sidebarDrawerVisibleStore,
+  hasThemeToggle as hasThemeToggleStore,
+  hasSearchToggle as hasSearchToggleStore,
 } from "@/store/states";
 import { animated, useSpring } from "@react-spring/web";
 import Drawer from "@/components/Drawer";
@@ -46,6 +48,8 @@ export default function CustomSidebar({
   }), [navbarVisible, navbarSize]);
 
   const drawerVisible = useStore(sidebarDrawerVisibleStore);
+  const hasThemeToggle = useStore(hasThemeToggleStore);
+  const hasSearchToggle = useStore(hasSearchToggleStore);
   const setDrawerVisible = (show: boolean) => {
     sidebarDrawerVisibleStore.set(show);
   }
@@ -71,8 +75,8 @@ export default function CustomSidebar({
         <Drawer open={drawerVisible} onOpenChange={setDrawerVisible}>
           <Drawer.Content>
             <div className="px-3 h-14 flex gap-2 items-center">
-              <SearchToggle onOpenChange={(open) => { open && setDrawerVisible(false) }} />
-              <ThemeToggle />
+              {hasSearchToggle && <SearchToggle onOpenChange={(open) => { open && setDrawerVisible(false) }} />}
+              {hasThemeToggle && <ThemeToggle />}
               <Drawer.Close className='ml-auto' />
             </div>
             <aside className={twMerge(
