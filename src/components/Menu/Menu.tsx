@@ -1,5 +1,4 @@
 import type React from 'react'
-import cx from 'classnames';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import styles from './Menu.module.css';
 
@@ -19,8 +18,9 @@ export interface MenuConfig extends Array<MenuSubItemConfig | MenuLinkItemConfig
 
 import IconChevronRight from '~icons/tabler/chevron-right';
 import Icon from '../Icon';
+import { twMerge } from 'tailwind-merge';
 
-const itemClassName = cx(
+const itemClassName = twMerge(
   'outline-none cursor-pointer flex items-center',
   'relative',
   'data-[highlighted]:bg-primary-400/30 dark:data-[highlighted]:bg-primary-600/30 data-[highlighted]:text-primary-600 dark:data-[highlighted]:text-primary-400',
@@ -39,7 +39,7 @@ const DropdownCascadeSub = ({
     <DropdownMenu.Sub>
       <DropdownMenu.SubTrigger asChild>{children}</DropdownMenu.SubTrigger>
       <DropdownMenu.Portal>
-        <DropdownMenu.SubContent className={cx(
+        <DropdownMenu.SubContent className={twMerge(
           'plate-bg plate-shadow border-highlight min-w-[10rem]',
           'p-1 rounded-md z-50 text-sm leading-4',
           styles.dropdownMenuContent
@@ -48,7 +48,7 @@ const DropdownCascadeSub = ({
             menu.map((subItem, index) => {
               if ('url' in subItem) {
                 return (
-                  <DropdownMenu.Item asChild className={cx(itemClassName, 'pl-[1.625rem] pr-2 py-1.5 rounded')} key={index}>
+                  <DropdownMenu.Item asChild className={twMerge(itemClassName, 'pl-[1.625rem] pr-2 py-1.5 rounded')} key={index}>
                     <a href={subItem.url}>
                       {subItem.icon && <Icon name={subItem.icon} width={16} height={16} className='absolute left-0 mx-1' />}
                       {subItem.label}
@@ -58,7 +58,7 @@ const DropdownCascadeSub = ({
               } else {
                 return (
                   <DropdownCascadeSub menu={subItem.children} >
-                    <div className={cx(itemClassName, 'pl-[1.625rem] pr-1 py-1.5 rounded')}>
+                    <div className={twMerge(itemClassName, 'pl-[1.625rem] pr-1 py-1.5 rounded')}>
                       {subItem.icon && <Icon name={subItem.icon} width={16} height={16} className='absolute left-0 mx-1' />}
                       {subItem.label}
                       <IconChevronRight width='1em' height='1em' className='ml-auto' />
@@ -94,7 +94,7 @@ export default function Menu({
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>{children}</DropdownMenu.Trigger>
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className={cx(
+        <DropdownMenu.Content className={twMerge(
           'plate-bg plate-shadow border-highlight z-50',
           size === 'loose' ? 'p-2 rounded-lg min-w-[14rem]' :
           size === 'compact' ? 'p-1 rounded-md min-w-[8rem] text-xs leading-3' :
@@ -105,14 +105,14 @@ export default function Menu({
             menu.map((subItem, index) => {
               if ('url' in subItem) {
                 return (
-                  <DropdownMenu.Item asChild className={cx(
+                  <DropdownMenu.Item asChild className={twMerge(
                     itemClassName, 
                     size === 'loose' ? 'pl-8 pr-2 py-2.5 rounded-md' :
                     size === 'compact' ? 'pl-6 pr-2 py-1 rounded' :
                     'pl-7 pr-2 py-1.5 rounded'
                   )} key={index}>
                     <a href={subItem.url}>
-                      {subItem.icon && <Icon name={subItem.icon} width={16} height={16} className={cx(
+                      {subItem.icon && <Icon name={subItem.icon} width={16} height={16} className={twMerge(
                         'absolute -translate-x-1/2',
                         size === 'loose' ? 'left-4' :
                         size === 'compact' ? 'left-3' :
@@ -125,13 +125,13 @@ export default function Menu({
               } else {
                 return (
                   <DropdownCascadeSub menu={subItem.children} key={index}>
-                    <div className={cx(
+                    <div className={twMerge(
                       itemClassName,
                       size === 'loose' ? 'pl-8 pr-1 py-2.5 rounded-md' :
                       size === 'compact' ? 'pl-6 pr-1 py-1 rounded' :
                       'pl-7 pr-1 py-1.5 rounded'
                     )}>
-                      {subItem.icon && <Icon name={subItem.icon} width={16} height={16} className={cx(
+                      {subItem.icon && <Icon name={subItem.icon} width={16} height={16} className={twMerge(
                         'absolute -translate-x-1/2',
                         size === 'loose' ? 'left-4' :
                         size === 'compact' ? 'left-3' :

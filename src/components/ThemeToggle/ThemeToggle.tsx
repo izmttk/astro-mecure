@@ -8,6 +8,7 @@ import IconDeviceDesktop from '~icons/tabler/device-desktop';
 import useTheme, { Theme } from '@/hooks/useTheme';
 import styles from './ThemeToggle.module.css';
 import { twMerge } from 'tailwind-merge';
+import Menu from '../Menu';
 
 const itemClassName = twMerge(
   'px-2 py-0.5 outline-none cursor-pointer flex items-center rounded',
@@ -66,10 +67,12 @@ export default function ThemeToggle({
     colorMode === 'dark' ? <IconMoon className='h-5 w-5' /> : null;
   return (
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
-      <DropdownMenu.Trigger aria-label='Theme Toggle' className={twMerge(
-        'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
-        className,
-      )} {...rest}>{stateIcon}</DropdownMenu.Trigger>
+      <DropdownMenu.Trigger asChild>
+        <button aria-label='Theme Toggle' className={twMerge(
+          'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
+          className,
+        )} {...rest}>{stateIcon}</button>
+      </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={twMerge(
           'plate-bg plate-shadow border-highlight min-w-[8rem]',

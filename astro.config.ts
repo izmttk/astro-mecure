@@ -108,13 +108,13 @@ const config: AstroUserConfig = {
       noExternal: ['date-fns', 'react-use', '@radix-ui/*', 'domelementtype']
     },
     build: {
-      rollupOptions: {
-        output: {
-          // entryFileNames: 'assets/index.[hash].js',
-          // chunkFileNames: 'assets/chunk.[hash].js',
-          // assetFileNames: 'assets/[hash][extname]'
-        }
-      }
+      // rollupOptions: {
+      //   output: {
+      //     entryFileNames: 'assets/index.[hash].js',
+      //     chunkFileNames: 'assets/chunk.[hash].js',
+      //     assetFileNames: 'assets/[hash][extname]'
+      //   }
+      // }
     }
   }
 };

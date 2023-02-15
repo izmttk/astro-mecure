@@ -164,5 +164,5 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
     />
   )}
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
-  {algolia && <Search {...algolia} client:load />}
+  {algolia && <Search {...algolia} client:only='react' />}
 </BaseLayout>

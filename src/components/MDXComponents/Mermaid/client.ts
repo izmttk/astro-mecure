@@ -7,7 +7,7 @@
  */
 
 import {useMemo} from 'react';
-import useTheme from '../@/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 import type { MermaidConfig } from 'mermaid';
 import mermaid from 'mermaid';
 

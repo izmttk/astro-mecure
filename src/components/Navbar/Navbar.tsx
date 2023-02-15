@@ -244,36 +244,39 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(({
   }), [states.open, collapseContentSize.height]);
 
   return (
-    <animated.nav ref={ref} className={twMerge(
-      position === 'floating' ? 'fixed top-0 left-0' : null,
-      position === 'static' ? 'static' : null,
-      position === 'sticky' ? 'sticky top-0 left-0' : null,
-      'w-full h-[3.75rem] z-50',
-      // 'transition-transform duration-300',
-      // !isShow ? '-translate-y-full' : null,
-      className,
-    )} style={translateSpring} {...rest}>
-      <CollapseStoreContext.Provider value={states}>
-        <CollapseDispatchContext.Provider value={dispatch}>
-          <div className={twMerge(
-            'shadow-md shadow-gray-900/[0.05] dark:shadow-gray-900/50',
-            'bg-white/80 border-b border-gray-600/20 dark:bg-gray-800/75 dark:border-gray-50/[0.06]',
-            'backdrop-blur-md backdrop-saturate-150',
-          )}>
-            <div className='flex h-[3.75rem]'>{children}</div>
-            {states.node && (
-              <animated.div style={collapseSpring} className='overflow-hidden'>
-                <div ref={collapseContentRef}>
-                  {states.node}
-                </div>
-              </animated.div>
-            )}
-          </div>
-        </CollapseDispatchContext.Provider>
-      </CollapseStoreContext.Provider>
-      {/* curPos:{JSON.stringify(curPos)}<br/>
-      prevPos:{JSON.stringify(prevPos)}<br/> */}
-    </animated.nav>
+    <>
+      {position === 'floating' && <div className='pb-[3.75rem]'></div>}
+      <animated.nav ref={ref} className={twMerge(
+        position === 'floating' ? 'fixed top-0 left-0' : null,
+        position === 'static' ? 'static' : null,
+        position === 'sticky' ? 'sticky top-0 left-0' : null,
+        'w-full h-[3.75rem] z-50',
+        // 'transition-transform duration-300',
+        // !isShow ? '-translate-y-full' : null,
+        className,
+      )} style={translateSpring} {...rest}>
+        <CollapseStoreContext.Provider value={states}>
+          <CollapseDispatchContext.Provider value={dispatch}>
+            <div className={twMerge(
+              'shadow-md shadow-gray-900/[0.05] dark:shadow-gray-900/50',
+              'bg-white/80 border-b border-gray-600/20 dark:bg-gray-800/75 dark:border-gray-50/[0.06]',
+              'backdrop-blur-md backdrop-saturate-150',
+            )}>
+              <div className='flex h-[3.75rem]'>{children}</div>
+              {states.node && (
+                <animated.div style={collapseSpring} className='overflow-hidden'>
+                  <div ref={collapseContentRef}>
+                    {states.node}
+                  </div>
+                </animated.div>
+              )}
+            </div>
+          </CollapseDispatchContext.Provider>
+        </CollapseStoreContext.Provider>
+        {/* curPos:{JSON.stringify(curPos)}<br/>
+        prevPos:{JSON.stringify(prevPos)}<br/> */}
+      </animated.nav>
+    </>
   )
 })
 

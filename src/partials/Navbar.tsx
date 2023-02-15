@@ -141,7 +141,7 @@ export default function CustomNavbar({
   );
 
   return (
-    <Navbar ref={ref} position='sticky' {...rest} hideOnScroll show={show} onShowChange={onShowChange}>
+    <Navbar ref={ref} position='floating' {...rest} hideOnScroll show={show} onShowChange={onShowChange}>
       <NoSSR>
         <div className={twMerge(
           'flex items-center w-full h-full text-sm',
