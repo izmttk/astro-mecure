@@ -12,6 +12,7 @@ import Logo from '@/assets/animated-logo.svg'
 import type { Page, Post } from '@/types';
 import Category from '@/components/Category';
 import Tag from '@/components/Tag';
+import NoSSR from '@/components/NoSSR';
 interface HeroPostInfo {
   type: 'post',
   date: Post['date'],
@@ -124,12 +125,15 @@ export default function Hero({
           {info?.type === 'post' && (
             <>
               <div className='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
-                {info.date && <div className='flex items-center'>
-                  <IconCalendarFill className='inline mr-1' />发布于{info.date.toLocaleDateString()}
-                </div>}
-                {info.updateDate && <div className='flex items-center'>
-                  <IconEdit className='inline mr-1' />修改于{info.updateDate.toLocaleDateString()}
-                </div>}
+                <NoSSR>
+                  {/* make sure that prerendered html isn't afftected by timezone */}
+                  {info.date && <div className='flex items-center'>
+                    <IconCalendarFill className='inline mr-1' />发布于{info.date.toLocaleDateString()}
+                  </div>}
+                  {info.updateDate && <div className='flex items-center'>
+                    <IconEdit className='inline mr-1' />修改于{info.updateDate.toLocaleDateString()}
+                  </div>}
+                </NoSSR>
                 {info.readingTime && <div className='flex items-center'>
                   <IconTimeFill className='inline mr-1' />约{info.readingTime}分钟
                 </div>}
