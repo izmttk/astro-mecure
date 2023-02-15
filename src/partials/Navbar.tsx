@@ -89,7 +89,7 @@ export default function CustomNavbar({
     hasSearchToggleStore.set(hasSearchToggle);
   }, [hasSearchToggle]);
   useEffect(() => {
-    hasSearchToggleStore.set(hasThemeToggle);
+    hasThemeToggleStore.set(hasThemeToggle);
   }, [hasThemeToggle]);
 
   const onShowChange = (isShow: boolean) => {
