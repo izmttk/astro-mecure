@@ -99,11 +99,11 @@ const config: AstroUserConfig = {
         template: 'treemap'
       }),
     ],
-    // resolve: {
-    //   alias: {
-    //     '@': '/src'
-    //   }
-    // },
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    },
     ssr: {
       noExternal: ['date-fns', 'react-use', '@radix-ui/*', 'domelementtype']
     },

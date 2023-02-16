@@ -62,8 +62,8 @@ export interface HeroProps extends React.PropsWithChildren<React.ComponentPropsW
 const calc = (x: number, y: number, rect: DOMRect) => {
   const scale = 1.15;
   return [
-    (x - rect.left - rect.width / 2) * (scale - 1),
-    (y - rect.top - rect.height / 2) * (scale - 1),
+    -1 * (x - rect.left - rect.width / 2) * (scale - 1),
+    -1 * (y - rect.top - rect.height / 2) * (scale - 1),
     scale,
   ]
 }
@@ -111,10 +111,10 @@ export default function Hero({
         className='w-full h-full overflow-hidden rounded-xl relative plate-bg plate-shadow border-highlight'
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
+        ref={ref}
       >
         <animated.div 
           className='w-full h-full'
-          ref={ref}
           style={{ transform: xys.to(trans) }}
         >
           <img className='w-full h-full object-cover pointer-events-none select-none' src={bg} alt='background' />

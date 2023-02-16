@@ -14,8 +14,8 @@ const page: Page = {
 ---
 
 <PageLayout page={page} hasSidebar={false}>
-  <div class="flex flex-wrap gap-2">
-    {tags.map(tag => <Tag onlyText className='plate-bg plate-shadow border-highlight leading-4 rounded-md hover:bg-primary-500 hover:text-white' tag={{
+  <div class="flex flex-wrap gap-2 my-6 md:my-14">
+    {tags.map(tag => <Tag onlyText className='min-w-0 plate-bg plate-shadow border-highlight leading-4 rounded-md hover:bg-primary-500 hover:text-white' tag={{
       label: `${tag.label} ${tag.count}`,
       url: tag.url
     }} />)}

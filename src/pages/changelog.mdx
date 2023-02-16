@@ -4,10 +4,39 @@ title: '更新日志'
 sidebar: false
 ---
 
-import Timeline from '@/components/Timeline'
+## TODO
 
-<Timeline>
-  <Timeline.Item label='2023.1.1'>
-    **feat change!**
-  </Timeline.Item>
-</Timeline>
+- more postcard variants
+- refine styles
+- improve them config
+- seo optimizing
+- support more comment system
+- i18n support ?
+
+## 2023.2.15, v0.1.1 Add multiple pages. 
+
+add about me, friends, changelog, reference page.\
+fix some style and hydration bugs.
+
+## 2023.2.10, v0.1.0 Complete basic functions. 
+
+- Blazing-fast performance, built by [Astro](https://astro.build/)
+- Refined site styles and components, responsive layout.
+- Support [MDX](https://mdxjs.com/), including typography styles, code highlight, admonition components by markdown directive, emoji, math formula by katex, and mermaid diagram syntax.
+- Support Toc(Table of Content) for posts.
+- Support Comments (Giscus and Waline)
+- Page routes like [Hexo](https://hexo.io/), cause I have used it before. This means that we will have following routes:
+  - `/`, index page, also the first page of recent posts.
+  - `/page/<page_number>`, recent posts page will be seperated into pages excluding the first page.
+  - `/posts/<your_post_title>`, which all posts will generate at.
+  - `/tags`, all tags will be displayed in here.
+  - `/tags/<your_tag>`, post list with specific tag.
+  - `/categories`, all categories will be displayed in here.
+  - `/categories/<your_category>`, post list with specific category.
+  - `/archive`, archive page will show all posts in timeline.
+  - other pages added after.
+- Support configurable theme.
+- Support algolia docsearch.
+- Support color mode switching.
+- Support generating RSS feed.
+- Support generating sitemap.

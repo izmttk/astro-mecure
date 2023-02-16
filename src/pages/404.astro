@@ -12,9 +12,9 @@ const page: Page = {
 <PageLayout page={page} hasSidebar={false} hasHero={false} hasNavbar={false} hasFooter={false}>
   <div class="py-8 px-4 mx-auto max-w-screen-xl h-full lg:py-16 lg:px-6 flex items-center justify-center">
     <div class="max-w-screen-sm text-center flex flex-col items-center justify-center">
-        <img src={urlJoin(import.meta.env.BASE_URL, '/assets/404-akari.webp')} alt="404" class="mb-4 mx-auto max-w-[16rem] dark:brightness-75" />
+        <img src={urlJoin(import.meta.env.BASE_URL, '/assets/404-akari.webp')} alt="404" class="-mb-5 mx-auto max-w-[16rem] dark:brightness-75" />
         <!-- <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500">404</h1> -->
-      <p class="mb-4 text-3xl font-bold text-gray-700 md:text-4xl dark:text-gray-200">404 Not Found!</p>
+      <p class="mb-4 text-3xl font-bold text-gray-700 md:text-4xl dark:text-gray-200 z-10 drop-shadow-[3px_-2px_0px_white] dark:drop-shadow-[3px_-2px_0px_black]">404 Not Found!</p>
       <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">页面不见了</p>
         <a href={import.meta.env.BASE_URL} class="inline-flex text-white bg-primary-600 hover:bg-primary-800 rounded-lg text-sm px-4 py-2 text-center my-4 shadow-lg shadow-primary-800/50 transition">返回主页</a>
         <button id="backward" class="text-sm text-primary-600 dark:text-primary-500">或返回上一页</button>
