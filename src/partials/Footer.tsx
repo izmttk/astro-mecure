@@ -1,7 +1,5 @@
 import type React from 'react';
 import type { SVGProps } from 'react';
-import cx from 'classnames';
-import { getYear } from 'date-fns';
 import IconRss from '~icons/tabler/rss';
 import IconSitemap from '~icons/tabler/sitemap';
 import urlJoin from 'url-join';
@@ -52,7 +50,7 @@ export default function Footer({
       'bg-gray-200 dark:bg-gray-800 flex border-t border-gray-200/30 dark:border-gray-700/30',
       className
     )}>
-      <div {...rest} className={cx(
+      <div {...rest} className={twMerge(
         'text-sm md:space-y-2 w-full',
         containerClassName
       )}>

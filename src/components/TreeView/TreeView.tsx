@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import * as Collapsible from '@radix-ui/react-collapsible';
-import cx from 'classnames';
 import IconChevronRight from '~icons/tabler/chevron-right';
 import IconChevronDown from '~icons/tabler/chevron-down';
 import styles from './TreeView.module.css';
+import { twMerge } from 'tailwind-merge';
 
 const ConfigContext = React.createContext<{
   icon?: React.ReactNode;
@@ -44,7 +44,7 @@ function TreeViewItem({
         <div className='truncate'>{label}</div>
         {endIcon && <div className='ml-auto'>{endIcon}</div>}
       </Collapsible.Trigger>
-      <Collapsible.Content className={cx(
+      <Collapsible.Content className={twMerge(
         'ml-3',
         styles.collapsibleContent
         // 'transition-[height] data-[state=closed]:h-0 h-[var(--radix-collapsible-content-height)]'

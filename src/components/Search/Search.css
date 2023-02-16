@@ -2,7 +2,7 @@
   pointer-events: auto;
 }
 
-.DocSearch-Modal svg {
+.DocSearch-Modal .DocSearch-Screen-Icon svg {
   display: inline;
 }
 
