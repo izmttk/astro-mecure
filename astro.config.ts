@@ -1,35 +1,35 @@
-import type { AstroUserConfig } from "astro";
-import react from "@astrojs/react";
-import tailwind from "@astrojs/tailwind";
-import mdx from "@astrojs/mdx";
-import image from "@astrojs/image";
-import sitemap from "@astrojs/sitemap";
-import compress from "astro-compress";
+import type { AstroUserConfig } from 'astro';
+import react from '@astrojs/react';
+import tailwind from '@astrojs/tailwind';
+import mdx from '@astrojs/mdx';
+import image from '@astrojs/image';
+import sitemap from '@astrojs/sitemap';
+import compress from 'astro-compress';
 
 
 import svgr from 'vite-plugin-svgr';
 import icons from 'unplugin-icons/vite';
-import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "astro/config";
-import node from "@astrojs/node";
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 
 import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import remarkGemoji from 'remark-gemoji';
-import remarkPostWordCount from "./remark/remarkPostWordCount";
-import remarkAdmonition from "./remark/remarkAdmonition";
-import remarkMermaid from "./remark/remarkMermaid";
+import remarkPostWordCount from './remark/remarkPostWordCount';
+import remarkAdmonition from './remark/remarkAdmonition';
+import remarkMermaid from './remark/remarkMermaid';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
-import rehypePostExcerpt from "./rehype/rehypePostExcerpt";
-import rehypePostReadingTime from "./rehype/rehypePostReadingTime";
-import rehypePostRaw from "./rehype/rehypePostRaw";
-import rehypeHeadingLinks from "./rehype/rehypeHeadingLinks";
+import rehypePostExcerpt from './rehype/rehypePostExcerpt';
+import rehypePostReadingTime from './rehype/rehypePostReadingTime';
+import rehypePostRaw from './rehype/rehypePostRaw';
+import rehypeHeadingLinks from './rehype/rehypeHeadingLinks';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 
-import { remarkCodeHike } from "@code-hike/mdx";
-import theme from "shiki/themes/github-dark.json";
+import { remarkCodeHike } from '@code-hike/mdx';
+import theme from 'shiki/themes/github-dark.json';
 // https://astro.build/config
 const config: AstroUserConfig = {
   site: 'https://wider.netlify.app/',
@@ -41,7 +41,29 @@ const config: AstroUserConfig = {
   integrations: [
     react(),
     tailwind(),
-    mdx(),
+    mdx({
+      syntaxHighlight: false,
+      remarkPlugins: [
+        remarkPostWordCount,
+        [remarkToc, {
+          tight: true,
+          ordered: true,
+        }],
+        remarkMath,
+        remarkGemoji,
+        remarkDirective,
+        remarkAdmonition,
+        remarkMermaid,
+        [remarkCodeHike, {
+          lineNumbers: true,
+          showCopyButton: true,
+          theme: theme,
+          skipLanguages: ['mermaid'],
+          // staticMediaQuery: 'not screen, (max-width: 768px)',
+          autoImport: false,
+        }],
+      ]
+    }),
     image(),
     compress({
       // avoid react hydration error
@@ -68,7 +90,6 @@ const config: AstroUserConfig = {
       remarkGemoji,
       remarkDirective,
       remarkAdmonition,
-      remarkMermaid,
     ],
     rehypePlugins: [
       [rehypeRaw, {
@@ -118,8 +139,6 @@ const config: AstroUserConfig = {
     }
   }
 };
-
-// https://astro.build/config
 
 // https://astro.build/config
 export default defineConfig(config);
