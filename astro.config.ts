@@ -29,7 +29,7 @@ import rehypeHeadingLinks from './rehype/rehypeHeadingLinks';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 
 import { remarkCodeHike } from '@code-hike/mdx';
-import theme from 'shiki/themes/github-dark.json';
+import theme from 'shiki/themes/github-dark-dimmed.json';
 // https://astro.build/config
 const config: AstroUserConfig = {
   site: 'https://wider.netlify.app/',
