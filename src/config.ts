@@ -134,7 +134,7 @@ const config: Config = {
     //   category: 'General',
     //   categoryId: 'MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyNTg5MjUw',
     //   mapping: 'pathname',
-    //   reactionsEnabled: '1',
+    //   reactionsEnabled: '0',
     //   emitMetadata: '0',
     //   inputPosition: 'top',
     //   lang: 'zh-CN',
@@ -149,7 +149,7 @@ const config: Config = {
       login: 'disable',
       search: false,
       copyright: false,
-      reaction: true,
+      reaction: false,
       emoji: [
         '//unpkg.com/@waline/emojis@1.1.0/weibo',
         '//unpkg.com/@waline/emojis@1.1.0/bilibili',
