@@ -16,6 +16,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import NoSSR from "@/components/NoSSR";
 import SearchToggle from "@/components/SearchToggle";
+import styles from './Sidebar.module.css';
 
 export interface CustomSidebarProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'aside'>> {
   showSidebarOnDesktop?: boolean;
@@ -55,7 +56,10 @@ export default function CustomSidebar({
   }
 
   const sidebarContent = (
-    <ScrollArea type='scroll' className='h-full' containerClassName='items-center space-y-4 p-3' useMask={false}>
+    <ScrollArea type='scroll' className='h-full' containerClassName={twMerge(
+      'items-center space-y-4 p-3',
+      styles.sidebarContainer
+     )} useMask={false}>
       {children}
     </ScrollArea>
   )

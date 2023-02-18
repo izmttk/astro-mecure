@@ -54,8 +54,6 @@ const variantComponents = {
   full: FullPostCard,
   plain: PlainPostCard,
 }
-// import 'atropos/css'
-// import Atropos from 'atropos/react';
 
 const {
   variant = 'plain',
@@ -66,15 +64,27 @@ const VariantPostCard = variantComponents[variant];
 
 ---
 
-<!-- <Atropos className={cx(
+<VariantPostCard class={twMerge(
+  'postcard',
+  'transition-transform duration-300 md:hover:scale-[1.05]',
+  'ring-1 ring-gray-600/10 dark:ring-white/5',
+  'border-highlight plate-shadow z-10',
   className
-)} innerClassName='p-px'
-  rotateXMax={5} rotateYMax={5} shadow={false} highlight={true}> -->
+)} {...rest} />
 
-  <VariantPostCard class={twMerge(
-    'transition-transform duration-300 md:hover:scale-[1.05]',
-    'ring-1 ring-gray-600/10 dark:ring-white/5',
-    'border-highlight plate-shadow z-10',
-    className
-  )} {...rest} />
-<!-- </Atropos> -->
+<style>
+.postcard {
+  visibility: hidden;
+}
+</style>
+
+<script>
+import scrollreveal from 'scrollreveal';
+const ins = scrollreveal();
+ins.reveal('.postcard', {
+  distance: '2rem',
+  // scale: 0.9,
+  duration: 500,
+  cleanup: true,
+})
+</script>

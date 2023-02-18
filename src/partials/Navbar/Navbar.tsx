@@ -28,7 +28,7 @@ import { twMerge } from 'tailwind-merge';
 import ScrollArea from '@/components/ScrollArea';
 import useElementSize from '@/hooks/useElementSize';
 import SearchToggle from '@/components/SearchToggle';
-
+import styles from './Navbar.module.css';
 
 
 function SideToggle() {
@@ -160,6 +160,7 @@ export default function CustomNavbar({
       <NoSSR>
         <div className={twMerge(
           'flex items-center w-full h-full text-sm',
+          styles.navbarContainer,
           containerClassName
         )}>
           {!isMd && (

@@ -14,8 +14,8 @@
     "create-component": "node scripts/create-component.js"
   },
   "dependencies": {
-    "@astrojs/image": "^0.14.1",
-    "@astrojs/mdx": "^0.16.0",
+    "@astrojs/image": "^0.15.0",
+    "@astrojs/mdx": "^0.16.2",
     "@astrojs/node": "^5.0.3",
     "@astrojs/react": "^2.0.2",
     "@astrojs/sitemap": "^1.0.1",
@@ -33,10 +33,9 @@
     "@radix-ui/react-scroll-area": "^1.0.2",
     "@react-spring/web": "^9.6.1",
     "@waline/client": "^2.14.7",
-    "astro": "^2.0.11",
+    "astro": "^2.0.14",
     "astro-compress": "^1.1.28",
     "astro-iconify": "^1.2.0",
-    "atropos": "^1.0.2",
     "date-fns": "^2.29.3",
     "github-slugger": "^2.0.0",
     "mermaid": "^9.3.0",
@@ -44,6 +43,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
+    "scrollreveal": "^4.0.5",
     "tailwind-merge": "^1.9.0",
     "url-join": "^5.0.0"
   },

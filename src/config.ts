@@ -61,7 +61,7 @@ const config: Config = {
     hasThemeToggle: true,
   },
   hero: {
-    bg: urlJoin(import.meta.env.BASE_URL, '/assets/hero-bg.webp'),
+    bg: urlJoin(import.meta.env.BASE_URL, '/assets/hero-bg.jpg'),
     // title: '银河渡舟',
     description: '醉后不知天在水，满船清梦压星河。',
   },

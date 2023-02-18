@@ -3,29 +3,29 @@
   animation: scaleIn .15s ease-out;
 }
 
-/* .dropdownMenuContent[data-state='closed'] {
+.dropdownMenuContent[data-state='closed'] {
   transform-origin: var(--radix-dropdown-menu-content-transform-origin);
   animation: scaleOut .15s ease-out;
-} */
+}
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(.7);
+    transform: scale(.85) translateY(-0.25rem);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
 @keyframes scaleOut {
   from {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
   to {
     opacity: 0;
-    transform: scale(.7);
+    transform: scale(.85) translateY(-0.25rem);
   }
 }
