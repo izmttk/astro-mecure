@@ -1,4 +1,4 @@
-import Mermaid from './Mermaid/Mermaid.astro';
+import Mermaid from './Mermaid';
 import Admonition from './Admonition';
 import { CH } from './CodeHike';
 

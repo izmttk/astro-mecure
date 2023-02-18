@@ -1,2 +1,2 @@
-export { default } from './Mermaid';
-export * from './Mermaid';
+export { default } from './Mermaid.astro';
+export * from './Mermaid.astro';

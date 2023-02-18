@@ -33,9 +33,6 @@ const {
   hasFooter = true,
 } = Astro.props;
 
-const allTags = (await getTags());
-const allCategotries = (await getCategories()).sort((a, b) => b.count - a.count);
-
 const {
   navbar,
   hero,
@@ -91,8 +88,9 @@ const heroConfig: HeroConfig | false = hero ? {
 } : false;
 
 const widgetConfig: SidebarConfig['widgets'] = sidebar && sidebar.widgets ? 
-  sidebar.widgets.map(widget => {
+  await Promise.all(sidebar.widgets.map(async widget => {
     if (widget.name === 'tag-cloud') {
+      const allTags = await getTags();
       return {
         name: widget.name,
         tags: sortByProperty(
@@ -102,6 +100,7 @@ const widgetConfig: SidebarConfig['widgets'] = sidebar && sidebar.widgets ?
         ).slice(0, widget.limit ?? 30),
       }
     } else if (widget.name === 'category-tree') {
+      const allCategotries = await getCategories();
       return {
         name: widget.name,
         expandDepth: widget.expandDepth ?? 2,
@@ -114,7 +113,7 @@ const widgetConfig: SidebarConfig['widgets'] = sidebar && sidebar.widgets ?
     } else {
       return widget;
     }
-  }) : [];
+  })) : [];
 
 const tocConfig: TocConfig | null = page.type === 'post' && page.post.headings.length > 0 ? {
   name: 'toc',
