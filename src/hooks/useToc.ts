@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
 export default function useToc(headings: string[], topMargin: number = 0) {
   const [visibleList, setVisibleList] = useState<string[]>([]);

@@ -1,6 +1,6 @@
-import { compareDesc, getYear } from "date-fns";
-import { Feed } from "feed";
-import getPosts from "./getPosts";
+import { compareDesc, getYear } from 'date-fns';
+import { Feed } from 'feed';
+import getPosts from './getPosts';
 
 interface RssFeedOptions {
   title: string;

@@ -1,5 +1,5 @@
-import type { Tag } from "@/types";
-import getPosts from "./getPosts";
+import type { Tag } from '@/types';
+import getPosts from './getPosts';
 
 async function getTags(): Promise<Tag[]> {
     const posts = await getPosts();

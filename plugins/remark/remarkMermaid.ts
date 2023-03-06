@@ -13,7 +13,7 @@
 import { visit } from 'unist-util-visit';
 import type { Code } from 'mdast';
 import type { Node } from 'unist';
-import type { RemarkPlugin } from "@astrojs/markdown-remark";
+import type { RemarkPlugin } from '@astrojs/markdown-remark';
 
 export interface MermaidCodeBlock extends Node {
   type: 'mermaidCodeBlock',

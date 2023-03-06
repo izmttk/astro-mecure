@@ -1,4 +1,4 @@
-import type { RemarkPlugin, MarkdownAstroData } from "@astrojs/markdown-remark";
+import type { RemarkPlugin, MarkdownAstroData } from '@astrojs/markdown-remark';
 import { toString as mdastToString } from 'mdast-util-to-string';
 
 export interface Result {

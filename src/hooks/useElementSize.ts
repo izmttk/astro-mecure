@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { useIsomorphicLayoutEffect } from "react-use";
+import React, { useMemo, useState } from 'react';
+import { useIsomorphicLayoutEffect } from 'react-use';
 
 interface Size {
   width: number

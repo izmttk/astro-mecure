@@ -1,4 +1,4 @@
-import { useWindowSize } from "react-use";
+import { useWindowSize } from 'react-use';
 
 function useBreakpoints(
   breakpoint: 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'

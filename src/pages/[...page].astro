@@ -1,16 +1,17 @@
 ---
-import type { GetStaticPaths, GetStaticPathsResult, Page } from "astro";
+import type { GetStaticPaths, GetStaticPathsResult, Page as AstroPage } from 'astro';
 import PageLayout from '@/layouts/PageLayout.astro';
 import PostCard from '@/components/PostCard';
 import getPosts from '@/utils/getPosts';
 import { compareDesc } from 'date-fns';
-import type { Page as PageConfig, Post } from '@/types';
-import { createPaginator } from "@/utils/createPaginator";
+import type { Page, Post } from '@/types';
+import { createPaginator } from '@/utils/createPaginator';
+import config from '@/config';
 
 export const prerender = true;
 
 export interface Props {
-  page: Page<Omit<Post, 'Content'>>;
+  page: AstroPage<Omit<Post, 'Content'>>;
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
@@ -37,9 +38,10 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 }
 const { page }= Astro.props;
 
-const pageConfig: PageConfig = {
+const pageConfig: Page = {
   type: 'index',
-  title: '首页',
+  title: config.title,
+  description: config.description,
   posts: page.data,
   paginator: createPaginator(page, {
     firstPageIsIndex: true,

@@ -3,8 +3,8 @@
 // error TS2589: Type instantiation is excessively deep and possibly infinite.
 import { visit } from 'unist-util-visit';
 import { h } from 'hastscript';
-import type { RemarkPlugin } from "@astrojs/markdown-remark";
-import type { Properties } from "hastscript";
+import type { RemarkPlugin } from '@astrojs/markdown-remark';
+import type { Properties } from 'hastscript';
 import type { Parent } from 'mdast';
 
 export interface Admonition extends Parent {

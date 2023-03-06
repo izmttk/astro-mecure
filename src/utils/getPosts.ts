@@ -1,12 +1,12 @@
-import type { Post } from "@/types";
-import { slug } from "github-slugger";
+import type { Post } from '@/types';
+import { slug } from 'github-slugger';
 import { CollectionEntry, getCollection } from 'astro:content';
 
 import fs from 'node:fs';
 import urlJoin from 'url-join';
 
-import transformTags from "./transformTags";
-import transformCategory from "./transformCategory";
+import transformTags from './transformTags';
+import transformCategory from './transformCategory';
 
 
 const collection = 'blog';

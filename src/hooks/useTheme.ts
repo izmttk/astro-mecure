@@ -1,7 +1,7 @@
-import { useStore } from "@nanostores/react";
-import { theme as themeStore } from "@/store/states";
-import { useLocalStorage, useMedia } from "react-use";
-import { useEffect } from "react";
+import { useStore } from '@nanostores/react';
+import { theme as themeStore } from '@/store/states';
+import { useLocalStorage, useMedia } from 'react-use';
+import { useEffect } from 'react';
 
 export type Theme = 'light' | 'dark' | 'auto';
 

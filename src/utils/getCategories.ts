@@ -1,5 +1,5 @@
-import type { Category } from "@/types";
-import getPosts from "./getPosts";
+import type { Category } from '@/types';
+import getPosts from './getPosts';
 
 async function getCategories(): Promise<Category[]> {
     const posts = await getPosts();

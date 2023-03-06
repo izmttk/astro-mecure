@@ -2,14 +2,14 @@
 import Navbar from '@/partials/Navbar';
 import Footer from '@/partials/Footer';
 import Sidebar, { SidebarConfig, TocConfig } from '@/partials/Sidebar';
-import getTags from "@/utils/getTags";
-import getCategories from "@/utils/getCategories";
+import getTags from '@/utils/getTags';
+import getCategories from '@/utils/getCategories';
 import type { Page } from '@/types';
-import BaseLayout from "./BaseLayout.astro";
+import BaseLayout from './BaseLayout.astro';
 import Hero, { HeroConfig } from '@/partials/Hero';
 import Pagination from '@/partials/Pagination';
 import Comment from '@/partials/Comment';
-import config from '../config';
+import config from '@/config';
 import sortByProperty from '@/utils/sortByProperty';
 import { twMerge } from 'tailwind-merge';
 import generateToc from '@/utils/generateToc';

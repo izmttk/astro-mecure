@@ -1,7 +1,7 @@
-import type React from "react";
-import ScrollArea from "@/components/ScrollArea";
+import type React from 'react';
+import ScrollArea from '@/components/ScrollArea';
 
-import { useStore } from "@nanostores/react";
+import { useStore } from '@nanostores/react';
 import { 
   navbarSize as navbarSizeStore, 
   navbarVisible as navbarVisibleStore,
@@ -9,13 +9,13 @@ import {
   hasThemeToggle as hasThemeToggleStore,
   hasSearchToggle as hasSearchToggleStore,
 } from "@/store/states";
-import { animated, useSpring } from "@react-spring/web";
-import Drawer from "@/components/Drawer";
-import { twMerge } from "tailwind-merge";
-import ThemeToggle from "@/components/ThemeToggle";
-import useBreakpoints from "@/hooks/useBreakpoints";
-import NoSSR from "@/components/NoSSR";
-import SearchToggle from "@/components/SearchToggle";
+import { animated, useSpring } from '@react-spring/web';
+import Drawer from '@/components/Drawer';
+import { twMerge } from 'tailwind-merge';
+import ThemeToggle from '@/components/ThemeToggle';
+import useBreakpoints from '@/hooks/useBreakpoints';
+import NoSSR from '@/components/NoSSR';
+import SearchToggle from '@/components/SearchToggle';
 import styles from './Sidebar.module.css';
 
 export interface CustomSidebarProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'aside'>> {
