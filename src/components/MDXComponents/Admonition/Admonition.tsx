@@ -76,7 +76,7 @@ export default function Admonition({
       className,
     )} {...rest}>
       <div className='flex items-center text-base font-bold'>{displayIcon}{displayTitle}</div>
-      <div className='mt-2 prose-sm'>{children}</div>
+      <div className='mt-2 prose-compact text-sm'>{children}</div>
     </div>
   )
 }

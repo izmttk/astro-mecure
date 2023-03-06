@@ -148,8 +148,8 @@ export default function Hero({
                 </div>}
               </div>
               <div className="flex flex-wrap items-center justify-center mt-4 gap-2">
-                <Category onlyText className='text-white p-0' category={info.category} />
-                {info.tags.map(tag => <Tag onlyText className='text-white p-0' tag={tag} key={tag.label} />)}
+                <Category onlyText className='text-white text-sm p-0' category={info.category} />
+                {info.tags.map(tag => <Tag onlyText className='text-white text-sm p-0' tag={tag} key={tag.label} />)}
               </div>
             </>
           )}

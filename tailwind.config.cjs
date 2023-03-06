@@ -6,6 +6,14 @@ const gray = colors.gray;
 const primary = colors.blue;
 const secondary = colors.pink;
 
+const round = (num) =>
+  num
+    .toFixed(7)
+    .replace(/(\.[0-9]+?)0+$/, '$1')
+    .replace(/\.0$/, '')
+const rem = (px) => `${round(px / 16)}rem`
+const em = (px, base) => `${round(px / base)}em`
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
@@ -128,6 +136,133 @@ module.exports = {
               margin: 0,
             },
           },
+        },
+        compact: {
+          css: [
+            {
+              p: {
+                marginTop: em(8, 14),
+                marginBottom: em(8, 14),
+              },
+              '[class~="lead"]': {
+                marginTop: em(16, 18),
+                marginBottom: em(16, 18),
+              },
+              blockquote: {
+                marginTop: em(24, 18),
+                marginBottom: em(24, 18),
+                paddingLeft: em(20, 18),
+              },
+              h1: {
+                marginTop: '0',
+                marginBottom: em(24, 30),
+              },
+              h2: {
+                marginTop: em(32, 20),
+                marginBottom: em(16, 20),
+              },
+              h3: {
+                marginTop: em(28, 18),
+                marginBottom: em(8, 18),
+              },
+              h4: {
+                marginTop: em(20, 14),
+                marginBottom: em(8, 14),
+              },
+              img: {
+                marginTop: em(24, 14),
+                marginBottom: em(24, 14),
+              },
+              video: {
+                marginTop: em(24, 14),
+                marginBottom: em(24, 14),
+              },
+              figure: {
+                marginTop: em(24, 14),
+                marginBottom: em(24, 14),
+              },
+              'figure > *': {
+                marginTop: '0',
+                marginBottom: '0',
+              },
+              figcaption: {
+                marginTop: em(8, 12),
+              },
+              pre: {
+                marginTop: em(16, 12),
+                marginBottom: em(16, 12),
+                borderRadius: rem(8),
+                paddingTop: em(8, 12),
+                paddingRight: em(12, 12),
+                paddingBottom: em(8, 12),
+                paddingLeft: em(12, 12),
+              },
+              ol: {
+                marginTop: em(16, 14),
+                marginBottom: em(16, 14),
+                paddingLeft: em(22, 14),
+              },
+              ul: {
+                marginTop: em(8, 14),
+                marginBottom: em(8, 14),
+                paddingLeft: em(22, 14),
+              },
+              li: {
+                marginTop: em(4, 14),
+                marginBottom: em(4, 14),
+              },
+              'ol > li': {
+                paddingLeft: em(6, 14),
+              },
+              'ul > li': {
+                paddingLeft: em(6, 14),
+              },
+              '> ul > li p': {
+                marginTop: em(8, 14),
+                marginBottom: em(8, 14),
+              },
+              '> ul > li > *:first-child': {
+                marginTop: em(16, 14),
+              },
+              '> ul > li > *:last-child': {
+                marginBottom: em(16, 14),
+              },
+              '> ol > li > *:first-child': {
+                marginTop: em(16, 14),
+              },
+              '> ol > li > *:last-child': {
+                marginBottom: em(16, 14),
+              },
+              'ul ul, ul ol, ol ul, ol ol': {
+                marginTop: em(8, 14),
+                marginBottom: em(8, 14),
+              },
+              hr: {
+                marginTop: em(40, 14),
+                marginBottom: em(40, 14),
+              },
+              'hr + *': {
+                marginTop: '0',
+              },
+              'h2 + *': {
+                marginTop: '0',
+              },
+              'h3 + *': {
+                marginTop: '0',
+              },
+              'h4 + *': {
+                marginTop: '0',
+              },
+            },
+            {
+              '> :first-child': {
+                marginTop: '0',
+              },
+              '> :last-child': {
+                marginBottom: '0',
+              },
+            },
+          ],
         },
         dark: {
           css: {

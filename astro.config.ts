@@ -25,8 +25,6 @@ import rehypeRaw from 'rehype-raw';
 import rehypePostExcerpt from './plugins/rehype/rehypePostExcerpt';
 import rehypePostReadingTime from './plugins/rehype/rehypePostReadingTime';
 import rehypePostRaw from './plugins/rehype/rehypePostRaw';
-import rehypeHeadingLinks from './plugins/rehype/rehypeHeadingLinks';
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 
 import { remarkCodeHike } from '@code-hike/mdx';
 import theme from 'shiki/themes/github-dark-dimmed.json';
@@ -42,7 +40,7 @@ const config: AstroUserConfig = {
     react(),
     tailwind(),
     mdx({
-      syntaxHighlight: false,
+      // syntaxHighlight: false,
       remarkPlugins: [
         remarkPostWordCount,
         [remarkToc, {
@@ -54,14 +52,14 @@ const config: AstroUserConfig = {
         remarkDirective,
         remarkAdmonition,
         remarkMermaid,
-        [remarkCodeHike, {
-          lineNumbers: true,
-          showCopyButton: true,
-          theme: theme,
-          skipLanguages: ['mermaid'],
-          // staticMediaQuery: 'not screen, (max-width: 768px)',
-          autoImport: false,
-        }],
+        // [remarkCodeHike, {
+        //   lineNumbers: true,
+        //   showCopyButton: true,
+        //   theme: theme,
+        //   skipLanguages: ['mermaid'],
+        //   // staticMediaQuery: 'not screen, (max-width: 768px)',
+        //   autoImport: false,
+        // }],
       ]
     }),
     image(),
@@ -99,8 +97,6 @@ const config: AstroUserConfig = {
       rehypePostExcerpt,
       rehypePostReadingTime,
       rehypeKatex,
-      rehypeHeadingIds,
-      rehypeHeadingLinks
     ],
   },
   build: {
