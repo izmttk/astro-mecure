@@ -12,6 +12,10 @@ This post is originated from [here](https://gist.github.com/apackeer/4159268) an
 
 <!-- more -->
 
+:::info
+  this is an admonition with type info
+:::
+
 -------
 
 ## Headers

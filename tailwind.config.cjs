@@ -93,10 +93,27 @@ module.exports = {
               marginBottom: '1.5em',
             },
             a: {
+              fontWeight: 'bold',
               textDecoration: 'none',
+              position: 'relative',
+              zIndex: 0,
             },
-            'a:hover': {
-              borderBottom: '1px solid currentColor',
+            'a::before': {
+              content: '""',
+              background: theme('colors.primary.400/40%'),
+              bottom: 0,
+              left: '-1px',
+              position: 'absolute',
+              right: '-1px',
+              top: '70%',
+              transition: 'top 175ms ease-in-out',
+              zIndex: -1,
+            },
+            // 'a:hover': {
+            //   borderBottom: '1px solid currentColor',
+            // },
+            'a:hover::before': {
+              top: 0,
             },
             'a code': {
               color: 'inherit',
