@@ -65,7 +65,7 @@ const VariantPostCard = variantComponents[variant];
 ---
 
 <VariantPostCard class={twMerge(
-  'postcard-animation opacity-0',
+  'postcard-animation',
   'transition-transform duration-300 md:hover:scale-[1.05]',
   'ring-1 ring-gray-600/10 dark:ring-white/5',
   'border-highlight plate-shadow z-10',
@@ -74,34 +74,44 @@ const VariantPostCard = variantComponents[variant];
 
 
 <script>
-const animeIn: Keyframe[] = [
-  {
-    opacity: 0,
-    transform: 'translateY(36px) scale(0.95)',
-  },
-  {
-    opacity: 1,
-    transform: 'translateY(0) scale(1)'
-  }
-]
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.intersectionRatio > 0) {
-      entry.target.getAnimations().forEach(animation => animation.play())
-      observer.unobserve(entry.target)
-    }
-  })
-}, {
-  threshold: [0, 1]
-})
-document.querySelectorAll('.postcard-animation').forEach((element => {
-  if (element instanceof HTMLElement) {
-    element.classList.remove('opacity-0')
-  }
-  element.animate(animeIn, {
-    duration: 250,
-    easing: 'ease-out',
-  }).pause()
-  observer.observe(element)
-}))
+// const animeIn: Keyframe[] = [
+//   {
+//     opacity: 0,
+//     transform: 'translateY(36px) scale(0.95)',
+//   },
+//   {
+//     opacity: 1,
+//     transform: 'translateY(0) scale(1)'
+//   }
+// ]
+// const observer = new IntersectionObserver((entries) => {
+//   entries.forEach(entry => {
+//     if (entry.intersectionRatio > 0) {
+//       entry.target.getAnimations().forEach(animation => { 
+//         animation.play();
+//       })
+//       observer.unobserve(entry.target)
+//     }
+//   })
+// }, {
+//   threshold: [0, 1]
+// })
+
+
+// const observePostcard = () => {
+//   document.querySelectorAll('.postcard-animation').forEach((element => {
+//     if (element instanceof HTMLElement) {
+//       element.classList.remove('opacity-0')
+//     }
+//     element.animate(animeIn, {
+//       duration: 250,
+//       easing: 'ease-out',
+//     }).pause()
+//     observer.observe(element)
+//   }))
+// }
+// observePostcard();
+// document.addEventListener('swup:pageView', () => {
+//   observePostcard();
+// });
 </script>

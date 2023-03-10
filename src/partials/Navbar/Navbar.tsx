@@ -105,6 +105,7 @@ export default function CustomNavbar({
 
   const location = useLocation();
   useEffect(() => {
+    setActive(null);
     menu.forEach((item, index) => {
       if ('url' in item) {
         if (location.pathname && pathEqual(item.url, location.pathname)) {
@@ -156,7 +157,7 @@ export default function CustomNavbar({
   );
 
   return (
-    <Navbar ref={ref} position='floating' {...rest} hideOnScroll transparentOnTop show={show} onShowChange={onShowChange}>
+    <Navbar ref={ref} position='floating' {...rest} hideOnScroll show={show} onShowChange={onShowChange}>
       <NoSSR>
         <div className={twMerge(
           'flex items-center w-full h-full text-sm',

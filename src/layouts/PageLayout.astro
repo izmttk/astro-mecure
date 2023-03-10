@@ -139,30 +139,59 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 >
   <slot name="head" slot="head" />
   {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar}  client:load />}
-  {hasHero && heroConfig && <Hero className='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} client:load />}
-  <main class="mx-auto w-full lg:max-w-[74rem] my-3 flex-grow flex">
-    <div class={twMerge(
-      "p-3 min-w-0 w-full",
-      hasSidebar && sidebarConfig && "md:w-[calc(100%_-_17rem)]",
-    )}>
-      <slot />
-      {hasComment && comment && (
-        <div class="mt-6">
-          <Comment config={comment} client:load />
-        </div>
-      )}
-    </div>
-    {sidebarConfig && <Sidebar class="w-[17rem] flex-none" config={sidebarConfig} showSidebarOnDesktop={hasSidebar} />}
-  </main>
-  {('paginator' in page && page.paginator) && pagination && (
-    <Pagination
-      className='my-6 mx-auto'
-      current={page.paginator.current}
-      total={page.paginator.total}
-      pageUrls={page.paginator.pageUrls}
-      config={pagination}
-    />
-  )}
+  <div id="swup" class="transition-fade flex flex-col flex-grow">
+    {hasHero && heroConfig && <Hero className='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} client:load />}
+    <main class="mx-auto w-full lg:max-w-[74rem] my-3 flex-grow flex">
+      <div class={twMerge(
+        "p-3 min-w-0 w-full",
+        hasSidebar && sidebarConfig && "md:w-[calc(100%_-_17rem)]",
+      )}>
+        <slot />
+        {hasComment && comment && (
+          <div class="mt-6">
+            <Comment config={comment} client:load />
+          </div>
+        )}
+      </div>
+      {sidebarConfig && <Sidebar class="w-[17rem] flex-none" config={sidebarConfig} showSidebarOnDesktop={hasSidebar} />}
+    </main>
+    {('paginator' in page && page.paginator) && pagination && (
+      <Pagination
+        className='my-6 mx-auto'
+        current={page.paginator.current}
+        total={page.paginator.total}
+        pageUrls={page.paginator.pageUrls}
+        config={pagination}
+      />
+    )}
+  </div>
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
   {algolia && <Search {...algolia} client:only='react' />}
 </BaseLayout>
+
+<style>
+  .transition-fade {
+    transition: opacity 0.2s ease;
+    opacity: 1;
+  }
+  
+  html.is-animating .transition-fade {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  import Swup from 'swup';
+  const swup = new Swup({
+    linkSelector: 'a[href]:not([href^="#"])',
+    animateHistoryBrowsing: true,
+  });
+  swup.on('willReplaceContent', () => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo({
+      top: 0,
+    })
+    document.documentElement.style.scrollBehavior = '';
+
+  })
+</script>

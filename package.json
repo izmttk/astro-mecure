@@ -1,5 +1,5 @@
 {
-  "name": "astro-mecure",
+  "name": "astro-lyre",
   "type": "module",
   "version": "0.1.1",
   "private": true,
@@ -43,6 +43,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
+    "swup": "^3.0.5",
     "tailwind-merge": "^1.9.0",
     "url-join": "^5.0.0"
   },
