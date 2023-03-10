@@ -1,6 +1,6 @@
 import type React from 'react';
 import Navbar from '@/components/Navbar';
-import Logo from '@/assets/logo.svg';
+import Logo from './Logo';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useEffect, useState } from 'react';
 

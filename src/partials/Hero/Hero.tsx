@@ -1,5 +1,5 @@
 import { useSpring, animated } from '@react-spring/web';
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge';
 import IconCalendarFill from '~icons/mingcute/calendar-fill';
 import IconTextFill from '~icons/mingcute/text-fill';
@@ -8,11 +8,10 @@ import IconDocument from '~icons/mingcute/document-fill';
 import IconEdit from '~icons/mingcute/edit-fill';
 import IconUser from '~icons/mingcute/user-3-fill';
 
-import Logo from '@/assets/animated-logo.svg'
+import Logo from './Logo'
 import type { Page, Post } from '@/types';
 import Category from '@/components/Category';
 import Tag from '@/components/Tag';
-import NoSSR from '@/components/NoSSR';
 interface HeroPostInfo {
   type: 'post',
   date: Post['date'],
@@ -103,6 +102,10 @@ export default function Hero({
       xys: calc(e.clientX, e.clientY, rect),
     })
   }
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  });
   return (
     <header className={twMerge(
       className
@@ -125,15 +128,13 @@ export default function Hero({
           {info?.type === 'post' && (
             <>
               <div className='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
-                <NoSSR>
-                  {/* make sure that prerendered html isn't afftected by timezone */}
-                  {info.date && <div className='flex items-center'>
-                    <IconCalendarFill className='inline mr-1' />发布于{info.date.toLocaleDateString()}
-                  </div>}
-                  {info.updateDate && <div className='flex items-center'>
-                    <IconEdit className='inline mr-1' />修改于{info.updateDate.toLocaleDateString()}
-                  </div>}
-                </NoSSR>
+                {/* make sure that prerendered html isn't afftected by timezone */}
+                {info.date && <div className='flex items-center'>
+                  <IconCalendarFill className='inline mr-1' />发布于{info.date.toLocaleDateString(isMounted ? undefined : 'zh-CN')}
+                </div>}
+                {info.updateDate && <div className='flex items-center'>
+                  <IconEdit className='inline mr-1' />修改于{info.updateDate.toLocaleDateString(isMounted ? undefined : 'zh-CN')}
+                </div>}
                 {info.readingTime && <div className='flex items-center'>
                   <IconTimeFill className='inline mr-1' />约{info.readingTime}分钟
                 </div>}
