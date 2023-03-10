@@ -15,15 +15,15 @@ export default function Logo({
                 </feTurbulence>
                 <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="30" in="SourceGraphic" in2="warp">
                 </feDisplacementMap>
-                <feDropShadow dx="0" dy="0" stdDeviation="0" flood-color="#ff0024" flood-opacity="0">
+                <feDropShadow dx="0" dy="0" stdDeviation="0" floodColor="#ff0024" floodOpacity="0">
                     <animate attributeName="dx" dur="4000ms" begin="1s" values="0; -4; 0; 0; -4; 0; 0" keyTimes="0; 0.05; 0.05; 0.1; 0.1; 0.15; 1" repeatCount="indefinite" />
                     <animate attributeName="flood-opacity" dur="4000ms" begin="1s" values="0; 1; 0; 0; 1; 0; 0" keyTimes="0; 0.05; 0.05; 0.1; 0.1; 0.15; 1" repeatCount="indefinite" />
                 </feDropShadow>
-                <feDropShadow dx="0" dy="0" stdDeviation="0" flood-color="#00feff" flood-opacity="0">
+                <feDropShadow dx="0" dy="0" stdDeviation="0" floodColor="#00feff" floodOpacity="0">
                     <animate attributeName="dx" dur="4000ms" begin="1s" values="0; 4; 0; 0; 4; 0; 0" keyTimes="0; 0.05; 0.05; 0.1; 0.1; 0.15; 1" repeatCount="indefinite" />
                     <animate attributeName="flood-opacity" dur="4000ms" begin="1s" values="0; 1; 0; 0; 1; 0; 0" keyTimes="0; 0.05; 0.05; 0.1; 0.1; 0.15; 1" repeatCount="indefinite" />
                 </feDropShadow>
-                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgb(0,0,0)" flood-opacity="0.2" />
+                <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="rgb(0,0,0)" floodOpacity="0.2" />
             </filter>
         </defs>
         <g id="logo" opacity="0">

@@ -149,8 +149,8 @@ export default function Hero({
                 </div>}
               </div>
               <div className="flex flex-wrap items-center justify-center mt-4 gap-2">
-                <Category onlyText className='text-white text-sm p-0' category={info.category} />
-                {info.tags.map(tag => <Tag onlyText className='text-white text-sm p-0' tag={tag} key={tag.label} />)}
+                <Category onlyText className='text-white text-[0.8125rem] rounded-md px-1 py-0.5 bg-gray-900/40 ring-1 ring-white/30 hover:bg-white hover:text-black dark:hover:text-black transition-colors duration-75' category={info.category} />
+                {info.tags.map(tag => <Tag onlyText className='text-white text-[0.8125rem] rounded-md px-1 py-px bg-gray-900/40 ring-1 ring-white/30 hover:bg-white hover:text-black dark:hover:text-black transition-colors duration-75' tag={tag} key={tag.label} />)}
               </div>
             </>
           )}

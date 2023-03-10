@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import Polymorphic, { withPolymorphic } from '../Polymorphic';
 import { useSpring, animated } from '@react-spring/web';
-import useWindowScrollDirection from '@/hooks/useWindowsScrollDirection';
+import useWindowScrollInfo from '@/hooks/useWindowsScrollInfo';
 import useCallbackRef from '@/hooks/useCallbackRef';
 import { twMerge } from 'tailwind-merge';
 import { useLockBodyScroll, useWindowSize } from 'react-use';
@@ -195,6 +195,7 @@ export interface NavbarProps extends React.PropsWithChildren<React.ComponentProp
   position?: 'floating' | 'static' | 'sticky';
   show?: boolean;
   hideOnScroll?: boolean;
+  transparentOnTop?: boolean;
   onShowChange?: (isShow: boolean) => void;
 }
 
@@ -202,17 +203,18 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(({
   position = 'sticky',
   show,
   hideOnScroll = false,
+  transparentOnTop = false,
   onShowChange,
   className,
   children,
   ...rest
 }, ref) => {
   
-  const direction = useWindowScrollDirection();
+  const { direction, isTop } = useWindowScrollInfo();
   const shouldHide = position !== 'static' && hideOnScroll && direction.vertical === 'down';
   const isShow = show ?? !shouldHide;
   const [states, dispatch] = useReducer(collapseReducer, initialStates);
-
+  const shouldTransparent = transparentOnTop && isTop;
   // no render when onShowChange changed
   const handleShowChange = useCallbackRef(onShowChange);
   useEffect(() => {
@@ -261,6 +263,8 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(({
               'shadow-md shadow-gray-900/[0.05] dark:shadow-gray-900/50',
               'bg-white/80 border-b border-gray-600/20 dark:bg-gray-800/75 dark:border-gray-50/[0.06]',
               'backdrop-blur-md backdrop-saturate-150',
+              'transition-[background-color,backdrop-filter,border-color,box-shadow] duration-300',
+              shouldTransparent && '!bg-transparent !border-transparent backdrop-blur-0 backdrop-saturate-100 !shadow-none'
             )}>
               <div className='flex h-[3.75rem]'>{children}</div>
               {states.node && (

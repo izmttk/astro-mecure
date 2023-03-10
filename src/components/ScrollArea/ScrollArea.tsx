@@ -78,7 +78,7 @@ export default function ScrollArea({
       {edgeShadow && !useMask && !isAtTop && <div className={twMerge('top-0 h-8 inset-x-0 bg-gradient-to-b', edgeClass, edgeClassName)}></div>}
       {edgeShadow && !useMask && !isAtBottom && <div className={twMerge('bottom-0 h-8 inset-x-0 bg-gradient-to-t', edgeClass, edgeClassName)}></div>}
       {edgeShadow && !useMask && !isAtLeft && <div className={twMerge('left-0 w-8 inset-y-0 bg-gradient-to-r', edgeClass, edgeClassName)}></div>}
-      {edgeShadow && !useMask && !isAtRight && <div className={twMerge('left-0 w-8 inset-y-0 bg-gradient-to-l', edgeClass, edgeClassName)}></div>}
+      {edgeShadow && !useMask && !isAtRight && <div className={twMerge('right-0 w-8 inset-y-0 bg-gradient-to-l', edgeClass, edgeClassName)}></div>}
       {hasThumb && (
         <>
           <RadixScrollArea.Scrollbar orientation='vertical' className={scrollBarClass}>

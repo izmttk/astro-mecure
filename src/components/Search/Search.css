@@ -1,5 +1,6 @@
 .DocSearch-Container {
   pointer-events: auto;
+  cursor: auto;
 }
 
 .DocSearch-Modal .DocSearch-Screen-Icon svg {

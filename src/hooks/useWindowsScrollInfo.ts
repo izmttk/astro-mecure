@@ -5,11 +5,12 @@ interface State {
   vertical: 'up' | 'down' | 'unchanged',
 }
 
-const useWindowScrollDirection = () => {
+const useWindowScrollInfo = () => {
   const [scrollDirection, setScrollDirection] = useState<State>({
     horizontal: 'unchanged',
     vertical: 'unchanged',
   });
+  const [isTop, setIsTop] = useState(false);
   const prev = useRef<{
     x: number;
     y: number;
@@ -17,6 +18,11 @@ const useWindowScrollDirection = () => {
   useEffect(() => {
     const handler = () => {
       const { pageXOffset, pageYOffset } = window;
+      if (pageYOffset === 0) {
+        setIsTop(true);
+      } else {
+        setIsTop(false);
+      }
       if (prev.current === null) {
         prev.current = {
           x: pageXOffset,
@@ -71,7 +77,10 @@ const useWindowScrollDirection = () => {
     };
   }, []);
 
-  return scrollDirection;
+  return {
+    direction: scrollDirection,
+    isTop,
+  };
 };
 
-export default useWindowScrollDirection;
+export default useWindowScrollInfo;

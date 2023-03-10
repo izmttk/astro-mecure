@@ -43,7 +43,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
-    "scrollreveal": "^4.0.5",
     "tailwind-merge": "^1.9.0",
     "url-join": "^5.0.0"
   },

@@ -34,17 +34,19 @@ body {
   }
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  z-index: -1;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    url(/assets/left-bottom-bg.svg) no-repeat bottom left/20rem,
-    url(/assets/right-top-bg.svg) no-repeat top right/20rem;
+@media screen(md) {
+  body::before {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      url(/assets/left-bottom-bg.svg) no-repeat bottom left/20rem,
+      url(/assets/right-top-bg.svg) no-repeat top right/20rem;
+  }
 }
 
 .dark body::before {

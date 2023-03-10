@@ -66,8 +66,8 @@ const {
   )}>{title}</a>
   <ScrollArea className='text-sm' hasThumb={false} client:visible>
     <div class="flex flex-nowrap gap-2">
-      {category && <Category className='flex-none' category={category} />}
-      {tags && tags.map(tag => <Tag className='flex-none' tag={tag} />)}
+      {category && <Category className='flex-none text-gray-800 dark:text-white' category={category} />}
+      {tags && tags.map(tag => <Tag className='flex-none text-gray-800 dark:text-white' tag={tag} />)}
     </div>
   </ScrollArea>
   <div class={twMerge(
