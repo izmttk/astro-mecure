@@ -182,9 +182,12 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 
 <script>
   import Swup from 'swup';
+  import SwupHeadPlugin from '@swup/head-plugin';
+
   const swup = new Swup({
     linkSelector: 'a[href]:not([href^="#"])',
     animateHistoryBrowsing: true,
+    plugins: [new SwupHeadPlugin()]
   });
   swup.on('willReplaceContent', () => {
     document.documentElement.style.scrollBehavior = 'auto';
@@ -193,5 +196,5 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
     })
     document.documentElement.style.scrollBehavior = '';
 
-  })
+  });
 </script>
