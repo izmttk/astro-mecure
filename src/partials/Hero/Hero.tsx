@@ -130,10 +130,10 @@ export default function Hero({
               <div className='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
                 {/* make sure that prerendered html isn't afftected by timezone */}
                 {info.date && <div className='flex items-center'>
-                  <IconCalendarFill className='inline mr-1' />发布于{info.date.toLocaleDateString(isMounted ? undefined : 'zh-CN')}
+                  <IconCalendarFill className='inline mr-1' />发布于{isMounted ? info.date.toLocaleDateString() : info.date.toLocaleDateString('zh-CN', {timeZone: 'Asia/Shanghai'})}
                 </div>}
                 {info.updateDate && <div className='flex items-center'>
-                  <IconEdit className='inline mr-1' />修改于{info.updateDate.toLocaleDateString(isMounted ? undefined : 'zh-CN')}
+                  <IconEdit className='inline mr-1' />修改于{isMounted ? info.updateDate.toLocaleDateString() : info.updateDate.toLocaleDateString('zh-CN', {timeZone: 'Asia/Shanghai'})}
                 </div>}
                 {info.readingTime && <div className='flex items-center'>
                   <IconTimeFill className='inline mr-1' />约{info.readingTime}分钟
