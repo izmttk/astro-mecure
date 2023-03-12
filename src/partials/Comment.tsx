@@ -3,12 +3,12 @@ import type { GiscusOptions } from '@/components/comment/Giscus';
 import type { WalineOptions } from '@/components/comment/Waline';
 
 export interface GiscusCommentConfig {
-  vender: 'giscus';
+  provider: 'giscus';
   options: GiscusOptions;
 }
 
 export interface WalineCommentConfig {
-  vender: 'waline';
+  provider: 'waline';
   options: WalineOptions;
 }
 
@@ -27,9 +27,9 @@ export default function Comment({
   if (!config) {
     return null;
   }
-  if (config.vender === 'giscus') {
+  if (config.provider === 'giscus') {
     return <Giscus {...config.options} />;
-  } else if (config.vender === 'waline') {
+  } else if (config.provider === 'waline') {
     return <Waline {...config.options} />;
   }
   return null;

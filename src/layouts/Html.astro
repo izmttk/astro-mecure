@@ -35,19 +35,21 @@ import "@/styles/global.css"
     <link rel="icon" href={favicon} />
     {title && <title>{title}</title>}
     <script is:inline>
-      const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
-      let presetTheme;
-      if (storedTheme === 'auto') {
-        presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      } else {
-        presetTheme = storedTheme;
-      }
-      if (presetTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      document.documentElement.style.colorScheme = presetTheme;
+      (function() {
+        const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
+        let presetTheme;
+        if (storedTheme === 'auto') {
+          presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        } else {
+          presetTheme = storedTheme;
+        }
+        if (presetTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        document.documentElement.style.colorScheme = presetTheme;
+      })()
     </script>
     <slot name="head" />
   </head>

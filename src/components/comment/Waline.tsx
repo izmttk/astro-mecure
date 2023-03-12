@@ -30,7 +30,7 @@ const Waline = (props: WalineOptions) => {
     });
   }, [props]);
 
-  return <div ref={containerRef} className={styles.waline} />;
+  return <div ref={containerRef} className={styles.waline}></div>;
 };
 
 export default Waline;

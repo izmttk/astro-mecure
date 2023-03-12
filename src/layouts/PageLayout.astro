@@ -183,11 +183,36 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 <script>
   import Swup from 'swup';
   import SwupHeadPlugin from '@swup/head-plugin';
+  import SwupScriptsPlugin from '@swup/scripts-plugin';
+  import ReactDOM, { flushSync } from 'react-dom';
+  import { hydrateRoot } from 'react-dom/client';
+  
+  function isAlreadyHydrated(element: Element) {
+    for (const key in element) {
+      if (key.startsWith('__reactContainer')) {
+        return key;
+      }
+    }
+  }
 
   const swup = new Swup({
     linkSelector: 'a[href]:not([href^="#"])',
     animateHistoryBrowsing: true,
-    plugins: [new SwupHeadPlugin()]
+    plugins: [
+      new SwupHeadPlugin(),
+      new SwupScriptsPlugin()
+    ]
+  });
+  swup.on('willReplaceContent', () => {
+    // hack method to unmount react roots
+    document.querySelectorAll('#swup astro-island').forEach((element) => {
+      const rootKey = isAlreadyHydrated(element);
+      if(rootKey) {
+        const root = hydrateRoot(document.createElement('div'), null);
+        (root as any)._internalRoot =  (element as any)[rootKey].stateNode;
+        root.unmount();
+      }
+    });
   });
   swup.on('willReplaceContent', () => {
     document.documentElement.style.scrollBehavior = 'auto';
@@ -195,6 +220,5 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
       top: 0,
     })
     document.documentElement.style.scrollBehavior = '';
-
   });
 </script>

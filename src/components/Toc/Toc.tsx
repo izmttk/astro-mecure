@@ -5,7 +5,7 @@ import type { MarkdownHeading } from 'astro';
 import { animated, useSpring } from '@react-spring/web';
 import useElementSize from '@/hooks/useElementSize';
 import { useStore } from '@nanostores/react';
-import { navbarSize as navbarSizeStore } from '@/store/states';
+// import { navbarSize as navbarSizeStore } from '@/store/states';
 import IconList from '~icons/tabler/list';
 
 interface TocItem extends MarkdownHeading {
@@ -101,8 +101,8 @@ export default function Toc({
   toc
 }: TocProps) {
   const headings = flapToc(toc);
-  const navbarSize = useStore(navbarSizeStore);
-  const {active, visible} = useToc(headings.map(heading => heading.slug), navbarSize.height);
+  // const navbarSize = useStore(navbarSizeStore);
+  const {active, visible} = useToc(headings.map(heading => heading.slug));
   const activeAncestors = active ? findAncestors(toc, active).map(heading => heading.slug) : [];
   return (
     <nav className='text-sm plate-bg border-highlight p-3 rounded-xl'>
