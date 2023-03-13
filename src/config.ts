@@ -4,7 +4,7 @@ import urlJoin from 'url-join';
 
 const config: Config = {
   title: '银河渡舟',
-  description: '醉后不知天在水，满船清梦压星河。',
+  description: 'The satellite gazed at the plane from afar, a thin yet heavy veil of air between them, suborbit was its name.',
   author: 'Wider',
   favicon: urlJoin(import.meta.env.BASE_URL, 'favicon.svg'),
   navbar: {
@@ -130,9 +130,9 @@ const config: Config = {
     provider: 'giscus',
     options: {
       repo: 'izmttk/izmttk.github.io',
-      repoId: 'MDEwOlJlcG9zaXRvcnkzMzk3MjAyODQ=',
+      repoId: 'R_kgDOJIxtIQ',
       category: 'General',
-      categoryId: 'MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyNTg5MjUw',
+      categoryId: 'DIC_kwDOJIxtIc4CU1cl',
       mapping: 'pathname',
       reactionsEnabled: '0',
       emitMetadata: '0',
