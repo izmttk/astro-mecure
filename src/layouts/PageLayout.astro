@@ -169,13 +169,12 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
   {algolia && <Search {...algolia} client:only='react' />}
 </BaseLayout>
 
-<style>
+<style is:global>
   .transition-fade {
-    transition: opacity 0.2s ease;
+    transition: opacity .2s ease;
     opacity: 1;
   }
-  
-  html.is-animating .transition-fade {
+  html.is-rendering .transition-fade {
     opacity: 0;
   }
 </style>
@@ -184,9 +183,9 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
   import Swup from 'swup';
   import SwupHeadPlugin from '@swup/head-plugin';
   import SwupScriptsPlugin from '@swup/scripts-plugin';
-  import ReactDOM, { flushSync } from 'react-dom';
   import { hydrateRoot } from 'react-dom/client';
-  
+  import ProgressBar from '@/components/ProgressBar';
+
   function isAlreadyHydrated(element: Element) {
     for (const key in element) {
       if (key.startsWith('__reactContainer')) {
@@ -194,14 +193,19 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
       }
     }
   }
-
   const swup = new Swup({
     linkSelector: 'a[href]:not([href^="#"])',
     animateHistoryBrowsing: true,
     plugins: [
       new SwupHeadPlugin(),
-      new SwupScriptsPlugin()
+      new SwupScriptsPlugin(),
     ]
+  });
+  swup.on('animationOutStart', () => {
+    ProgressBar.start();
+  });
+  swup.on('animationInStart', () => {
+    ProgressBar.finish();
   });
   swup.on('willReplaceContent', () => {
     // hack method to unmount react roots
