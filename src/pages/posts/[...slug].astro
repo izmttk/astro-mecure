@@ -3,6 +3,8 @@ import PostLayout from '@/layouts/PostLayout.astro';
 import type { Post } from '@/types';
 import getPosts from '@/utils/getPosts';
 import MDXComponents from '@/components/MDXComponents';
+import ArticleOutdateTip from '@/components/ArticleOutdateTip';
+import ArticleLicense from '@/components/ArticleLicense';
 
 export interface Props {
   post: Post;
@@ -26,5 +28,18 @@ const { Content, ...post } = postProp;
 ---
 
 <PostLayout post={post}>
+  <!-- <ArticleOutdateTip
+    updateDate={post.updateDate}
+    className="not-prose -mx-4 md:-mx-8 mb-4 md:mb-8 px-4 md:px-8"
+    client:load
+  /> -->
   <Content components={MDXComponents} />
+  <ArticleLicense
+    url={decodeURI(Astro.url.href)}
+    title={post.title}
+    author={post.author}
+    date={post.date}
+    updateDate={post.updateDate}
+    className="not-prose -mx-4 md:-mx-8 mt-4 md:mt-8 px-4 md:px-8"
+  />
 </PostLayout>

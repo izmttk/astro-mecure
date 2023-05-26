@@ -11,7 +11,7 @@ import Html from './Html.astro';
 
 ---
 
-<Html title={title} description={description} author={author} favicon={favicon} generator={Astro.generator} canonical={Astro.url.href}>
+<Html title={title} description={description} author={author} favicon={favicon} generator={Astro.generator} canonical={decodeURI(Astro.url.href)}>
   <slot name="head" slot="head" />
   <slot />
 </Html>

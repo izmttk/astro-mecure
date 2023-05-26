@@ -1,4 +1,5 @@
 import type { Post } from '@/types';
+import config from '@/config';
 import { slug } from 'github-slugger';
 import { CollectionEntry, getCollection } from 'astro:content';
 
@@ -48,9 +49,9 @@ async function getPosts(): Promise<Post[]> {
     const { Content, headings, remarkPluginFrontmatter } = await post.render();
     return {
       slug: post.data.permalink ?? post.slug,
-      title: post.data.title ?? 'No Title',
+      title: post.data.title ?? '无标题',
       url: postUrl(post.slug),
-      author: post.data.author,
+      author: post.data.author ?? config.author,
       image: post.data.image,
       date: post.data.date ?? fs.statSync(getPostPath(post.id)).birthtime,
       updateDate: post.data.updateDate ?? fs.statSync(getPostPath(post.id)).mtime,

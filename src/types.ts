@@ -23,8 +23,8 @@ export interface Post {
   draft: boolean;
   category: Category;
   tags: Tag[];
+  author: string;
 
-  author?: string;
   excerpt?: string;
   image?: string;
   permalink?: string;
