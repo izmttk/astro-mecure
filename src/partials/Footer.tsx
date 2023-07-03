@@ -61,7 +61,7 @@ export default function Footer({
           ))}
         </div>}
         {/* Declarations */}
-        {declarations && <div>
+        {declarations && <div className='space-x-3'>
           {declarations.map((decl, index) => (
             <span key={index}>{decl}</span>
           ))}

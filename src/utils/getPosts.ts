@@ -1,7 +1,7 @@
-import type { Post } from '@/types';
+import type { Author, Post } from '@/types';
 import config from '@/config';
 import { slug } from 'github-slugger';
-import { CollectionEntry, getCollection } from 'astro:content';
+import { CollectionEntry, getCollection, getEntry } from 'astro:content';
 
 import fs from 'node:fs';
 import urlJoin from 'url-join';
@@ -47,16 +47,17 @@ async function getPosts(): Promise<Post[]> {
   
   return Promise.all(posts.map(async post => {
     const { Content, headings, remarkPluginFrontmatter } = await post.render();
+    const author = (await getEntry(post.data.author)).data ?? {name: config.author};
     return {
       slug: post.data.permalink ?? post.slug,
       title: post.data.title ?? '无标题',
       url: postUrl(post.slug),
-      author: post.data.author ?? config.author,
+      author: author,
       image: post.data.image,
       date: post.data.date ?? fs.statSync(getPostPath(post.id)).birthtime,
       updateDate: post.data.updateDate ?? fs.statSync(getPostPath(post.id)).mtime,
       draft: post.data.draft,
-      category: { 
+      category: {
         ...transformCategory(post.data.category),
         count: categoriesBucket.get(post.data.category.join('/')) ?? 1
       },

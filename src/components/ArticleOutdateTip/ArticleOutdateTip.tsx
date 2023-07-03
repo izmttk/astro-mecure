@@ -1,15 +1,17 @@
 import type React from 'react';
-import { formatDistanceToNow, isAfter, subMonths } from 'date-fns';
+import { formatDistanceToNow, isAfter, subDays } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import IconInformationFill from '~icons/mingcute/information-fill';
 import { twMerge } from 'tailwind-merge';
 
 export interface ArticleOutdateTipProps extends React.ComponentPropsWithoutRef<'div'> {
-  updateDate: Date
+  updateDate: Date,
+  outdateLimit?: number,
 }
 
 export default function ArticleOutdateTip({
   updateDate,
+  outdateLimit = 30,
   className,
   ...rest
 }: ArticleOutdateTipProps) {
@@ -20,7 +22,7 @@ export default function ArticleOutdateTip({
   return (
     isAfter(
       updateDate,
-      subMonths(Date.now(), 3)
+      subDays(Date.now(), outdateLimit)
     ) ? null :
     <div className={twMerge(
       'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 p-3',

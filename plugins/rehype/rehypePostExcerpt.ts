@@ -6,8 +6,12 @@ import { toText as hastToText } from 'hast-util-to-text';
 import { collapseWhiteSpace } from 'collapse-white-space'
 import { visit } from 'unist-util-visit';
 
-const rehypeExcerpt: RehypePlugin = () => {
-  const excerptLimit = 220;
+const rehypeExcerpt: RehypePlugin = (
+  options?: void | {
+    limit?: number;
+  }
+) => {
+  const excerptLimit = options?.limit ?? 200;
   return (tree, file) => {
     const { frontmatter } = file.data.astro as MarkdownAstroData;
     const fragment = excerpt(tree, {

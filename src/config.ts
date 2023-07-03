@@ -64,6 +64,7 @@ const config: Config = {
     bg: urlJoin(import.meta.env.BASE_URL, '/assets/hero-bg.jpg'),
     // title: '银河渡舟',
     description: '醉后不知天在水，满船清梦压星河。',
+    logo: urlJoin(import.meta.env.BASE_URL, '/assets/logo.svg'),
   },
   sidebar: {
     widgets: [
@@ -126,6 +127,16 @@ const config: Config = {
     siblings: 2,
     boundaries: 1,
   },
+  typography: {
+    outdateTip: {
+      outdateLimit: 30,
+    },
+    license: {
+      licenseName: 'CC BY-NC-SA 4.0',
+      licenseUrl: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh',
+      infoText: '转载或引用本文时请注明作者及出处，不得用于商业用途。',
+    }
+  },
   comment: {
     provider: 'giscus',
     options: {
@@ -167,6 +178,7 @@ const config: Config = {
       { label: 'Github', url: 'https://github.com/izmttk', external: true},
     ],
     declarations: [
+      `Copyright © ${getYear(new Date())} 银河渡舟 All Rights Reserved.`,
       `Copyright © ${getYear(new Date())} 银河渡舟 All Rights Reserved.`
     ],
     generator: true,

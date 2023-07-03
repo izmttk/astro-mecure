@@ -1,0 +1,70 @@
+---
+import { twMerge } from 'tailwind-merge';
+import { format } from 'date-fns';
+import { zhCN } from 'date-fns/locale';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+
+export interface ArchivePostBrief {
+  title: string;
+  image?: ImageMetadata | string;
+  date: Date;
+  description?: string;
+  url: string;
+}
+
+export type PostBriefProps = Omit<HTMLAttributes<'div'>, keyof ArchivePostBrief> & ArchivePostBrief;
+
+export type Props = PostBriefProps;
+
+const {
+  title,
+  image,
+  date,
+  description,
+  url,
+  class: className,
+  ...rest
+} = Astro.props;
+
+
+const bg = image ? (typeof image === 'string' ? image : (await getImage({
+  src: image,
+  width: 400,
+  height: 300,
+  quality: 50,
+})).src): undefined;
+---
+
+<div class={twMerge(
+  'overflow-hidden rounded-xl py-3 pl-4 pr-3 relative plate-bg plate-shadow border-highlight',
+  image && 'text-white',
+  className
+)} {...rest}>
+  <div class={twMerge(
+    'absolute top-0 left-0 blur-xl brightness-[.8] saturate-[1.35]',
+    'w-[calc(100%_+_64px)] h-[calc(100%_+_64px)] ml-[-32px] mt-[-32px]',
+    'select-none pointer-events-none',
+  )} style={{
+    background: bg ? `url(${bg}) center/cover` : undefined
+  }}></div>
+  <a href={url} class={twMerge(
+    'block text-lg font-bold truncate mb-1 relative',
+  )}>{title}</a>
+  <div class='flex relative'>
+    <div class='flex-1 min-w-0'>
+      <div class={twMerge(
+        'text-xs mb-1',
+        image && 'text-white/80',
+      )}>{format(date, 'PPP', { locale: zhCN })}</div>
+      <div class='text-xs line-clamp-2'>{description}</div>
+    </div>
+    {image && (typeof image === 'string' ? (
+      <img src={image} class='flex-none w-14 h-14 object-cover rounded-lg ml-2 shadow-lg' alt='cover' />
+    ) : (
+      <Image src={image} class='flex-none w-14 h-14 object-cover rounded-lg ml-2 shadow-lg' alt='cover' />
+    ))}
+  </div>
+</div>
+

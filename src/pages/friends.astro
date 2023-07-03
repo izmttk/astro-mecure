@@ -1,0 +1,36 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro"
+import type { Page } from "@/types";
+import pageImage from '@/assets/friends-bg.jpg'
+import Friend from "@/components/Friend";
+
+import { getCollection } from 'astro:content';
+
+const page: Page = {
+  title: '友情链接',
+  description: 'My friends are here!',
+  image: pageImage,
+}
+
+const friendEntries = await getCollection('friends');
+
+---
+<PageLayout 
+  page={page} 
+  hasFooter={true}
+  hasHero={true}
+  hasNavbar={true}
+  hasComment={true} 
+  hasSidebar={false}
+>
+  <section class="mb-6 not-prose">
+    <h2 class="text-xl font-bold mb-3">我的朋友</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {friendEntries.map(entry => (
+        <Friend {...entry.data} />
+      ))}
+    </div>
+  </section>
+  <p>虚位以待</p>
+</PageLayout>
+

@@ -1,0 +1,39 @@
+.prose {
+  .astro-code {
+    @apply dark:!bg-gray-900;
+  }
+  /* code block line number for shiki */
+  @supports (counter-reset: step) {
+    .astro-code code {
+      counter-reset: step;
+    }
+    .astro-code code .line::before {
+      content: counter(step);
+      counter-increment: step;
+      width: 1.4em;
+      margin-right: .8rem;
+      display: inline-block;
+      direction: rtl;
+      color: rgba(139, 148, 158, .75);
+    }
+  }
+
+  .math {
+    overflow: auto;
+  }
+  table {
+  
+  }
+  .contains-task-list {
+    /* padding-left: 0; */
+    list-style: none;
+    @apply space-y-1.5;
+    .task-list-item {
+      position: relative;
+      [type=checkbox] {
+        position: absolute;
+        transform: translate(calc(-100% - 0.375em), .15em);
+      }
+    }
+  }
+}

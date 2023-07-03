@@ -43,7 +43,11 @@ export default async function generateRssFeed(options: RssFeedOptions) {
       description: post.excerpt,
       date: post.date,
       content: post.raw,
-      image: post.image ? new URL(post.image, site).href : undefined,
+      author: [{ name: post.author.name }],
+      image: post.image ? (
+        typeof post.image === 'string' ? new URL(post.image, site).href 
+        : new URL(post.image.src, site).href
+      ) : undefined,
     })
   });
   if (format === 'xml') {

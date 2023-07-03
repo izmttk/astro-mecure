@@ -1,21 +1,27 @@
-// tailwind.config.cjs
-const plugin = require('tailwindcss/plugin')
-const colors = require('tailwindcss/colors')
-const defaultTheme = require('tailwindcss/defaultTheme')
+// tailwind.config.ts
+import type { Config } from 'tailwindcss'
+import type { PluginUtils } from 'tailwindcss/types/config'
+
+import tailwindScrollbar from 'tailwind-scrollbar'
+import typography from '@tailwindcss/typography'
+// import clipPath from 'tailwind-clip-path'
+
+import plugin from 'tailwindcss/plugin'
+import colors from 'tailwindcss/colors'
+import defaultTheme from 'tailwindcss/defaultTheme'
 const gray = colors.gray;
 const primary = colors.blue;
 const secondary = colors.pink;
 
-const round = (num) =>
+const round = (num: number) =>
   num
     .toFixed(7)
     .replace(/(\.[0-9]+?)0+$/, '$1')
     .replace(/\.0$/, '')
-const rem = (px) => `${round(px / 16)}rem`
-const em = (px, base) => `${round(px / base)}em`
+const rem = (px: number) => `${round(px / 16)}rem`
+const em = (px: number, base: number) => `${round(px / base)}em`
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
 	content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
     './rehype/*.{js,ts}',
@@ -24,8 +30,8 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontFamily:{
-      sans: ['InterVariable', 'Inter',  ...defaultTheme.fontFamily.sans],
-      mono: ['Fira CodeVariable', 'Fira Code', ...defaultTheme.fontFamily.mono],
+      sans: ['Inter Variable', 'Inter',  ...defaultTheme.fontFamily.sans],
+      mono: ['Fira Code Variable', 'Fira Code', ...defaultTheme.fontFamily.mono],
     },
     extend: {
       colors: {
@@ -60,7 +66,7 @@ module.exports = {
           dark: gray[800],
         }
       },
-      typography: (theme) => ({
+      typography: ({ theme }: PluginUtils) => ({
         DEFAULT: {
           css: {
             maxWidth: 'none',
@@ -119,9 +125,17 @@ module.exports = {
               color: 'inherit',
               fontWeight: 'inherit',
             },
-            'table': {
-              display: 'block',
-              overflow: 'scroll'
+            img: {
+              borderRadius: theme('borderRadius.lg'),
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            },
+            table: {
+              // display: 'block',
+              width: 'fit-content',
+              overflowX: 'auto',
+              marginLeft: 'auto',
+              marginRight: 'auto',
             },
             kbd: {
               background: theme('colors.gray.100'),
@@ -151,6 +165,12 @@ module.exports = {
             },
             'ul ul, ul ol, ol ul, ol ol': {
               margin: 0,
+            },
+            'ul li > *:first-child, ol li > *:first-child': {
+              marginTop: 0,
+            },
+            'ul li > *:last-child, ol li > *:last-child': {
+              marginBottom: 0,
             },
           },
         },
@@ -294,15 +314,13 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/line-clamp'),
-    require('tailwind-scrollbar')({ nocompatible: true }),
-    require('@tailwindcss/typography'),
-    require('tailwind-clip-path'),
+    tailwindScrollbar({ nocompatible: true }),
+    typography(),
     // add a "ring-highlight" utility
     // which sets a top border highlight using box-shadow
     // thus conflicting with any other ring utilities
     // shadow utilities are not affected
-    plugin(function ({ addUtilities }) {
+    plugin(({ addUtilities }) => {
       addUtilities({
         '.ring-highlight': {
           'box-shadow': [
@@ -312,7 +330,7 @@ module.exports = {
         }
       })
     }),
-    plugin(function ({ addUtilities, theme }) {
+    plugin(({ addUtilities, theme }) => {
       addUtilities({
         '.plate-bg': {
           '@apply bg-plate-light dark:bg-plate-dark': {}
@@ -338,4 +356,4 @@ module.exports = {
       })
     })
   ],
-}
+} satisfies Config;

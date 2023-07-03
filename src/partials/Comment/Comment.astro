@@ -1,0 +1,34 @@
+---
+import Giscus from './Giscus'
+import Waline from './Waline';
+import type { GiscusOptions } from './Giscus';
+import type { WalineOptions } from './Waline';
+
+export interface GiscusCommentConfig {
+  provider: 'giscus';
+  options: GiscusOptions;
+}
+
+export interface WalineCommentConfig {
+  provider: 'waline';
+  options: WalineOptions;
+}
+
+export type CommentConfig = GiscusCommentConfig | WalineCommentConfig | false;
+
+export interface CommentProps {
+  config: CommentConfig;
+}
+
+export type Props = CommentProps;
+const {
+  config
+} = Astro.props;
+---
+{config && (
+  <>
+    {config.provider === 'giscus' && <Giscus {...config.options} client:load />}
+    {config.provider === 'waline' && <Waline {...config.options} client:load />}
+  </>
+)}
+

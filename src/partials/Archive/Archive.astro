@@ -1,0 +1,51 @@
+---
+import { twMerge } from 'tailwind-merge';
+import Timeline from '@/components/Timeline';
+import PostBrief from './PostBrief.astro';
+import type { ArchivePostBrief } from './PostBrief.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+
+interface ArchiveTimeline extends Array<{
+  label: string;
+  posts: ArchivePostBrief[];
+}>{}
+
+export interface ArchiveConfig {
+  title?: string;
+  timeline: ArchiveTimeline;
+}
+
+export interface ArchiveProps extends HTMLAttributes<'section'> {
+  config: ArchiveConfig;
+}
+
+export type Props = ArchiveProps;
+const {
+  config,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const {
+  title,
+  timeline,
+} = config;
+
+---
+<section class={twMerge(
+  className,
+)} {...rest}>
+  <h2 class='text-xl font-bold'>{title}</h2>
+  <Timeline>
+    {timeline.map((item, index) => (
+      <Timeline.Item label={item.label} key={index}>
+        <div class='flex flex-wrap gap-3'>
+          {item.posts.map((post, index) => (
+            <PostBrief {...post} class='w-full md:w-[17rem] flex-none' />
+          ))}
+        </div>
+      </Timeline.Item>
+    ))}
+  </Timeline>
+</section>

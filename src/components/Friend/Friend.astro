@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface FriendProps extends HTMLAttributes<'a'> {
+  avatar: ImageMetadata | string;
+  name: string;
+  description: string;
+  link: string;
+  bgColor?: string;
+  textColor?: string;
+}
+
+export type Props = FriendProps;
+const {
+  class: className,
+  avatar,
+  name,
+  description,
+  link,
+  bgColor,
+  textColor,
+  ...rest
+} = Astro.props;
+---
+
+<a class={twMerge(
+  'flex p-2 rounded-xl bg-gray-200 dark:bg-gray-700',
+  className
+)} href={link} target='_blank' {...rest} style={{
+  backgroundColor: bgColor,
+  color: textColor
+}}>
+  {avatar && (
+    typeof avatar  === 'string' ? (
+      <img src={avatar} class='w-[4.25rem] h-[4.25rem] object-cover rounded-lg flex-none mr-2' alt={name} />
+    ) : (
+      <Image src={avatar} width={68} height={68} class='w-[4.25rem] h-[4.25rem] object-cover rounded-lg flex-none mr-2' alt={name} />
+    )
+  )}
+  <div class='flex-1 min-w-0 flex flex-col justify-center'>
+    <div class='truncate text-lg font-bold'>{name}</div>
+    <div class='line-clamp-2 text-sm'>{description}</div>
+  </div>
+</a>

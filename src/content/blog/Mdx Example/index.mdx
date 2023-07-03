@@ -1,6 +1,6 @@
 ---
 title: Mdx Example
-image: /assets/postcard-mdx.jpg
+image: ./postcard-mdx.jpg
 ---
 export const authors = [
     { name: "Jane", email: "hi@jane.com" },
@@ -119,8 +119,8 @@ const weSupportAstro = true;
 ```
 
 
-import Example from './Example'
-import ExampleAstro from './Example.astro'
+import Example from './_components/Example'
+import ExampleAstro from './_components/Example.astro'
 
 <Example client:load>
   <ExampleAstro />

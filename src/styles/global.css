@@ -47,33 +47,63 @@ body {
       url(/assets/left-bottom-bg.svg) no-repeat bottom left/20rem,
       url(/assets/right-top-bg.svg) no-repeat top right/20rem;
   }
-}
-
-.dark body::before {
-  opacity: 0.3;
-}
-
-/* code block line number for shiki */
-.astro-code code {
-  counter-reset: step;
-}
-
-.astro-code code .line::before {
-  content: counter(step);
-  counter-increment: step;
-  width: 1.4em;
-  margin-right: .8rem;
-  display: inline-block;
-  direction: rtl;
-  color: rgba(139, 148, 158, .75);
-}
-
-
-.prose .math {
-  overflow: auto;
+  .dark body::before {
+    opacity: 0.3;
+  }
 }
 
 /* FireFox ScrollBar Thin Style */
-* {
+:root, :root * {
   scrollbar-width: thin;
+}
+
+
+main {
+  /* checkbox and radio styles */
+  [type=checkbox],
+  [type=radio] {
+    @apply appearance-none !outline-none checked:bg-current dark:checked:bg-current checked:border-none border align-middle inline-block;
+    @apply focus-visible:ring-primary-500 dark:focus-visible:ring-primary-600 dark:ring-offset-gray-800 dark:focus-visible:ring-offset-gray-800 focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+  [type=checkbox] {
+    @apply w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded;
+  }
+  [type=radio] {
+    @apply w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-full;
+  }
+  [type=checkbox]:checked {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
+  }
+  [type=radio]:checked {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3C/svg%3E");
+  }
+  [type=range] {
+    @apply h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 !outline-none;
+    @apply focus-visible:ring-primary-500 dark:focus-visible:ring-primary-600 dark:ring-offset-gray-800 dark:focus-visible:ring-offset-gray-800 focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+  [type=range]::-webkit-slider-thumb,
+  [type=range]::-moz-range-thumb {
+    @apply appearance-none w-4 h-4 bg-primary-600 rounded-full shadow cursor-pointer border-none;
+  }
+  [type=range]:disabled::-webkit-slider-thumb,
+  [type=range]:disabled::-moz-range-thumb {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+
+  /* input styles */
+  input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus-visible:ring-primary-500 focus-visible:ring-1 focus-visible:border-primary-500 px-2 py-1.5 appearance-none !outline-none;
+    @apply dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus-visible:ring-primary-500 dark:focus-visible:border-primary-500;
+  }
+  [type=checkbox]:disabled + label, 
+  [type=radio]:disabled + label {
+    @apply text-gray-400 dark:text-gray-500;
+  }
+  select:not([size]) {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.375rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2rem;
+  }
 }

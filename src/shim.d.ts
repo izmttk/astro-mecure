@@ -9,8 +9,8 @@ declare module '*.svg' {
 }
 
 
-// support importing .astro in .ts file
-declare module '*.astro' {
-  import { AstroComponentFactory } from 'astro'
-  export default AstroComponentFactory;
-}
+// // support importing .astro in .ts file
+// declare module '*.astro' {
+//   import { AstroComponentFactory } from 'astro'
+//   export default AstroComponentFactory;
+// }

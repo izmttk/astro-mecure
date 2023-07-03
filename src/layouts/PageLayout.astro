@@ -1,7 +1,8 @@
 ---
 import Navbar from '@/partials/Navbar';
 import Footer from '@/partials/Footer';
-import Sidebar, { SidebarConfig, TocConfig } from '@/partials/Sidebar';
+import Sidebar from '@/partials/Sidebar';
+import type { SidebarConfig, TocConfig } from '@/partials/Sidebar';
 import getTags from '@/utils/getTags';
 import getCategories from '@/utils/getCategories';
 import type { Page } from '@/types';
@@ -14,6 +15,7 @@ import sortByProperty from '@/utils/sortByProperty';
 import { twMerge } from 'tailwind-merge';
 import generateToc from '@/utils/generateToc';
 import Search from '@/components/Search';
+import { getImage } from 'astro:assets';
 
 export interface Props {
   page: Page;
@@ -80,12 +82,19 @@ function getHeroInfo(page: Page): HeroConfig['info'] {
   }
 }
 
-const heroConfig: HeroConfig | false = hero ? {
-  bg: page.image ?? hero.bg,
-  title: page.type === 'index' ? hero.title : page.title,
-  description: page.type === 'index' ? hero.description : page.description,
-  info: getHeroInfo(page),
-} : false;
+let heroConfig: HeroConfig | false = false;
+if (hero) {
+  const heroBgSource = page.image ?? hero.bg;
+  const heroBg = typeof heroBgSource === 'string' ? heroBgSource 
+    : (await getImage({ src: heroBgSource, width: 1920, quality: 80 })).src;
+  heroConfig = {
+    bg: heroBg,
+    title: page.type === 'index' ? hero.title : page.title,
+    description: page.type === 'index' ? hero.description : page.description,
+    logo: hero.logo,
+    info: getHeroInfo(page),
+  }
+}
 
 const widgetConfig: SidebarConfig['widgets'] = sidebar && sidebar.widgets ? 
   await Promise.all(sidebar.widgets.map(async widget => {
@@ -134,13 +143,12 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 <BaseLayout 
   title={page.type === 'index' ? config.title : page.title}
   description={page.description ?? config.description}
-  author={page.type === 'post' && page.post.author ? page.post.author : config.author}
+  author={page.type === 'post' ? page.post.author.name : config.author}
   favicon={config.favicon}
 >
   <slot name="head" slot="head" />
   {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar}  client:load />}
-  <div id="swup" class="transition-fade flex flex-col flex-grow">
-    {hasHero && heroConfig && <Hero className='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} client:load />}
+    {hasHero && heroConfig && <Hero class='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} />}
     <main class="mx-auto w-full lg:max-w-[74rem] my-3 flex-grow flex">
       <div class={twMerge(
         "p-3 min-w-0 w-full",
@@ -149,7 +157,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
         <slot />
         {hasComment && comment && (
           <div class="mt-6">
-            <Comment config={comment} client:load />
+            <Comment config={comment} />
           </div>
         )}
       </div>
@@ -164,7 +172,6 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
         config={pagination}
       />
     )}
-  </div>
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
   {algolia && <Search {...algolia} client:only='react' />}
 </BaseLayout>
@@ -178,51 +185,3 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
     opacity: 0;
   }
 </style>
-
-<script>
-  import Swup from 'swup';
-  import SwupHeadPlugin from '@swup/head-plugin';
-  import SwupScriptsPlugin from '@swup/scripts-plugin';
-  import { hydrateRoot } from 'react-dom/client';
-  import ProgressBar from '@/components/ProgressBar';
-
-  function isAlreadyHydrated(element: Element) {
-    for (const key in element) {
-      if (key.startsWith('__reactContainer')) {
-        return key;
-      }
-    }
-  }
-  const swup = new Swup({
-    linkSelector: 'a[href]:not([href^="#"])',
-    animateHistoryBrowsing: true,
-    plugins: [
-      new SwupHeadPlugin(),
-      new SwupScriptsPlugin(),
-    ]
-  });
-  swup.on('animationOutStart', () => {
-    ProgressBar.start();
-  });
-  swup.on('animationInStart', () => {
-    ProgressBar.finish();
-  });
-  swup.on('willReplaceContent', () => {
-    // hack method to unmount react roots
-    document.querySelectorAll('#swup astro-island').forEach((element) => {
-      const rootKey = isAlreadyHydrated(element);
-      if(rootKey) {
-        const root = hydrateRoot(document.createElement('div'), null);
-        (root as any)._internalRoot =  (element as any)[rootKey].stateNode;
-        root.unmount();
-      }
-    });
-  });
-  swup.on('willReplaceContent', () => {
-    document.documentElement.style.scrollBehavior = 'auto';
-    window.scrollTo({
-      top: 0,
-    })
-    document.documentElement.style.scrollBehavior = '';
-  });
-</script>

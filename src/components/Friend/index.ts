@@ -1,2 +1,2 @@
-export { default } from './Friend';
-export * from './Friend';
+export { default } from './Friend.astro';
+export * from './Friend.astro';

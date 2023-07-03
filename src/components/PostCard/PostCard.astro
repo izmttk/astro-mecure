@@ -3,8 +3,8 @@ import BlurPostCard from './BlurPostCard.astro'
 import MaterialPostCard from './MaterialPostCard.astro';
 import FullPostCard from './FullPostCard.astro';
 import PlainPostCard from './PlainPostCard.astro';
-import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
+import type { ImageMetadata } from 'astro';
 
 export interface BasePostCardProps {
   class?: string;
@@ -12,7 +12,7 @@ export interface BasePostCardProps {
   excerpt?: string;
   url: string;
   date: Date;
-  image?: string;
+  image?: ImageMetadata | string;
   tags?: Array<{
     label: string;
     url: string;
@@ -71,47 +71,3 @@ const VariantPostCard = variantComponents[variant];
   'border-highlight plate-shadow z-10',
   className
 )} {...rest} />
-
-
-<script>
-// const animeIn: Keyframe[] = [
-//   {
-//     opacity: 0,
-//     transform: 'translateY(36px) scale(0.95)',
-//   },
-//   {
-//     opacity: 1,
-//     transform: 'translateY(0) scale(1)'
-//   }
-// ]
-// const observer = new IntersectionObserver((entries) => {
-//   entries.forEach(entry => {
-//     if (entry.intersectionRatio > 0) {
-//       entry.target.getAnimations().forEach(animation => { 
-//         animation.play();
-//       })
-//       observer.unobserve(entry.target)
-//     }
-//   })
-// }, {
-//   threshold: [0, 1]
-// })
-
-
-// const observePostcard = () => {
-//   document.querySelectorAll('.postcard-animation').forEach((element => {
-//     if (element instanceof HTMLElement) {
-//       element.classList.remove('opacity-0')
-//     }
-//     element.animate(animeIn, {
-//       duration: 250,
-//       easing: 'ease-out',
-//     }).pause()
-//     observer.observe(element)
-//   }))
-// }
-// observePostcard();
-// document.addEventListener('swup:pageView', () => {
-//   observePostcard();
-// });
-</script>

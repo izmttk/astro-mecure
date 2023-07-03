@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import image from '@astrojs/image';
+import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
 
@@ -25,14 +26,17 @@ import rehypeRaw from 'rehype-raw';
 import rehypePostExcerpt from './plugins/rehype/rehypePostExcerpt';
 import rehypePostReadingTime from './plugins/rehype/rehypePostReadingTime';
 import rehypePostRaw from './plugins/rehype/rehypePostRaw';
+import rehypeAdmonition from './plugins/rehype/rehypeAdmonition';
 
 import { remarkCodeHike } from '@code-hike/mdx';
 import theme from 'shiki/themes/github-dark-dimmed.json';
+
 // https://astro.build/config
 const config: AstroUserConfig = {
   site: 'https://suborbit.me/',
   // base: 'blog',
-  // output: 'server',
+  output: 'static',
+  compressHTML: true,
   // adapter: node({
   //   mode: 'standalone'
   // }),
@@ -62,16 +66,22 @@ const config: AstroUserConfig = {
         // }],
       ]
     }),
-    image(),
-    compress({
-      // avoid react hydration error
-      // html: {
-      //   collapseWhitespace: false,
-      //   removeComments: false,
-      // },
-      html: false
+    icon({
+      include: {
+        mingcute: ["*"],
+        tabler: ["*"],
+      },
     }),
-    sitemap(),
+    // image(),
+    // compress({
+    //   // avoid react hydration error
+    //   // html: {
+    //   //   collapseWhitespace: false,
+    //   //   removeComments: false,
+    //   // },
+    //   html: false
+    // }),
+    // sitemap(),
   ],
 
   markdown: {
@@ -94,14 +104,17 @@ const config: AstroUserConfig = {
         passThrough: ['comment']
       }],
       rehypePostRaw,
-      rehypePostExcerpt,
+      [rehypePostExcerpt, {
+        limit: 220,
+      }],
       rehypePostReadingTime,
       rehypeKatex,
+      rehypeAdmonition,
     ],
   },
-  build: {
-    assets: 'assets'
-  },
+  // build: {
+  //   assets: 'assets'
+  // },
   vite: {
     plugins: [
       svgr({
@@ -133,6 +146,11 @@ const config: AstroUserConfig = {
       //   }
       // }
     }
+  },
+  experimental: {
+    assets: true,
+    // inlineStylesheets: 'auto',
+    // hybridOutput: false,
   }
 };
 

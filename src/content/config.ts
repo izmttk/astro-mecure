@@ -1,13 +1,29 @@
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection, reference } from 'astro:content';
+
+export const authors = defineCollection({
+  type: 'data',
+  schema: ({ image }) => z.object({
+    name: z.string(),
+    avatar: z.union([
+      image(),
+      z.string().url()
+    ]).optional(),
+    description: z.string().optional()
+  })
+})
 
 const blog = defineCollection({
-  schema: z.object({
+  type: 'content',
+  schema: ({ image }) => z.object({
     title: z.string(),
-    image: z.string().optional(),
+    image: z.union([
+      image(), //.transform(image => image.src),
+      z.string().url()
+    ]).optional(), //z.string().optional(),
     date: z.date().optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().default(false),
-    author: z.string().optional(),
+    author: reference('authors').default('default'),
     tags: z.string().array().default([]),
     category: z.string().array().default([]),
     permalink: z.string().optional(),
@@ -20,6 +36,23 @@ const blog = defineCollection({
   ),
 })
 
+export const friends = defineCollection({
+  type: 'data',
+  schema: ({ image }) => z.object({
+    name: z.string(),
+    link: z.string().url(),
+    bgColor: z.string(),
+    textColor: z.string(),
+    avatar: z.union([
+      image(),
+      z.string().url()
+    ]),
+    description: z.string(),
+  })
+})
+
 export const collections = {
+  authors,
   blog,
+  friends
 }

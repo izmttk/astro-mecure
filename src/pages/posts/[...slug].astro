@@ -5,6 +5,7 @@ import getPosts from '@/utils/getPosts';
 import MDXComponents from '@/components/MDXComponents';
 import ArticleOutdateTip from '@/components/ArticleOutdateTip';
 import ArticleLicense from '@/components/ArticleLicense';
+import config from '@/config';
 
 export interface Props {
   post: Post;
@@ -25,21 +26,34 @@ export async function getStaticPaths() {
 
 const { post: postProp } = Astro.props;
 const { Content, ...post } = postProp;
+const outdateTipConfig = config.typography?.outdateTip;
+const licenseConfig = config.typography?.license;
 ---
 
 <PostLayout post={post}>
-  <!-- <ArticleOutdateTip
-    updateDate={post.updateDate}
-    className="not-prose -mx-4 md:-mx-8 mb-4 md:mb-8 px-4 md:px-8"
-    client:load
-  /> -->
+  {
+    outdateTipConfig &&   <ArticleOutdateTip
+      updateDate={post.updateDate}
+      outdateLimit={outdateTipConfig.outdateLimit}
+      className="not-prose -mx-4 md:-mx-8 mb-4 md:mb-8 px-4 md:px-8"
+      client:load
+      slot="header"
+    />
+  }
   <Content components={MDXComponents} />
-  <ArticleLicense
-    url={decodeURI(Astro.url.href)}
-    title={post.title}
-    author={post.author}
-    date={post.date}
-    updateDate={post.updateDate}
-    className="not-prose -mx-4 md:-mx-8 mt-4 md:mt-8 px-4 md:px-8"
-  />
+  {
+    licenseConfig && <ArticleLicense
+      url={decodeURI(Astro.url.href)}
+      title={post.title}
+      author={post.author.name}
+      date={post.date}
+      updateDate={post.updateDate}
+      licenseName={licenseConfig.licenseName}
+      licenseUrl={licenseConfig.licenseUrl}
+      infoText={licenseConfig.infoText}
+      class="not-prose -mx-4 md:-mx-8 mt-4 md:mt-8 px-4 md:px-8"
+      slot="footer"
+    />
+  }
+
 </PostLayout>

@@ -1,4 +1,4 @@
-import type { MarkdownHeading, MarkdownInstance } from 'astro';
+import type { ImageMetadata, MarkdownHeading, MarkdownInstance } from 'astro';
 import { Page as AstroPage } from 'astro';
 export interface Tag {
   slug: string;
@@ -14,6 +14,12 @@ export interface Category {
   count: number;
 }
 
+export interface Author {
+  name: string;
+  avatar?: ImageMetadata | string;
+  description?: string;
+}
+
 export interface Post {
   slug: string;
   url: string;
@@ -23,10 +29,10 @@ export interface Post {
   draft: boolean;
   category: Category;
   tags: Tag[];
-  author: string;
+  author: Author;
 
   excerpt?: string;
-  image?: string;
+  image?: ImageMetadata | string;
   permalink?: string;
   readingTime?: number;
   wordCount?: number;
@@ -52,7 +58,7 @@ export interface Paginator {
 export interface BasePage {
   title: string;
   description?: string;
-  image?: string;
+  image?: ImageMetadata | string;
   type?: never;
 }
 
@@ -122,6 +128,19 @@ export type PaginationConfig = PaginationPartialConfig;
 export type CommentConfig = CommentPartialConfig;
 export type FooterConfig = FooterPartialConfig;
 
+export type TypographyConfig = {
+  fontSize?: number;
+  lineHeight?: number;
+  outdateTip?: false | {
+    outdateLimit?: number;
+  };
+  license?: false | {
+    licenseName: string;
+    licenseUrl?: string;
+    infoText?: string;
+  }
+};
+
 export type AlgoliaConfig = {
   appId: string;
   apiKey: string;
@@ -139,5 +158,6 @@ export interface Config {
   pagination?: PaginationConfig | false;
   comment?: CommentConfig | false;
   footer?: FooterConfig | false;
+  typography?: TypographyConfig;
   algolia?: AlgoliaConfig;
 }

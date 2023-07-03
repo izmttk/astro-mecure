@@ -8,10 +8,7 @@
 
 import React from 'react';
 import NoSSR from '../../NoSSR';
-import {
-  MermaidContainerClassName,
-  useMermaidSvg,
-} from './client';
+import useMermaidSvg from './useMermaidSvg';
 
 import styles from './Mermaid.module.css';
 
@@ -19,14 +16,19 @@ export interface MermaidProps {
   value: string;
 }
 
+// Stable className to allow users to easily target with CSS
+export const MermaidContainerClassName = 'mermaid-container';
+
 function MermaidDiagram({value}: MermaidProps) {
   const svg = useMermaidSvg(value);
-  return (
+  return svg ? (
     <div
       className={`${MermaidContainerClassName} ${styles.container}`}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{__html: svg}}
     />
+  ) : (
+    <div className='h-72 flex justify-center items-center bg-gray-500/10 rounded-lg'>Rendering</div>
   );
 }
 

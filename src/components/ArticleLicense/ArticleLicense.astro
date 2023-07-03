@@ -1,0 +1,67 @@
+---
+import { format } from 'date-fns';
+import { zhCN } from 'date-fns/locale';
+import { twMerge } from 'tailwind-merge';
+import type { HTMLAttributes } from 'astro/types';
+import IconCreativeCommons from './IconCreativeCommons.astro';
+export interface ArticleLicenseProps extends HTMLAttributes<'div'> {
+  url: string;
+  title: string;
+  date: Date;
+  updateDate: Date;
+  author: string;
+  licenseName: string;
+  licenseUrl?: string;
+  infoText?: string;
+}
+export type Props = ArticleLicenseProps;
+const {
+  url,
+  title,
+  date,
+  updateDate,
+  author,
+  licenseName,
+  licenseUrl,
+  infoText,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+<div class={twMerge(
+  'relative bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 p-5 overflow-hidden',
+  className
+)} {...rest}>
+  <div class="space-y-2">
+    <p class="text-sm font-bold">{title}</p>
+    <p class="text-sm opacity-60">
+      <a href={url}>{url}</a>
+    </p>
+    <div class="flex space-x-4">
+      <div class="text-sm">
+        <h6 class="mb-1">作者</h6>
+        <p>{author}</p>
+      </div>
+      <div class="text-sm">
+        <h6 class="mb-1">发布于</h6>
+        <p>{format(date, 'PPP', { locale: zhCN })}</p>
+      </div>
+      <div class="text-sm">
+        <h6 class="mb-1">编辑于</h6>
+        <p>{format(updateDate, 'PPP', { locale: zhCN })}</p>
+      </div>
+      <div class="text-sm">
+        <h6 class="mb-1">许可协议</h6>
+        <div class="flex space-x-1">
+          {licenseUrl ? (
+            <a href={licenseUrl}>{licenseName}</a>
+          ) : (
+            <p>{licenseName}</p>
+          )}
+        </div>
+      </div>
+    </div>
+    {infoText && <p class="text-sm opacity-60">{infoText}</p>}
+  </div>
+  <IconCreativeCommons class="w-8 h-8 scale-[6] origin-bottom-right absolute -right-6 bottom-3 opacity-10 z-0" />
+</div>

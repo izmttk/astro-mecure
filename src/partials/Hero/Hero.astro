@@ -1,0 +1,152 @@
+---
+import { twMerge } from 'tailwind-merge';
+import IconCalendarFill from '~icons/mingcute/calendar-fill';
+import IconTextFill from '~icons/mingcute/text-fill';
+import IconTimeFill from '~icons/mingcute/time-fill';
+import IconDocument from '~icons/mingcute/document-fill';
+import IconEdit from '~icons/mingcute/edit-fill';
+import IconUser from '~icons/mingcute/user-3-fill';
+
+// import Logo from './Logo'
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+import type { Page, Post } from '@/types';
+import Category from '@/components/Category';
+import Tag from '@/components/Tag';
+import DateTime from '@/components/DateTime';
+import type { HTMLAttributes } from 'astro/types';
+import Background from './Background';
+interface HeroPostInfo {
+  type: 'post',
+  date: Post['date'],
+  updateDate: Post['updateDate'],
+  draft: Post['draft'],
+  category: Post['category'],
+  tags: Post['tags'],
+  author: Post['author'],
+  readingTime: Post['readingTime'],
+  wordCount: Post['wordCount'],
+}
+
+interface HeroCategoriesInfo {
+  type: 'categories',
+  count: number,
+}
+
+interface HeroTagsInfo {
+  type: 'tags',
+  count: number,
+}
+
+interface HeroPostsInfo {
+  type: 'posts',
+  count: number,
+}
+
+interface HeroArchiveInfo {
+  type: 'archive',
+  count: number,
+}
+
+type HeroInfo = HeroPostInfo | HeroCategoriesInfo | HeroTagsInfo | HeroPostsInfo | HeroArchiveInfo;
+
+
+export interface HeroConfig {
+  bg: string;
+  title?: string;
+  description?: string;
+  logo?: ImageMetadata | string;
+  info?: HeroInfo,
+}
+
+export interface HeroProps extends HTMLAttributes<'div'> {
+  config: HeroConfig;
+}
+
+
+export type Props = HeroProps;
+
+const {
+  config,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const {
+  bg,
+  title,
+  description,
+  logo,
+  info
+} = config;
+---
+
+<header class={twMerge(
+  className
+)} {...rest}>
+  <div class='w-full h-full overflow-hidden rounded-xl relative plate-bg plate-shadow border-highlight'>
+    <Background bg={bg} client:load />
+    <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white pointer-events-none'>
+      {title 
+        ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)] pointer-events-auto'>{title}</h1> 
+        : logo && (typeof logo === 'string' ? (
+            <img src={logo} alt='cover' class='h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]' />
+          ) : (
+            <Image src={logo} alt='cover' class='h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]' />
+          )
+        )
+      }
+      {!info && description && <div class='mt-4 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{description}</div>}
+      {info?.type === 'post' && (
+        <>
+          <div class='flex flex-wrap justify-center text-[0.8125rem] gap-x-4 gap-y-1 mt-4'>
+            {/* make sure that prerendered html isn't afftected by timezone */}
+            {info.date && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
+              <IconCalendarFill className='inline mr-1' />发布于 <DateTime date={info.date} client:load />
+            </div>}
+            {info.updateDate && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
+              <IconEdit className='inline mr-1' />修改于 <DateTime date={info.updateDate} client:load />
+            </div>}
+            {info.readingTime && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
+              <IconTimeFill className='inline mr-1' />约{info.readingTime}分钟
+            </div>}
+            {info.wordCount && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
+              <IconTextFill className='inline mr-1' />共{info.wordCount}字
+            </div>}
+            {info.author && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
+              <IconUser className='inline mr-1' />{info.author.name}
+            </div>}
+            {info.draft && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
+              <IconDocument />草稿
+            </div>}
+          </div>
+          <div class='flex flex-wrap items-center justify-center mt-4 gap-2 pointer-events-auto'>
+            <Category onlyText className='text-text-primary text-[0.8125rem] rounded-full pl-1.5 pr-2.5 py-0.5 bg-white/70 shadow-md hover:bg-primary-500 hover:text-white transition duration-75' category={info.category} />
+            {info.tags.map(tag => <Tag onlyText className='text-text-primary text-[0.8125rem] rounded-full pl-1.5 pr-2.5 py-0.5 bg-white/70 shadow-md hover:bg-primary-500 hover:text-white transition duration-75' tag={tag} />)}
+          </div>
+        </>
+      )}
+      {info?.type === 'categories' && (
+        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+          <div class=''>共{info.count}个分类</div>
+        </div>
+      )}
+      {info?.type === 'tags' && (
+        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+          <div class=''>共{info.count}个标签</div>
+        </div>
+      )}
+      {info?.type === 'posts' && (
+        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+          <div class=''>共{info.count}篇文章</div>
+        </div>
+      )}
+      {info?.type === 'archive' && (
+        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+          <div class=''>共{info.count}篇文章</div>
+        </div>
+      )}
+    </div>
+  </div>
+</header>

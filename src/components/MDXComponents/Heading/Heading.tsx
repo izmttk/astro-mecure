@@ -43,7 +43,7 @@ export default function Heading({
       'group -ml-1 pl-1 md:-ml-5 md:pl-5 relative not-prose',
       className
     )} {...rest}>
-      <a href={`#${id}`} className='absolute -left-6 top-1/2 -translate-y-1/2 items-center hidden border-0 group-hover:flex' aria-hidden>
+      <a href={`#${id}`} className='absolute -left-6 top-1/2 translate-x-2 -translate-y-1/2 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100' aria-hidden>
         <HeadingIcon className='w-6 h-6 p-1 text-slate-600 ring-1 ring-slate-300 rounded-md bg-white dark:bg-slate-700 dark:text-slate-300 dark:ring-slate-600' />
       </a>
       {children}
