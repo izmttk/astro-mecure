@@ -179,7 +179,6 @@ const config: Config = {
     ],
     declarations: [
       `Copyright © ${getYear(new Date())} 银河渡舟 All Rights Reserved.`,
-      `Copyright © ${getYear(new Date())} 银河渡舟 All Rights Reserved.`
     ],
     generator: true,
     rss: true,
