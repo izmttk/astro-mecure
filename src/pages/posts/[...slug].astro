@@ -32,11 +32,11 @@ const licenseConfig = config.typography?.license;
 
 <PostLayout post={post}>
   {
-    outdateTipConfig &&   <ArticleOutdateTip
+    outdateTipConfig && <ArticleOutdateTip
       updateDate={post.updateDate}
       outdateLimit={outdateTipConfig.outdateLimit}
       className="not-prose -mx-4 md:-mx-8 mb-4 md:mb-8 px-4 md:px-8"
-      client:load
+      client:only="react"
       slot="header"
     />
   }

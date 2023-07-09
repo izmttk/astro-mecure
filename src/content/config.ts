@@ -20,7 +20,7 @@ const blog = defineCollection({
       image(), //.transform(image => image.src),
       z.string().url()
     ]).optional(), //z.string().optional(),
-    date: z.date().optional(),
+    date: z.date(),
     updateDate: z.date().optional(),
     draft: z.boolean().default(false),
     author: reference('authors').default('default'),

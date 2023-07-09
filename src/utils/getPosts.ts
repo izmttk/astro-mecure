@@ -48,14 +48,16 @@ async function getPosts(): Promise<Post[]> {
   return Promise.all(posts.map(async post => {
     const { Content, headings, remarkPluginFrontmatter } = await post.render();
     const author = (await getEntry(post.data.author)).data ?? {name: config.author};
+    // const date = post.data.date ?? fs.statSync(getPostPath(post.id)).birthtime;
+    // const updateDate = post.data.updateDate ?? fs.statSync(getPostPath(post.id)).mtime;
     return {
       slug: post.data.permalink ?? post.slug,
       title: post.data.title ?? '无标题',
       url: postUrl(post.slug),
       author: author,
       image: post.data.image,
-      date: post.data.date ?? fs.statSync(getPostPath(post.id)).birthtime,
-      updateDate: post.data.updateDate ?? fs.statSync(getPostPath(post.id)).mtime,
+      date: post.data.date,
+      updateDate: post.data.updateDate ?? post.data.date,
       draft: post.data.draft,
       category: {
         ...transformCategory(post.data.category),

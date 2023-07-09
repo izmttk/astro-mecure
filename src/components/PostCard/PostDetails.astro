@@ -1,13 +1,12 @@
 ---
 import Category from '../Category';
 import Tag from '../Tag';
-import { format } from 'date-fns';
-import { zhCN } from 'date-fns/locale';
 import IconCalendarFill from '~icons/mingcute/calendar-fill';
 import IconTextFill from '~icons/mingcute/text-fill';
 import IconTimeFill from '~icons/mingcute/time-fill';
 import { twMerge } from 'tailwind-merge';
 import ScrollArea from '../ScrollArea';
+import DateTime from '../DateTime';
 
 export interface PostDetailsProps {
   class?: string;
@@ -55,7 +54,7 @@ const {
   )}>
     <span class='flex items-center flex-none mr-auto'>
       <IconCalendarFill className='mr-1' />
-      {format(date, 'PPP', { locale: zhCN })}
+      <DateTime date={date} />
     </span>
     { typeof wordCount === 'number' && <span class='flex items-center'><IconTextFill className='mr-1' />共{wordCount}字</span> }
     { typeof readingTime === 'number' && <span class='flex items-center'><IconTimeFill className='mr-1' />约{readingTime}分钟</span> }

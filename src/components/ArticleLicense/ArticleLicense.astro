@@ -1,9 +1,8 @@
 ---
-import { format } from 'date-fns';
-import { zhCN } from 'date-fns/locale';
 import { twMerge } from 'tailwind-merge';
 import type { HTMLAttributes } from 'astro/types';
 import IconCreativeCommons from './IconCreativeCommons.astro';
+import DateTime from '../DateTime';
 export interface ArticleLicenseProps extends HTMLAttributes<'div'> {
   url: string;
   title: string;
@@ -44,11 +43,11 @@ const {
       </div>
       <div class="text-sm">
         <h6 class="mb-1">发布于</h6>
-        <p>{format(date, 'PPP', { locale: zhCN })}</p>
+        <p><DateTime date={date} /></p>
       </div>
       <div class="text-sm">
         <h6 class="mb-1">编辑于</h6>
-        <p>{format(updateDate, 'PPP', { locale: zhCN })}</p>
+        <p><DateTime date={updateDate} /></p>
       </div>
       <div class="text-sm">
         <h6 class="mb-1">许可协议</h6>

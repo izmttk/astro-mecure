@@ -1,5 +1,6 @@
 ---
 title: Hello World
+date: 2023-03-06
 image: https://image.wider.ink/static/20210128152049.jpg!/both/1200x800
 category:
 - Diary
