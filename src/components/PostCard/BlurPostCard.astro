@@ -23,8 +23,8 @@ const {
 
 const bg = image ? (typeof image === 'string' ? image : (await getImage({
   src: image,
-  width: 900,
-  height: 300,
+  width: 100,
+  height: 33,
   quality: 50,
 })).src): undefined;
 
@@ -50,7 +50,7 @@ const bg = image ? (typeof image === 'string' ? image : (await getImage({
       {typeof image === 'string' ? (
         <img src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
       ) : (
-        <Image src={image} width={400} height={300} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
+        <Image src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
       )}
     </a>
   )}

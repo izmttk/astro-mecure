@@ -6,8 +6,7 @@ tags:
 - SQL
 - MySQL
 category: 
-- 编程
-- 语言
+- 编程语言
 - SQL
 image: https://image.wider.ink/static/20210219102304.jpg!/both/1200x800
 ---

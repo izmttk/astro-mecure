@@ -2,7 +2,6 @@ import type { AstroUserConfig } from 'astro';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
-import image from '@astrojs/image';
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
@@ -19,14 +18,15 @@ import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import remarkGemoji from 'remark-gemoji';
 import remarkPostWordCount from './plugins/remark/remarkPostWordCount';
-import remarkAdmonition from './plugins/remark/remarkAdmonition';
+// import remarkAdmonitionDirective from './plugins/remark/remarkAdmonitionDirective';
 import remarkMermaid from './plugins/remark/remarkMermaid';
+import remarkAdmonition from './plugins/remark/remarkAdmonition';
+import remarkSpoiler from './plugins/remark/remarkSpoiler';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import rehypePostExcerpt from './plugins/rehype/rehypePostExcerpt';
 import rehypePostReadingTime from './plugins/rehype/rehypePostReadingTime';
 import rehypePostRaw from './plugins/rehype/rehypePostRaw';
-import rehypeAdmonition from './plugins/rehype/rehypeAdmonition';
 
 import { remarkCodeHike } from '@code-hike/mdx';
 import theme from 'shiki/themes/github-dark-dimmed.json';
@@ -44,17 +44,14 @@ const config: AstroUserConfig = {
     react(),
     tailwind(),
     mdx({
-      // syntaxHighlight: false,
       remarkPlugins: [
         remarkPostWordCount,
-        [remarkToc, {
-          tight: true,
-          ordered: true,
-        }],
+        [remarkToc, { tight: true, ordered: true }],
         remarkMath,
         remarkGemoji,
         remarkDirective,
         remarkAdmonition,
+        remarkSpoiler,
         remarkMermaid,
         // [remarkCodeHike, {
         //   lineNumbers: true,
@@ -72,7 +69,6 @@ const config: AstroUserConfig = {
         tabler: ["*"],
       },
     }),
-    // image(),
     // compress({
     //   // avoid react hydration error
     //   // html: {
@@ -90,26 +86,19 @@ const config: AstroUserConfig = {
     },
     remarkPlugins: [
       remarkPostWordCount,
-      [remarkToc, {
-        tight: true,
-        ordered: true,
-      }],
+      [remarkToc, { tight: true, ordered: true }],
       remarkMath,
       remarkGemoji,
       remarkDirective,
       remarkAdmonition,
+      remarkSpoiler,
     ],
     rehypePlugins: [
-      [rehypeRaw, {
-        passThrough: ['comment']
-      }],
+      [rehypeRaw, { passThrough: ['comment'] }],
       rehypePostRaw,
-      [rehypePostExcerpt, {
-        limit: 220,
-      }],
+      [rehypePostExcerpt, { limit: 220 }],
       rehypePostReadingTime,
       rehypeKatex,
-      rehypeAdmonition,
     ],
   },
   // build: {

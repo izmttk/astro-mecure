@@ -24,8 +24,7 @@ const em = (px: number, base: number) => `${round(px / base)}em`
 export default {
 	content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-    './rehype/*.{js,ts}',
-    './remark/*.{js,ts}',
+    './plugins/**/*.{js,ts}',
   ],
   darkMode: 'class',
   theme: {
