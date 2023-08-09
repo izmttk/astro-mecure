@@ -138,8 +138,7 @@ const config: AstroUserConfig = {
   },
   experimental: {
     assets: true,
-    // inlineStylesheets: 'auto',
-    // hybridOutput: false,
+    viewTransitions: true,
   }
 };
 

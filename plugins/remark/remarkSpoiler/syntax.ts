@@ -1,7 +1,7 @@
 import {
   markdownLineEnding,
-  markdownSpace
 } from 'micromark-util-character';
+import { factorySpace } from 'micromark-factory-space';
 
 import { codes, types, constants } from 'micromark-util-symbol';
 
@@ -19,44 +19,35 @@ const tokenizeSpoiler: Tokenizer = function(effects, ok, nok) {
     effects.enter('spoiler');
     return effects.attempt(
       marker,
-      contentStart,
+      factorySpace(effects, contentStart, types.whitespace),
       nok
     )
   }
   const contentStart: State = function(code) {
-    if (markdownSpace(code)) {
-      return nok;
-    }
     effects.enter(types.chunkText, {
       contentType: constants.contentTypeText,
     })
     return content;
   }
   const content: State = function(code) {
-    if (code === codes.exclamationMark) {
-      return effects.check(
-        marker,
-        contentAfter,
-        comsumeData
-      )
-    }
-    return comsumeData;
+    return effects.check(
+      marker,
+      factorySpace(effects, contentAfter, types.whitespace),
+      comsumeData
+    )
   }
   const comsumeData: State = function(code) {
     if (markdownLineEnding(code) || code === codes.eof) {
       return nok;
     }
-    if (code === codes.exclamationMark) {
-      effects.consume(code);
-      return comsumeData;
-    }
+    // if (code === codes.exclamationMark) {
+    //   effects.consume(code);
+    //   return comsumeData;
+    // }
     effects.consume(code);
     return content;
   }
   const contentAfter: State = function(code) {
-    if (markdownSpace(self.previous)) {
-      return nok;
-    }
     effects.exit(types.chunkText);
     return effects.attempt(marker, after, nok);
   }
@@ -69,6 +60,9 @@ const tokenizeSpoiler: Tokenizer = function(effects, ok, nok) {
 
 const tokenizeMarker: Tokenizer = function(effects, ok, nok) {
   let markerSize = 0;
+  if (this.previous === codes.exclamationMark) {
+    return nok;
+  }
   const start: State = function(code) {
     effects.enter('spoilerMarker');
     return marker;
@@ -86,7 +80,7 @@ const tokenizeMarker: Tokenizer = function(effects, ok, nok) {
     }
     return nok;
   }
-  return start;
+  return factorySpace(effects, start, types.whitespace);
 }
 
 const marker: Construct = {

@@ -102,8 +102,6 @@ const tokenizeIndent: Tokenizer = function(effects, ok, nok) {
   const self = this;
 
   const prefix: State = function(code) {
-    // console.log('tokenizeIndent prefix', code, self.now());
-
     if (!self.containerState) {
       throw new Error('expected state')
     }
@@ -119,7 +117,6 @@ const tokenizeIndent: Tokenizer = function(effects, ok, nok) {
   }
 
   const afterPrefix: State = function(code) {
-    // console.log('tokenizeIndent afterPrefix', code, self.now());
     if (!self.containerState) {
       throw new Error('expected state')
     }
@@ -128,11 +125,9 @@ const tokenizeIndent: Tokenizer = function(effects, ok, nok) {
       const [type, token, context] = tail;
       if (token.type === 'admonitionIndent'
         && token.end.column - 1 === self.containerState.indent) {
-        // console.log('tokenizeIndent afterPrefix ok');
         return ok;
       }
     }
-    // console.log('tokenizeIndent afterPrefix nok');
     return nok;
   }
   
@@ -142,13 +137,11 @@ const tokenizeIndent: Tokenizer = function(effects, ok, nok) {
 const tokenizeBlankLine: Tokenizer = function(effects, ok, nok) {
   const self = this;
   const start: State = function(code) {
-    // console.log('tokenizeBlankLine start', code, self.now());
     return markdownSpace(code)
       ? factorySpace(effects, after, types.whitespace)
       : after
   }
   const after: State = function(code) {
-    // console.log('tokenizeBlankLine after', code, self.now());
     return code === codes.eof || markdownLineEnding(code) ? ok : nok
   }
   return start
@@ -235,7 +228,6 @@ const tokenizeAdmonitionContinuation: Tokenizer = function(effects, ok, nok) {
 
 const exit: Exiter = function(effects) {
   effects.exit('admonition');
-  // console.log(this.events)
 }
 
 const indent: Construct = {tokenize: tokenizeIndent, partial: true}

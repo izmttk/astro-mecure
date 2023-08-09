@@ -33,7 +33,7 @@
     "@radix-ui/react-scroll-area": "^1.0.2",
     "@react-spring/web": "^9.6.1",
     "@waline/client": "^2.14.8",
-    "astro": "^2.8.5",
+    "astro": "^2.10.3",
     "astro-compress": "^1.1.28",
     "astro-icon": "^1.0.0-next.2",
     "date-fns": "^2.29.3",

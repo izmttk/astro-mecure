@@ -50,7 +50,7 @@ const bg = image ? (typeof image === 'string' ? image : (await getImage({
   }}></div>
   <a href={url} class={twMerge(
     'block text-lg font-bold truncate mb-1 relative',
-  )}>{title}</a>
+  )} title={title}>{title}</a>
   <div class='flex relative'>
     <div class='flex-1 min-w-0'>
       <div class={twMerge(

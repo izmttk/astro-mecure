@@ -39,23 +39,23 @@ const config: Config = {
         url: urlJoin(import.meta.env.BASE_URL, '/about'),
         icon: 'tabler:info-circle'
       },
-      {
-        label: '菜单示例',
-        icon: 'tabler:menu-2',
-        children: [
-          { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
-          { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
-          {
-            label: 'SubItem3',
-            icon: 'tabler:menu-2',
-            children: [
-              { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
-              { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
-              { label: 'SubItem3', url: '#', icon: 'tabler:circle'},
-            ]
-          },
-        ]
-      },
+      // {
+      //   label: '菜单示例',
+      //   icon: 'tabler:menu-2',
+      //   children: [
+      //     { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
+      //     { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
+      //     {
+      //       label: 'SubItem3',
+      //       icon: 'tabler:menu-2',
+      //       children: [
+      //         { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
+      //         { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
+      //         { label: 'SubItem3', url: '#', icon: 'tabler:circle'},
+      //       ]
+      //     },
+      //   ]
+      // },
     ],
     hasSearchToggle: true,
     hasThemeToggle: true,

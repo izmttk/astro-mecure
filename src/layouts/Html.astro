@@ -20,6 +20,8 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/fira-code";
 import "@/styles/global.css";
 // import "/styles/ch-style.css"
+import { ViewTransitions } from 'astro:transitions';
+
 ---
 
 <html lang="zh-CN">
@@ -49,6 +51,7 @@ import "@/styles/global.css";
         document.documentElement.style.colorScheme = presetTheme;
       })()
     </script>
+    <ViewTransitions />
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">
