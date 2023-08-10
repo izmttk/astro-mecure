@@ -4,8 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import type { MarkdownHeading } from 'astro';
 import { animated, useSpring } from '@react-spring/web';
 import useElementSize from '@/hooks/useElementSize';
-import { useStore } from '@nanostores/react';
-// import { navbarSize as navbarSizeStore } from '@/store/states';
+import { useAtom, useSetAtom } from 'jotai';
 import IconList from '~icons/tabler/list';
 
 interface TocItem extends MarkdownHeading {
@@ -51,7 +50,6 @@ const TableOfContentsItem = ({
 }: TableOfContentsItemProps) => {
   const { depth, slug, text, children } = item;
   const isActive = actived.includes(slug);
-  // const navbarSize = useStore(navbarSizeStore)
 
   const [ref, size] = useElementSize<HTMLUListElement>();
   const [spring] = useSpring(() => ({
@@ -101,7 +99,6 @@ export default function Toc({
   toc
 }: TocProps) {
   const headings = flapToc(toc);
-  // const navbarSize = useStore(navbarSizeStore);
   const {active, visible} = useToc(headings.map(heading => heading.slug));
   const activeAncestors = active ? findAncestors(toc, active).map(heading => heading.slug) : [];
   return (

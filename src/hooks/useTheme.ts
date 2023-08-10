@@ -1,5 +1,5 @@
-import { useStore } from '@nanostores/react';
-import { theme as themeStore } from '@/store/states';
+import { useAtom, useSetAtom } from 'jotai';
+import { theme as themeAtom } from '@/store/atoms';
 import { useLocalStorage, useMedia } from 'react-use';
 import { useEffect } from 'react';
 
@@ -8,35 +8,35 @@ export type Theme = 'light' | 'dark' | 'auto';
 export default function useTheme(defaultTheme: Theme = 'auto') {
   const isMatchDark = useMedia('(prefers-color-scheme: dark)');
   const [value, setValue, remove] = useLocalStorage<Theme>('theme', defaultTheme);
-  const themeStoreValue = useStore(themeStore);
-  const theme = themeStoreValue === 'auto' ? (isMatchDark ? 'dark' : 'light') : themeStoreValue;
+  const [theme, setTheme] = useAtom(themeAtom);
+  const colorMode = theme === 'auto' ? (isMatchDark ? 'dark' : 'light') : theme;
 
   useEffect(() => {
-    if (value && value !== themeStoreValue) {
-      themeStore.set(value);
+    if (value && value !== theme) {
+      setTheme(value);
     }
   }, [])
   
   
   useEffect(() => {
-    if (theme === 'dark') {
+    if (colorMode === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.style.colorScheme = 'dark';
     }
-    if (theme === 'light') {
+    if (colorMode === 'light') {
       document.documentElement.classList.remove('dark');
       document.documentElement.style.colorScheme = 'light';
     }
-  }, [theme]);
+  }, [colorMode]);
 
-  const setTheme = (theme: Theme) => {
+  const setThemeAndStorage = (theme: Theme) => {
     setValue(theme);
-    themeStore.set(theme);
+    setTheme(theme);
   }
 
   return {
-    colorMode: theme,
-    theme: themeStoreValue,
-    setTheme: setTheme,
+    colorMode: colorMode,
+    theme: theme,
+    setTheme: setThemeAndStorage,
   }
 }

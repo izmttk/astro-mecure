@@ -1,14 +1,14 @@
 import type React from 'react';
 import ScrollArea from '@/components/ScrollArea';
 
-import { useStore } from '@nanostores/react';
+import { useAtom, useAtomValue } from 'jotai';
 import { 
-  navbarSize as navbarSizeStore, 
-  navbarVisible as navbarVisibleStore,
-  sidebarDrawerVisible as sidebarDrawerVisibleStore,
-  hasThemeToggle as hasThemeToggleStore,
-  hasSearchToggle as hasSearchToggleStore,
-} from "@/store/states";
+  navbarSize as navbarSizeAtom, 
+  navbarVisible as navbarVisibleAtom,
+  sidebarDrawerVisible as sidebarDrawerVisibleAtom,
+  hasThemeToggle as hasThemeToggleAtom,
+  hasSearchToggle as hasSearchToggleAtom,
+} from "@/store/atoms";
 import { animated, useSpring } from '@react-spring/web';
 import Drawer from '@/components/Drawer';
 import { twMerge } from 'tailwind-merge';
@@ -34,8 +34,8 @@ export default function CustomSidebar({
     return null;
   }
 
-  const navbarVisible = useStore(navbarVisibleStore);
-  const navbarSize = useStore(navbarSizeStore);
+  const navbarVisible = useAtomValue(navbarVisibleAtom);
+  const navbarSize = useAtomValue(navbarSizeAtom);
   // const viewportSize = useWindowSize();
 
   const [spring, api] = useSpring(() => ({
@@ -48,12 +48,9 @@ export default function CustomSidebar({
     },
   }), [navbarVisible, navbarSize]);
 
-  const drawerVisible = useStore(sidebarDrawerVisibleStore);
-  const hasThemeToggle = useStore(hasThemeToggleStore);
-  const hasSearchToggle = useStore(hasSearchToggleStore);
-  const setDrawerVisible = (show: boolean) => {
-    sidebarDrawerVisibleStore.set(show);
-  }
+  const [drawerVisible, setDrawerVisible] = useAtom(sidebarDrawerVisibleAtom);
+  const hasThemeToggle = useAtomValue(hasThemeToggleAtom);
+  const hasSearchToggle = useAtomValue(hasSearchToggleAtom);
 
   const sidebarContent = (
     <ScrollArea type='scroll' className='h-full' containerClassName={twMerge(

@@ -16,14 +16,14 @@ import NoSSR from '@/components/NoSSR';
 import IconMenu2 from '~icons/tabler/menu-2';
 import IconX from '~icons/tabler/x';
 import { 
-  navbarSize as navbarSizeStore,
-  navbarVisible as navbarVisibleStore,
-  sidebarDrawerVisible as sidebarDrawerVisibleStore,
-  hasThemeToggle as hasThemeToggleStore,
-  hasSearchToggle as hasSearchToggleStore,
-} from '@/store/states';
+  navbarSize as navbarSizeAtom,
+  navbarVisible as navbarVisibleAtom,
+  sidebarDrawerVisible as sidebarDrawerVisibleAtom,
+  hasThemeToggle as hasThemeToggleAtom,
+  hasSearchToggle as hasSearchToggleAtom,
+} from '@/store/atoms';
 import Icon from '@/components/Icon';
-import { useStore } from '@nanostores/react';
+import { useAtom, useSetAtom } from 'jotai';
 import { twMerge } from 'tailwind-merge';
 import ScrollArea from '@/components/ScrollArea';
 import useElementSize from '@/hooks/useElementSize';
@@ -32,12 +32,12 @@ import styles from './Navbar.module.css';
 
 
 function SideToggle() {
-  const sideVisible = useStore(sidebarDrawerVisibleStore);
+  const [sideVisible, setSideVisible] = useAtom(sidebarDrawerVisibleAtom);
   const handleClick = () => {
     if (sideVisible) {
-      sidebarDrawerVisibleStore.set(false);
+      setSideVisible(false);
     } else {
-      sidebarDrawerVisibleStore.set(true);
+      setSideVisible(true);
     }
   }
   return (
@@ -83,17 +83,19 @@ export default function CustomNavbar({
   } = config;
   const [map, {set, setAll}] = useMap<{[key: string]: boolean}>({});
 
-  const show = useStore(navbarVisibleStore);
-
+  const [show, setShow] = useAtom(navbarVisibleAtom);
+  const setHasSearchToggle = useSetAtom(hasSearchToggleAtom);
+  const setHasThemeToggle = useSetAtom(hasThemeToggleAtom);
+  const setNavbarSize = useSetAtom(navbarSizeAtom);
   useEffect(() => {
-    hasSearchToggleStore.set(hasSearchToggle);
+    setHasSearchToggle(hasSearchToggle);
   }, [hasSearchToggle]);
   useEffect(() => {
-    hasThemeToggleStore.set(hasThemeToggle);
+    setHasThemeToggle(hasThemeToggle);
   }, [hasThemeToggle]);
 
   const onShowChange = (isShow: boolean) => {
-    navbarVisibleStore.set(isShow);
+    setShow(isShow);
     if (!isShow) {
       for (const key in map) {
         set(key, false);
@@ -120,10 +122,8 @@ export default function CustomNavbar({
   const [ref, size] = useElementSize<HTMLElement>();
 
   useEffect(() => {
-    navbarSizeStore.set(size);
+    setNavbarSize(size);
   }, [size]);
-
-
 
   const navMenu = (
     <ScrollArea className='w-full h-full px-2' containerClassName='!flex items-center'>

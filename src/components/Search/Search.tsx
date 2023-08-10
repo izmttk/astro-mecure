@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import { useDocSearchKeyboardEvents, DocSearchModal } from '@docsearch/react';
 import '@docsearch/css';
 import './Search.css';
-import { useStore } from '@nanostores/react';
-import { searchModelOpen as searchModelOpenStore } from '../../store/states';
+import { useAtom } from 'jotai';
+import { searchModelOpen as searchModelOpenAtom } from '../../store/atoms';
 
 const defaultTranslations = {
   searchBox: {
@@ -54,14 +54,14 @@ export default function Search({
   apiKey,
   indexName,
 }: SearchProps) {
-  const searchModalOpen = useStore(searchModelOpenStore);
+  const [searchModalOpen, setSearchModalOpen] = useAtom(searchModelOpenAtom);
 
   const onOpen = React.useCallback(() => {
-    searchModelOpenStore.set(true);
+    setSearchModalOpen(true);
   }, []);
 
   const onClose = React.useCallback(() => {
-    searchModelOpenStore.set(false);
+    setSearchModalOpen(false);
   }, []);
 
   useDocSearchKeyboardEvents({
@@ -69,7 +69,7 @@ export default function Search({
     onOpen,
     onClose,
   });
-
+  
   return (
     <>
       {searchModalOpen && createPortal(

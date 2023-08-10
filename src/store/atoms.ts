@@ -1,4 +1,4 @@
-import { atom, action , task } from 'nanostores'
+import { atom } from 'jotai';
 
 export const navbarVisible = atom<boolean>(true);
 export const navbarSize = atom<{

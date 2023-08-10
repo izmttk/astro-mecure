@@ -1,8 +1,8 @@
-import { useStore } from '@nanostores/react';
+import { useSetAtom } from 'jotai';
 import React, { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import IconSearch from '~icons/tabler/search';
-import { searchModelOpen as searchModelOpenStore } from '@/store/states';
+import { searchModelOpen as searchModelOpenAtom } from '@/store/atoms';
 import useUncontrolled from '@/hooks/useUncontrolled';
 
 
@@ -22,9 +22,10 @@ export default function SearchToggle({
     defaultValue: false,
     onChange: onOpenChange
   });
+  const setSearchModalOpen = useSetAtom(searchModelOpenAtom);
   const handleClick = useCallback(() => {
     setIsOpen(true);
-    searchModelOpenStore.set(true);
+    setSearchModalOpen(true);
   }, []);
   return (
     <button onClick={handleClick} aria-label='Search Toggle' className={twMerge(
