@@ -20,7 +20,9 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/fira-code";
 import "@/styles/global.css";
 // import "/styles/ch-style.css"
-import { ViewTransitions } from 'astro:transitions';
+
+// modified from original implementation to support unmounting react roots before replacing
+import ViewTransitions from '@/components/ViewTransitions';
 
 ---
 
@@ -59,3 +61,26 @@ import { ViewTransitions } from 'astro:transitions';
     <slot />
   </body>
 </html>
+
+<script>
+// hack method to unmount react roots before replacing
+// consider a better way to do this
+import { hydrateRoot } from 'react-dom/client';
+function isAlreadyHydrated(element: Element) {
+  for (const key in element) {
+    if (key.startsWith('__reactContainer')) {
+      return key;
+    }
+  }
+}
+document.addEventListener('astro:beforeReplace', (...args) => {
+  document.querySelectorAll('astro-island').forEach((element) => {
+    const rootKey = isAlreadyHydrated(element);
+    if(rootKey) {
+      const root = hydrateRoot(document.createElement('div'), null);
+      (root as any)._internalRoot =  (element as any)[rootKey].stateNode;
+      root.unmount();
+    }
+  })
+})
+</script>
