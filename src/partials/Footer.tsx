@@ -2,9 +2,8 @@ import type React from 'react';
 import type { SVGProps } from 'react';
 import IconRss from '~icons/tabler/rss';
 import IconSitemap from '~icons/tabler/sitemap';
-import urlJoin from 'url-join';
 import { twMerge } from 'tailwind-merge';
-
+import { isUnderBaseUrl, url } from '@/utils/url';
 
 const AstroLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 78 102" fill="currentColor" {...props}>
@@ -18,7 +17,6 @@ export interface FooterConfig {
   links?: {
     label: string;
     url: string;
-    external?: boolean;
   }[];
   declarations?: React.ReactNode[];
   generator?: boolean;
@@ -57,7 +55,7 @@ export default function Footer({
         {/* Links */}
         {links && <div className='space-x-3'>
           {links.map((link, index) => (
-            <a href={link.url} key={index} target={link.external ? '_blank' : '_self'}>{link.label}</a>
+            <a href={link.url} key={index} target={isUnderBaseUrl(link.url) ? '_self' : '_blank'}>{link.label}</a>
           ))}
         </div>}
         {/* Declarations */}
@@ -69,8 +67,8 @@ export default function Footer({
         {/* Site Info */}
         <div className='flex flex-wrap gap-x-3'>
           {generator && <span>Powered By <a href='https://astro.build/' target='_blank'><AstroLogo className='inline' />Astro</a> · Designed By 银河渡舟.</span>}
-          {rss && <a href={urlJoin(import.meta.env.BASE_URL, 'rss/feed.xml')} target='_blank' className='whitespace-nowrap'><IconRss className='inline align-[-3px] mr-1' />RSS订阅</a>}
-          {sitemap && <a href={urlJoin(import.meta.env.BASE_URL, 'sitemap-index.xml')} target='_blank' className='whitespace-nowrap'><IconSitemap className='inline align-[-3px] mr-1' />站点地图</a>}
+          {rss && <a href={url('rss/feed.xml')} target='_blank' className='whitespace-nowrap'><IconRss className='inline align-[-3px] mr-1' />RSS订阅</a>}
+          {sitemap && <a href={url('sitemap-index.xml')} target='_blank' className='whitespace-nowrap'><IconSitemap className='inline align-[-3px] mr-1' />站点地图</a>}
         </div>
       </div>
     </footer>

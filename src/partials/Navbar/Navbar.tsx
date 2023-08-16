@@ -29,6 +29,7 @@ import ScrollArea from '@/components/ScrollArea';
 import useElementSize from '@/hooks/useElementSize';
 import SearchToggle from '@/components/SearchToggle';
 import styles from './Navbar.module.css';
+import { url } from '@/utils/url';
 
 
 function SideToggle() {
@@ -173,7 +174,7 @@ export default function CustomNavbar({
               </Navbar.Trigger>
             </Navbar.Content>
           )}
-          <Navbar.Logo as='a' href={import.meta.env.BASE_URL} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
+          <Navbar.Logo as='a' href={url('/')} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
             <Logo className='h-10' />
           </Navbar.Logo>
           {isMd && (

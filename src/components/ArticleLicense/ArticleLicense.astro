@@ -34,7 +34,7 @@ const {
   <div class="space-y-2">
     <p class="text-sm font-bold">{title}</p>
     <p class="text-sm opacity-60">
-      <a href={url}>{url}</a>
+      <a href={url} target="_blank">{url}</a>
     </p>
     <div class="flex space-x-4">
       <div class="text-sm">
@@ -53,7 +53,7 @@ const {
         <h6 class="mb-1">许可协议</h6>
         <div class="flex space-x-1">
           {licenseUrl ? (
-            <a href={licenseUrl}>{licenseName}</a>
+            <a href={licenseUrl} target="_blank">{licenseName}</a>
           ) : (
             <p>{licenseName}</p>
           )}

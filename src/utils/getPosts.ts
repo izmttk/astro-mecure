@@ -1,13 +1,13 @@
 import type { Author, Post } from '@/types';
 import config from '@/config';
-import { slug } from 'github-slugger';
 import { CollectionEntry, getCollection, getEntry } from 'astro:content';
 
-import fs from 'node:fs';
-import urlJoin from 'url-join';
+// import fs from 'node:fs';
+// import { slug } from 'github-slugger';
 
 import transformTags from './transformTags';
 import transformCategory from './transformCategory';
+import { url } from './url';
 
 
 const collection = 'blog';
@@ -36,7 +36,7 @@ function countCategories(posts: CollectionEntry<'blog'>[]) {
 }
 
 function postUrl(slug: string) {
-  return urlJoin(import.meta.env.BASE_URL, 'posts', slug);
+  return url('posts', slug);
 }
 
 async function getPosts(): Promise<Post[]> {

@@ -1,6 +1,6 @@
 import type { Page } from 'astro'
-import urlJoin from 'url-join'
 import type { Paginator, Post } from '@/types'
+import { url } from './url';
 
 
 export function createPaginator(page: Page<Omit<Post, 'Content'>>, options: {
@@ -20,9 +20,9 @@ export function createPaginator(page: Page<Omit<Post, 'Content'>>, options: {
     next: page.currentPage + 1 <= page.total ? page.currentPage + 1 : null,
     pageUrls: Array(page.lastPage).fill(undefined).map((_, index) => {
       if (firstPageIsIndex && index === 0) {
-        return urlJoin(import.meta.env.BASE_URL, path, '/');
+        return url(path);
       }
-      return urlJoin(import.meta.env.BASE_URL, path, `page/${index + 1}`);
+      return url(path, `page/${index + 1}`);
     })
   }
 }

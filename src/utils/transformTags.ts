@@ -1,8 +1,8 @@
 import { slug } from 'github-slugger';
-import urlJoin from 'url-join';
+import { url } from './url';
 
 function tagUrl(slug: string) {
-  return urlJoin(import.meta.env.BASE_URL, 'tags', slug);
+  return url('tags', slug);
 }
 
 function transformTags(tags: string[]) {

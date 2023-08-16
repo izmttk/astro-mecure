@@ -1,8 +1,8 @@
 import { slug } from 'github-slugger';
-import urlJoin from 'url-join';
+import { url } from './url';
 
 function categoryUrl(slug: string) {
-  return urlJoin(import.meta.env.BASE_URL, 'categories', slug);
+  return url('categories', slug);
 }
 
 const uncategorized = {

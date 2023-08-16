@@ -1,42 +1,42 @@
 import type { Config } from './types';
 import { getYear } from 'date-fns';
-import urlJoin from 'url-join';
+import { url } from '@/utils/url';
 
 const config: Config = {
   title: '银河渡舟',
-  description: 'The satellite gazed at the plane from afar, a thin yet heavy veil of air between them, suborbit was its name.',
+  description: '浊以静之徐清，安以动之徐生。',
   author: 'Wider',
-  favicon: urlJoin(import.meta.env.BASE_URL, 'favicon.svg'),
+  favicon: url('favicon.svg'),
   navbar: {
     menu: [
       {
         label: '首页',
-        url: urlJoin(import.meta.env.BASE_URL, '/'),
+        url: url('/'),
         icon: 'tabler:home'
       },
       {
         label: '标签',
-        url: urlJoin(import.meta.env.BASE_URL, '/tags'),
+        url: url('/tags'),
         icon: 'tabler:tag'
       },
       {
         label: '分类',
-        url: urlJoin(import.meta.env.BASE_URL, '/categories'),
+        url: url('/categories'),
         icon: 'tabler:category'
       },
       {
         label: '归档',
-        url: urlJoin(import.meta.env.BASE_URL, '/archive'),
+        url: url('/archive'),
         icon: 'tabler:archive'
       },
       {
         label: '友链',
-        url: urlJoin(import.meta.env.BASE_URL, '/friends'),
+        url: url('/friends'),
         icon: 'tabler:heart-handshake'
       },
       {
         label: '关于',
-        url: urlJoin(import.meta.env.BASE_URL, '/about'),
+        url: url('/about'),
         icon: 'tabler:info-circle'
       },
       // {
@@ -61,19 +61,19 @@ const config: Config = {
     hasThemeToggle: true,
   },
   hero: {
-    bg: urlJoin(import.meta.env.BASE_URL, '/assets/hero-bg.jpg'),
+    bg: url('/assets/hero-bg.jpg'),
     // title: '银河渡舟',
-    description: '醉后不知天在水，满船清梦压星河。',
-    logo: urlJoin(import.meta.env.BASE_URL, '/assets/logo.svg'),
+    description: '欢迎来到银河渡舟的记事簿，看看最近我在折腾啥吧。',
+    logo: url('/assets/logo.svg'),
   },
   sidebar: {
     widgets: [
       {
         name: 'profile',
         author: '银河渡舟',
-        description: '醉后不知天在水，满船清梦压星河',
-        avatar: urlJoin(import.meta.env.BASE_URL, '/assets/avatar.png'),
-        background: urlJoin(import.meta.env.BASE_URL, '/assets/profile-bg.webp'),
+        description: '浊以静之徐清，安以动之徐生',
+        avatar: url('/assets/avatar.png'),
+        background: url('/assets/profile-bg.webp'),
         socialIcons: [
           {
             label: 'github',
@@ -129,7 +129,7 @@ const config: Config = {
   },
   typography: {
     outdateTip: {
-      outdateLimit: 30,
+      outdateLimit: 90,
     },
     license: {
       licenseName: 'CC BY-NC-SA 4.0',
@@ -170,12 +170,12 @@ const config: Config = {
   },
   footer: {
     links: [
-      { label: '更新日志', url: urlJoin(import.meta.env.BASE_URL, 'changelog')},
-      { label: '引用声明', url: urlJoin(import.meta.env.BASE_URL, 'reference')},
-      { label: '关于', url: urlJoin(import.meta.env.BASE_URL, 'about')},
-      { label: '归档', url: urlJoin(import.meta.env.BASE_URL, 'archive')},
-      { label: '友情链接', url: urlJoin(import.meta.env.BASE_URL, 'friends')},
-      { label: 'Github', url: 'https://github.com/izmttk', external: true},
+      { label: '更新日志', url: url('changelog')},
+      { label: '引用声明', url: url('reference')},
+      { label: '关于', url: url('about')},
+      { label: '归档', url: url('archive')},
+      { label: '友情链接', url: url('friends')},
+      { label: 'Github', url: 'https://github.com/izmttk'},
     ],
     declarations: [
       `Copyright © ${getYear(new Date())} 银河渡舟 All Rights Reserved.`,
