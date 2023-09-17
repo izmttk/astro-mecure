@@ -1,4 +1,3 @@
-import React from 'react'
 import IconGridFill from '~icons/mingcute/grid-fill'
 
 import Chip from '../Chip';

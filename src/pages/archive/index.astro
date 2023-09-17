@@ -5,7 +5,7 @@ import type { Page } from '@/types';
 import getPosts from '@/utils/getPosts';
 import groupBy from '@/utils/groupBy';
 import { getYear, getMonth } from 'date-fns';
-import Archive, { ArchiveConfig } from '@/partials/Archive';
+import Archive, { type ArchiveConfig } from '@/partials/Archive';
 
 
 const allPosts = (await getPosts()).filter(post => !post.draft).sort((a, b) => compareDesc(a.date, b.date));

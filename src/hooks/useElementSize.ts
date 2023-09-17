@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useIsomorphicLayoutEffect } from 'react-use';
+import useSSR from './useSSR';
 
 interface Size {
   width: number
@@ -14,31 +15,34 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
   // because mutating them doesn't re-render the component.
   // Instead, we use a state as a ref to be reactive.
   const [ref, setRef] = useState<T | null>(null)
+  const { isBrowser } = useSSR()
   const [size, setSize] = useState<Size>({
     width: 0,
     height: 0,
   })
 
-  const observer = useMemo(() => {
-    return new ResizeObserver(entries => {
-      entries.forEach(entry => {
-        // this hooks return element size including border and padding
-        setSize({
-          width: entry.target.getBoundingClientRect().width,
-          height: entry.target.getBoundingClientRect().height,
+  if (isBrowser) {
+    const observer = useMemo(() => {
+      return new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          // this hooks return element size including border and padding
+          setSize({
+            width: entry.target.getBoundingClientRect().width,
+            height: entry.target.getBoundingClientRect().height,
+          })
         })
       })
-    })
-  }, []);
-  
-  useIsomorphicLayoutEffect(() => {
-    if (ref) {
-      observer.observe(ref);
-    }
-    return () => {
-      observer.disconnect();
-    }
-  }, [ref]);
+    }, []);
+    
+    useIsomorphicLayoutEffect(() => {
+      if (ref) {
+        observer.observe(ref);
+      }
+      return () => {
+        observer.disconnect();
+      }
+    }, [ref]);
+  }
 
   return [setRef, size];
 }

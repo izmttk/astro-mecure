@@ -1,6 +1,6 @@
 import type { Author, Post } from '@/types';
 import config from '@/config';
-import { CollectionEntry, getCollection, getEntry } from 'astro:content';
+import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
 
 // import fs from 'node:fs';
 // import { slug } from 'github-slugger';

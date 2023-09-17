@@ -1,4 +1,3 @@
-import React from 'react'
 import TreeView from '../TreeView';
 import IconCategory from '~icons/tabler/category';
 

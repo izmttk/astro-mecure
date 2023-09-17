@@ -1,4 +1,3 @@
-import React, { forwardRef } from 'react';
 import usePagination from '@/hooks/usePagination';
 import IconChevronLeft from '~icons/tabler/chevron-left';
 import IconChevronRight from '~icons/tabler/chevron-right';
@@ -6,6 +5,7 @@ import IconChevronsLeft from '~icons/tabler/chevrons-left';
 import IconChevronsRight from '~icons/tabler/chevrons-right';
 import IconDots from '~icons/tabler/dots';
 import { twMerge } from 'tailwind-merge';
+import { forwardRef } from 'react';
 
 export interface PaginationProps {
   className?: string;
@@ -37,7 +37,7 @@ export interface PaginationProps {
   pageUrls?: string[];
 }
 
-const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(({
+const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
   className,
   page,
   total,

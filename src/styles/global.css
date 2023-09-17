@@ -1,11 +1,7 @@
 :root {
+  color-scheme: light dark;
   @apply antialiased scroll-pt-16 scroll-smooth;
-  color-scheme: light;
   @apply text-[15px] md:text-[16px];
-}
-
-:root.dark {
-  color-scheme: dark;
 }
 
 body {

@@ -1,5 +1,4 @@
-import React from 'react'
-import Chip from '../Chip'
+import Chip from '../Chip';
 import IconHashTagLine from '~icons/mingcute/hashtag-line';
 import { twMerge } from 'tailwind-merge';
 

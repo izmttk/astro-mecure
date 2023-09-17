@@ -1,6 +1,6 @@
-import React, { Suspense, SVGProps } from 'react'
+import { Suspense, type SVGProps } from 'react'
 import { pascalCase } from 'change-case'
-import { Icon as Iconify, IconProps as IconifyProps } from '@iconify/react';
+import { Icon as Iconify, type IconProps as IconifyProps } from '@iconify/react';
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createRoot, Root } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client';
 import ProgressBar from './ProgressBar';
 import type { ProgressBarProps } from './ProgressBar';
 

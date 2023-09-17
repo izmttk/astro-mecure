@@ -1,5 +1,3 @@
-import type React from 'react';
-
 import Polymorphic, { withPolymorphic } from '../Polymorphic';
 
 interface ChipProps extends React.PropsWithChildren<{}> {};

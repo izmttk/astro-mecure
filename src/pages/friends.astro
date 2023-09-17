@@ -1,19 +1,18 @@
 ---
-import PageLayout from "@/layouts/PageLayout.astro"
-import type { Page } from "@/types";
-import pageImage from '@/assets/friends-bg.jpg'
-import Friend from "@/components/Friend";
-
+import PageLayout from '@/layouts/PageLayout.astro';
+import type { Page } from '@/types';
+import { Image } from 'astro:assets';
+import Friend from '@/components/Friend';
 import { getCollection } from 'astro:content';
+
+import pageImage from '../assets/friends-bg.jpg';
 
 const page: Page = {
   title: '友情链接',
   description: 'My friends are here!',
   image: pageImage,
 }
-
 const friendEntries = await getCollection('friends');
-
 ---
 <PageLayout 
   page={page} 

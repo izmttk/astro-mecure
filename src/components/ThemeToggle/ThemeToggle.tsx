@@ -1,11 +1,10 @@
-import type React from 'react';
 import { useCallback, useEffect, useState } from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import IconSun from '~icons/tabler/sun';
 import IconMoon from '~icons/tabler/moon';
 import IconDeviceDesktop from '~icons/tabler/device-desktop';
-import useTheme, { Theme } from '@/hooks/useTheme';
+import useTheme, { type Theme } from '@/hooks/useTheme';
 import styles from './ThemeToggle.module.css';
 import { twMerge } from 'tailwind-merge';
 import Menu from '../Menu';
@@ -27,44 +26,10 @@ export default function ThemeToggle({
   className,
   ...rest
 }: ThemeToggleProps) {
-
-  // const [theme, setTheme] = useState('light');
-  // const [value, setValue, remove] = useLocalStorage('theme', 'auto');
-  // const isMatchDark = useMedia('(prefers-color-scheme: dark)', false);
-  // const isFirstMount = useFirstMountState();
-  // useEffect(() => {
-  //   if (!isFirstMount) {
-  //     const uiTheme = value === 'auto' ? (isMatchDark ? 'dark' : 'light') : value;
-  //     if (uiTheme === 'dark') {
-  //       setTheme('dark');
-  //       document.documentElement.classList.add('dark');
-  //     } else {
-  //       setTheme('light');
-  //       document.documentElement.classList.remove('dark');
-  //     }
-  //     document.documentElement.style.colorScheme = uiTheme ?? '';
-  //   }
-  // }, [value, isMatchDark, isFirstMount]);
-
-  // const [value, setValue, remove] = useLocalStorage('theme', 'auto');
-  // const isMatchDark = useMedia('(prefers-color-scheme: dark)');
-  // const theme = value === 'auto' ? (isMatchDark ? 'dark' : 'light') : value;
-
-  // useIsomorphicLayoutEffect(() => {
-  //   if (theme === 'dark') {
-  //     document.documentElement.classList.add('dark');
-  //     document.documentElement.style.colorScheme = 'dark';
-  //   }
-  //   if (theme === 'light') {
-  //     document.documentElement.classList.remove('dark');
-  //     document.documentElement.style.colorScheme = 'light';
-  //   }
-  // }, [theme]);
-
   const { colorMode, theme, setTheme } = useTheme();
-
   const stateIcon = colorMode === 'light' ? <IconSun className='h-5 w-5' /> :
     colorMode === 'dark' ? <IconMoon className='h-5 w-5' /> : null;
+
   return (
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>

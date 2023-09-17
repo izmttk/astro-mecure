@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import { useContext, createContext, useState } from 'react'
 import * as Collapsible from '@radix-ui/react-collapsible';
 import IconChevronRight from '~icons/tabler/chevron-right';
 import IconChevronDown from '~icons/tabler/chevron-down';
 import styles from './TreeView.module.css';
 import { twMerge } from 'tailwind-merge';
 
-const ConfigContext = React.createContext<{
+const ConfigContext = createContext<{
   icon?: React.ReactNode;
   expandIcon?: React.ReactNode;
   collapseIcon?: React.ReactNode;
@@ -30,7 +30,7 @@ function TreeViewItem({
   defaultExpanded,
   children,
 }: TreeViewItemProps) {
-  const [expanded, setExpanded] = React.useState(defaultExpanded ?? false);
+  const [expanded, setExpanded] = useState(defaultExpanded ?? false);
   const config = useContext(ConfigContext);
   const icon = itemIcon ?? config?.icon;
   const expandIcon = itemExpandIcon ?? config?.expandIcon;

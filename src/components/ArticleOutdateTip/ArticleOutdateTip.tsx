@@ -1,4 +1,3 @@
-import type React from 'react';
 import { formatDistanceToNow, isAfter, subDays } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import IconInformationFill from '~icons/mingcute/information-fill';

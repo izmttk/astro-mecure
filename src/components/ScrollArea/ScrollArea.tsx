@@ -1,4 +1,3 @@
-import type React from 'react'
 import * as RadixScrollArea from '@radix-ui/react-scroll-area';
 
 import { useMeasure, useScroll } from 'react-use';

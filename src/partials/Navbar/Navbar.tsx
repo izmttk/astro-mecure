@@ -1,4 +1,3 @@
-import type React from 'react';
 import Navbar from '@/components/Navbar';
 import Logo from './Logo';
 import ThemeToggle from '@/components/ThemeToggle';

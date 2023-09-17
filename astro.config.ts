@@ -6,7 +6,6 @@ import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
 
-
 import svgr from 'vite-plugin-svgr';
 import icons from 'unplugin-icons/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -36,7 +35,6 @@ const config: AstroUserConfig = {
   site: 'https://suborbit.me/',
   // base: 'blog',
   output: 'static',
-  compressHTML: true,
   // adapter: node({
   //   mode: 'standalone'
   // }),
@@ -126,19 +124,6 @@ const config: AstroUserConfig = {
     ssr: {
       noExternal: ['date-fns', 'react-use', '@radix-ui/*', 'domelementtype']
     },
-    build: {
-      // rollupOptions: {
-      //   output: {
-      //     entryFileNames: 'assets/index.[hash].js',
-      //     chunkFileNames: 'assets/chunk.[hash].js',
-      //     assetFileNames: 'assets/[hash][extname]'
-      //   }
-      // }
-    }
-  },
-  experimental: {
-    assets: true,
-    viewTransitions: true,
   }
 };
 

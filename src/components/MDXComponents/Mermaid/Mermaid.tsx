@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
 import NoSSR from '../../NoSSR';
 import useMermaidSvg from './useMermaidSvg';
 

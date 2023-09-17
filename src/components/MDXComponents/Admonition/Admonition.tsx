@@ -1,4 +1,3 @@
-import type React from 'react'
 import IconPencilFill from '~icons/mingcute/pencil-fill';
 import IconInformationFill from '~icons/mingcute/information-fill';
 import IconBulbFill from '~icons/mingcute/bulb-fill';

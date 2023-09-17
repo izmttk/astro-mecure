@@ -1,10 +1,10 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useDocSearchKeyboardEvents, DocSearchModal } from '@docsearch/react';
 import '@docsearch/css';
 import './Search.css';
 import { useAtom } from 'jotai';
-import { searchModelOpen as searchModelOpenAtom } from '../../store/atoms';
+import { searchModelOpen as searchModelOpenAtom } from '@/store/atoms';
 
 const defaultTranslations = {
   searchBox: {
@@ -56,11 +56,11 @@ export default function Search({
 }: SearchProps) {
   const [searchModalOpen, setSearchModalOpen] = useAtom(searchModelOpenAtom);
 
-  const onOpen = React.useCallback(() => {
+  const onOpen = useCallback(() => {
     setSearchModalOpen(true);
   }, []);
 
-  const onClose = React.useCallback(() => {
+  const onClose = useCallback(() => {
     setSearchModalOpen(false);
   }, []);
 

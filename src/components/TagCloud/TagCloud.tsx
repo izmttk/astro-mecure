@@ -1,4 +1,3 @@
-import React from 'react'
 import { twMerge } from 'tailwind-merge';
 import TagChip from '../Tag';
 import IconTag from '~icons/tabler/tag';

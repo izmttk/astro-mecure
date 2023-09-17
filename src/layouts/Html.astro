@@ -21,9 +21,7 @@ import "@fontsource-variable/fira-code";
 import "@/styles/global.css";
 // import "/styles/ch-style.css"
 
-// modified from original implementation to support unmounting react roots before replacing
-import ViewTransitions from '@/components/ViewTransitions';
-
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <html lang="zh-CN">
@@ -36,6 +34,8 @@ import ViewTransitions from '@/components/ViewTransitions';
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href={favicon} />
     {title && <title>{title}</title>}
+    <ViewTransitions />
+
     <script is:inline>
       (function() {
         const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
@@ -50,10 +50,8 @@ import ViewTransitions from '@/components/ViewTransitions';
         } else {
           document.documentElement.classList.remove('dark');
         }
-        document.documentElement.style.colorScheme = presetTheme;
       })()
     </script>
-    <ViewTransitions />
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">
@@ -63,24 +61,24 @@ import ViewTransitions from '@/components/ViewTransitions';
 </html>
 
 <script>
-// hack method to unmount react roots before replacing
-// consider a better way to do this
-import { hydrateRoot } from 'react-dom/client';
-function isAlreadyHydrated(element: Element) {
-  for (const key in element) {
-    if (key.startsWith('__reactContainer')) {
-      return key;
+  // prevent flash when using view transitions in astro
+  const setDarkMode = () => {
+    const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
+    let presetTheme;
+    if (storedTheme === 'auto') {
+      presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    } else {
+      presetTheme = storedTheme;
     }
-  }
-}
-document.addEventListener('astro:beforeReplace', (...args) => {
-  document.querySelectorAll('astro-island').forEach((element) => {
-    const rootKey = isAlreadyHydrated(element);
-    if(rootKey) {
-      const root = hydrateRoot(document.createElement('div'), null);
-      (root as any)._internalRoot =  (element as any)[rootKey].stateNode;
-      root.unmount();
+    if (presetTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
-  })
-})
+  };
+
+  // Runs on initial navigation
+  setDarkMode();
+  // Runs on view transitions navigation
+  document.addEventListener('astro:after-swap', setDarkMode);
 </script>

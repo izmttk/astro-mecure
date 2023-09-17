@@ -1,4 +1,3 @@
-import type React from 'react';
 import type { SVGProps } from 'react';
 import IconRss from '~icons/tabler/rss';
 import IconSitemap from '~icons/tabler/sitemap';

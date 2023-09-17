@@ -1,4 +1,3 @@
-import type React from 'react';
 import { twMerge } from 'tailwind-merge';
 import IconH1 from '~icons/tabler/h-1';
 import IconH2 from '~icons/tabler/h-2';

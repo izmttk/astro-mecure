@@ -7,7 +7,7 @@ import getTags from '@/utils/getTags';
 import getCategories from '@/utils/getCategories';
 import type { Page } from '@/types';
 import BaseLayout from './BaseLayout.astro';
-import Hero, { HeroConfig } from '@/partials/Hero';
+import Hero, { type HeroConfig } from '@/partials/Hero';
 import Pagination from '@/partials/Pagination';
 import Comment from '@/partials/Comment';
 import config from '@/config';
@@ -140,7 +140,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 
 ---
 
-<BaseLayout 
+<BaseLayout
   title={page.type === 'index' ? config.title : page.title}
   description={page.description ?? config.description}
   author={page.type === 'post' ? page.post.author.name : config.author}
@@ -175,13 +175,3 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
   {algolia && <Search {...algolia} client:only='react' />}
 </BaseLayout>
-
-<style is:global>
-  .transition-fade {
-    transition: opacity .2s ease;
-    opacity: 1;
-  }
-  html.is-rendering .transition-fade {
-    opacity: 0;
-  }
-</style>

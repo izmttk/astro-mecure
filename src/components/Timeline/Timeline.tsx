@@ -1,6 +1,5 @@
-import React from 'react'
+import { forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
-
 
 export interface TimelineItemProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'div'>> {
   label: string;
@@ -8,7 +7,7 @@ export interface TimelineItemProps extends React.PropsWithChildren<React.Compone
   lineVariant?: 'solid' | 'dashed' | 'dotted';
 }
 
-const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(({
+const TimelineItem = forwardRef<HTMLDivElement, TimelineItemProps>(({
   className,
   label,
   icon,
@@ -42,7 +41,7 @@ export interface TimelineProps extends React.PropsWithChildren<React.ComponentPr
   
 }
 
-const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(({
+const Timeline = forwardRef<HTMLDivElement, TimelineProps>(({
   className,
   children,
   ...rest

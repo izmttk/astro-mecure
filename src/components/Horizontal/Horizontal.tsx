@@ -1,11 +1,10 @@
-import React, {
+import {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useReducer,
   useRef,
-  useState
 } from 'react';
 import { useScroll } from 'react-use';
 import IconChevronLeft from '~icons/tabler/chevron-left';

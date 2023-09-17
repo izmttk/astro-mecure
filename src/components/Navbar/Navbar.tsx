@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useReducer, useRef } from 'react';
+import { createContext, useContext, forwardRef, useEffect, useMemo, useReducer, useRef } from 'react';
 import Polymorphic, { withPolymorphic } from '../Polymorphic';
 import { useSpring, animated } from '@react-spring/web';
 import useWindowScrollInfo from '@/hooks/useWindowsScrollInfo';
@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import { useLockBodyScroll, useWindowSize } from 'react-use';
 import useElementSize from '@/hooks/useElementSize';
 
-const ContentConfigContext = React.createContext<{
+const ContentConfigContext = createContext<{
   variant: 'underline' | 'highlight' | 'filled';
 } | null>(null);
 
@@ -46,13 +46,13 @@ function collapseReducer(states = initialStates, action: Action) {
     throw new Error('Unrecognized action type');
   }
 }
-const CollapseStoreContext = React.createContext<States | null>(null);
-const CollapseDispatchContext = React.createContext<React.Dispatch<Action> | null>(null);
+const CollapseStoreContext = createContext<States | null>(null);
+const CollapseDispatchContext = createContext<React.Dispatch<Action> | null>(null);
 
 
 
 export interface NavbarLogoProps extends React.PropsWithChildren {}
-const NavbarLogo =  withPolymorphic<'div', NavbarLogoProps>(React.forwardRef(({
+const NavbarLogo =  withPolymorphic<'div', NavbarLogoProps>(forwardRef(({
   className,
   ...rest
 }, ref: React.Ref<HTMLDivElement>) => {
@@ -68,7 +68,7 @@ const NavbarLogo =  withPolymorphic<'div', NavbarLogoProps>(React.forwardRef(({
 export interface NavbarContentProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'div'>> {
   variant?: 'underline' | 'highlight' | 'filled';
 }
-const NavbarContent = React.forwardRef(({
+const NavbarContent = forwardRef(({
   variant = 'underline',
   className,
   ...rest
@@ -93,7 +93,7 @@ export interface NavbarItemProps extends React.PropsWithChildren {
   activeClassName?: string;
 };
 
-const NavbarItem = withPolymorphic<'div', NavbarItemProps>(React.forwardRef(({
+const NavbarItem = withPolymorphic<'div', NavbarItemProps>(forwardRef(({
   isActive = false,
   activeClassName,
   className,
@@ -169,7 +169,7 @@ export interface NavbarCollapseTriggerProps extends React.PropsWithChildren<Reac
 
 }
 
-const NavbarCollapseTrigger = React.forwardRef<HTMLButtonElement, NavbarCollapseTriggerProps>(({
+const NavbarCollapseTrigger = forwardRef<HTMLButtonElement, NavbarCollapseTriggerProps>(({
   className,
   children,
   ...rest
@@ -199,7 +199,7 @@ export interface NavbarProps extends React.PropsWithChildren<React.ComponentProp
   onShowChange?: (isShow: boolean) => void;
 }
 
-const Navbar = React.forwardRef<HTMLElement, NavbarProps>(({
+const Navbar = forwardRef<HTMLElement, NavbarProps>(({
   position = 'sticky',
   show,
   hideOnScroll = false,

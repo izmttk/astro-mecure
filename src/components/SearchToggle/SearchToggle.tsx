@@ -1,6 +1,6 @@
 import { useSetAtom } from 'jotai';
-import React, { useCallback } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { useCallback } from 'react';
+import { twMerge } from 'tailwind-merge';
 import IconSearch from '~icons/tabler/search';
 import { searchModelOpen as searchModelOpenAtom } from '@/store/atoms';
 import useUncontrolled from '@/hooks/useUncontrolled';

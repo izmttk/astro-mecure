@@ -1,5 +1,4 @@
 import { animated, useSpring } from '@react-spring/web';
-import type React from 'react';
 
 import { twMerge } from 'tailwind-merge';
 export interface ProgressBarProps extends React.ComponentPropsWithoutRef<'div'> {

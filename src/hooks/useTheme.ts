@@ -10,7 +10,6 @@ export default function useTheme(defaultTheme: Theme = 'auto') {
   const [value, setValue, remove] = useLocalStorage<Theme>('theme', defaultTheme);
   const [theme, setTheme] = useAtom(themeAtom);
   const colorMode = theme === 'auto' ? (isMatchDark ? 'dark' : 'light') : theme;
-
   useEffect(() => {
     if (value && value !== theme) {
       setTheme(value);
@@ -21,11 +20,9 @@ export default function useTheme(defaultTheme: Theme = 'auto') {
   useEffect(() => {
     if (colorMode === 'dark') {
       document.documentElement.classList.add('dark');
-      document.documentElement.style.colorScheme = 'dark';
     }
     if (colorMode === 'light') {
       document.documentElement.classList.remove('dark');
-      document.documentElement.style.colorScheme = 'light';
     }
   }, [colorMode]);
 

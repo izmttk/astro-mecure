@@ -1,5 +1,4 @@
-import React from 'react';
-
+import { forwardRef } from 'react';
 type ElementType = React.ElementType;
 type Merge<A, B> = B & Omit<A, keyof B>;
 export type PolymorphicProps<E extends ElementType, P> = Merge<React.ComponentPropsWithRef<E>, P & { as?: E }>;
@@ -56,7 +55,7 @@ export function withPolymorphic<
 //   return component as PolymorphicComponent;
 // }
 
-const Polymorphic = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{ as?: any }>>(
+const Polymorphic = forwardRef<HTMLDivElement, React.PropsWithChildren<{ as?: any }>>(
   ({ as, ...rest }, ref) => {
     const Element = as || 'div';
     return (

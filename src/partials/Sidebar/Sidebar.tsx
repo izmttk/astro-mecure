@@ -1,4 +1,3 @@
-import type React from 'react';
 import ScrollArea from '@/components/ScrollArea';
 
 import { useAtom, useAtomValue } from 'jotai';

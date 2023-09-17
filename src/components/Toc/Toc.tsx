@@ -1,4 +1,3 @@
-import type React from 'react'
 import useToc from '@/hooks/useToc';
 import { twMerge } from 'tailwind-merge';
 import type { MarkdownHeading } from 'astro';
