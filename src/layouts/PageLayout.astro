@@ -173,7 +173,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
       config={pagination}
     />
   )}
-  <Fabs />
+  <Fabs client:load />
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
   {algolia && <Search {...algolia} client:only='react' />}
 </Html>
