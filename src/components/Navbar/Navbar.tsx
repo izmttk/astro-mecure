@@ -4,7 +4,7 @@ import { useSpring, animated } from '@react-spring/web';
 import useWindowScrollInfo from '@/hooks/useWindowsScrollInfo';
 import useCallbackRef from '@/hooks/useCallbackRef';
 import { twMerge } from 'tailwind-merge';
-import { useLockBodyScroll, useWindowSize } from 'react-use';
+import { useLockBodyScroll } from 'react-use';
 import useElementSize from '@/hooks/useElementSize';
 
 const ContentConfigContext = createContext<{
@@ -277,8 +277,6 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({
             </div>
           </CollapseDispatchContext.Provider>
         </CollapseStoreContext.Provider>
-        {/* curPos:{JSON.stringify(curPos)}<br/>
-        prevPos:{JSON.stringify(prevPos)}<br/> */}
       </animated.nav>
     </>
   )

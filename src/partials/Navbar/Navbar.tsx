@@ -1,14 +1,15 @@
 import Navbar from '@/components/Navbar';
 import Logo from './Logo';
 import ThemeToggle from '@/components/ThemeToggle';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useLocation, useMap } from 'react-use';
+import { useMap } from 'react-use';
 import type { MenuConfig } from '@/components/Menu';
 
 import IconChevronDown from '~icons/tabler/chevron-down';
 import IconSidebarExpand from '~icons/tabler/layout-sidebar-right-expand'
 import useBreakpoints from '@/hooks/useBreakpoints';
+import usePath from '@/hooks/usePath';
 import Menu from '@/components/Menu';
 import NoSSR from '@/components/NoSSR';
 
@@ -94,29 +95,21 @@ export default function CustomNavbar({
     setHasThemeToggle(hasThemeToggle);
   }, [hasThemeToggle]);
 
-  const onShowChange = (isShow: boolean) => {
-    setShow(isShow);
-    if (!isShow) {
-      for (const key in map) {
-        set(key, false);
-      }
-    }
-  }
-
   const [active, setActive] = useState<number | null>(null);
 
-  const location = useLocation();
+  const path = usePath();
   useEffect(() => {
     setActive(null);
+
     menu.forEach((item, index) => {
       if ('url' in item) {
-        if (location.pathname && pathEqual(item.url, location.pathname)) {
+        if (path && pathEqual(item.url, path)) {
           setActive(index);
         }
       }
     })
     
-  }, [location]);
+  }, [path]);
 
   const isMd = useBreakpoints('md');
   const [ref, size] = useElementSize<HTMLElement>();
@@ -156,6 +149,18 @@ export default function CustomNavbar({
     </Navbar.Content>
   );
 
+  const onShowChange = useCallback((isShow: boolean) => {
+    setShow(isShow);
+    if (!isShow) {
+      for (const key in map) {
+        set(key, false);
+      }
+    }
+  }, [map]);
+
+  const onThemeMenuOpenChange = useCallback((open: boolean) => set('theme', open), []);
+  const onNavCollapseOpenChange = useCallback((open: boolean) => set('collapse', open), []);
+
   return (
     <Navbar ref={ref} position='floating' {...rest} hideOnScroll show={show} onShowChange={onShowChange}>
       <NoSSR>
@@ -183,12 +188,12 @@ export default function CustomNavbar({
           )}
           <Navbar.Content className='md:ml-3 space-x-2'>
             {hasSearchToggle && isMd && <SearchToggle />}
-            {hasThemeToggle && isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={(open: boolean) => set('theme', open)} />}
+            {hasThemeToggle && isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={onThemeMenuOpenChange} />}
             {!isMd && <SideToggle />}
           </Navbar.Content>
         </div>
         {!isMd && (
-          <Navbar.Collapse open={map['collapse'] ?? false} onOpenChange={(open: boolean) => set('collapse', open)}>
+          <Navbar.Collapse open={map['collapse'] ?? false} onOpenChange={onNavCollapseOpenChange}>
             {navCollapse}
           </Navbar.Collapse>
         )}

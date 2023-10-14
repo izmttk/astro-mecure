@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import IconSun from '~icons/tabler/sun';
@@ -20,7 +20,7 @@ export interface ThemeToggleProps extends React.PropsWithChildren<React.Componen
   onOpenChange?: (open: boolean) => void;
 }
 // Please wrap this component with <NoSSR />
-export default function ThemeToggle({
+function ThemeToggle({
   open,
   onOpenChange,
   className,
@@ -60,3 +60,8 @@ export default function ThemeToggle({
     </DropdownMenu.Root>
   )
 }
+
+
+const MemoThemeToggle = memo(ThemeToggle);
+
+export default MemoThemeToggle;

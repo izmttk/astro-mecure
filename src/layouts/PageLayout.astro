@@ -2,11 +2,12 @@
 import Navbar from '@/partials/Navbar';
 import Footer from '@/partials/Footer';
 import Sidebar from '@/partials/Sidebar';
+import Fabs from '@/components/Fabs';
 import type { SidebarConfig, TocConfig } from '@/partials/Sidebar';
 import getTags from '@/utils/getTags';
 import getCategories from '@/utils/getCategories';
 import type { Page } from '@/types';
-import BaseLayout from './BaseLayout.astro';
+import Html from './Html.astro';
 import Hero, { type HeroConfig } from '@/partials/Hero';
 import Pagination from '@/partials/Pagination';
 import Comment from '@/partials/Comment';
@@ -140,7 +141,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 
 ---
 
-<BaseLayout
+<Html
   title={page.type === 'index' ? config.title : page.title}
   description={page.description ?? config.description}
   author={page.type === 'post' ? page.post.author.name : config.author}
@@ -172,6 +173,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
       config={pagination}
     />
   )}
+  <Fabs />
   {hasFooter && footer && <Footer containerClassName="px-3 mx-auto lg:max-w-[74rem] my-8" config={footer} />}
   {algolia && <Search {...algolia} client:only='react' />}
-</BaseLayout>
+</Html>

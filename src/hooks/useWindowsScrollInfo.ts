@@ -17,37 +17,37 @@ const useWindowScrollInfo = () => {
   } | null>(null);
   useEffect(() => {
     const handler = () => {
-      const { pageXOffset, pageYOffset } = window;
-      if (pageYOffset === 0) {
+      const { scrollX, scrollY } = window;
+      if (scrollY === 0) {
         setIsTop(true);
       } else {
         setIsTop(false);
       }
       if (prev.current === null) {
         prev.current = {
-          x: pageXOffset,
-          y: pageYOffset
+          x: scrollX,
+          y: scrollY
         }
       } else {
         const direction: State = {
           horizontal: 'unchanged',
           vertical: 'unchanged',
         };
-        if (pageXOffset > prev.current.x) {
+        if (scrollX > prev.current.x) {
           direction.horizontal = 'left';
-          prev.current.x = pageYOffset;
-        } else if (pageXOffset < prev.current.x) {
+          prev.current.x = scrollY;
+        } else if (scrollX < prev.current.x) {
           direction.horizontal = 'right';
-          prev.current.x = pageXOffset;
+          prev.current.x = scrollX;
         } else {
           direction.horizontal = 'unchanged';
         }
-        if (pageYOffset > prev.current.y) {
+        if (scrollY > prev.current.y) {
           direction.vertical = 'down';
-          prev.current.y = pageYOffset;
-        } else if (pageYOffset < prev.current.y) {
+          prev.current.y = scrollY;
+        } else if (scrollY < prev.current.y) {
           direction.vertical = 'up';
-          prev.current.y = pageYOffset;
+          prev.current.y = scrollY;
         } else {
           direction.vertical = 'unchanged';
         }

@@ -14,7 +14,7 @@ const {
   favicon,
   author,
   generator,
-  canonical,
+  canonical = decodeURI(Astro.url.href)
 } = Astro.props;
 import "@fontsource-variable/inter";
 import "@fontsource-variable/fira-code";
@@ -22,6 +22,7 @@ import "@/styles/global.css";
 // import "/styles/ch-style.css"
 
 import { ViewTransitions } from "astro:transitions";
+// import ProgressBar from "@/components/ProgressBar";
 ---
 
 <html lang="zh-CN">
@@ -47,8 +48,10 @@ import { ViewTransitions } from "astro:transitions";
         }
         if (presetTheme === 'dark') {
           document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = 'dark';
         } else {
           document.documentElement.classList.remove('dark');
+          document.documentElement.style.colorScheme = 'light';
         }
       })()
     </script>
@@ -57,6 +60,7 @@ import { ViewTransitions } from "astro:transitions";
   <body class="min-h-screen flex flex-col">
     <noscript><b>Enable JavaScript to run this website.</b></noscript>
     <slot />
+    <!-- <ProgressBar client:only="react" transition:persist="progress-bar" /> -->
   </body>
 </html>
 
@@ -72,8 +76,10 @@ import { ViewTransitions } from "astro:transitions";
     }
     if (presetTheme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.style.colorScheme = 'light';
     }
   };
 
