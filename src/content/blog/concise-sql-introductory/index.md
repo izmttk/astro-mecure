@@ -8,7 +8,7 @@ tags:
 category: 
 - 编程语言
 - SQL
-image: https://image.wider.ink/static/20210219102400.jpg!/both/1200x800
+image: ./cover.jpg
 ---
 
 # SQL 简明手册 入门篇

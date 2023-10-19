@@ -2,7 +2,7 @@
 title: 装机记录：垃圾佬速成
 date: 2023-09-28
 updateDate: 2023-10-06
-tags: [装机]
+tags: [装机, 折腾]
 category: [生活]
 image: ./cover.jpg
 ---

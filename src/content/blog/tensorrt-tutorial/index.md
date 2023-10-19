@@ -3,7 +3,7 @@ title: TensorRT踩坑教程
 date: 2023-07-10
 tags: [PyTorch, TensorRT, CUDA]
 category: [深度学习, 模型部署]
-image: ./postcard-nvidia.jpg
+image: ./cover.jpg
 ---
 ## 0. 前言
 
