@@ -73,7 +73,7 @@ const config: Config = {
         author: '银河渡舟',
         description: '浊以静之徐清，安以动之徐生',
         avatar: url('/assets/avatar.png'),
-        background: url('/assets/profile-bg.webp'),
+        background: url('/assets/profile-bg.jpg'),
         socialIcons: [
           {
             label: 'github',
