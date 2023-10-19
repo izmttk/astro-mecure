@@ -97,7 +97,7 @@ const {
           )
         )
       }
-      {!info && description && <div class='mt-4 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{description}</div>}
+      {!info && description && <div class='mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>{description}</div>}
       {info?.type === 'post' && (
         <>
           <div class='flex flex-wrap justify-center text-[0.8125rem] gap-x-4 gap-y-1 mt-4'>
@@ -128,22 +128,22 @@ const {
         </>
       )}
       {info?.type === 'categories' && (
-        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+        <div class='flex flex-wrap justify-center mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>
           <div class=''>共{info.count}个分类</div>
         </div>
       )}
       {info?.type === 'tags' && (
-        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+        <div class='flex flex-wrap justify-center mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>
           <div class=''>共{info.count}个标签</div>
         </div>
       )}
       {info?.type === 'posts' && (
-        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+        <div class='flex flex-wrap justify-center mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>
           <div class=''>共{info.count}篇文章</div>
         </div>
       )}
       {info?.type === 'archive' && (
-        <div class='flex flex-wrap justify-center text-sm gap-x-4 gap-y-1 mt-4'>
+        <div class='flex flex-wrap justify-center mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>
           <div class=''>共{info.count}篇文章</div>
         </div>
       )}
