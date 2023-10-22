@@ -100,25 +100,11 @@ export default {
             a: {
               fontWeight: 'bold',
               textDecoration: 'none',
-              position: 'relative',
-              zIndex: 0,
+              boxShadow: `inset 0 -0.12em 0 ${theme('colors.primary.400')}`,
+              transition: 'box-shadow .2s ease-in-out,color .2s ease-in-out',
             },
-            'a::before': {
-              content: '""',
-              background: theme('colors.primary.400/40%'),
-              bottom: 0,
-              left: '-1px',
-              position: 'absolute',
-              right: '-1px',
-              top: '70%',
-              transition: 'top 175ms ease-in-out',
-              zIndex: -1,
-            },
-            // 'a:hover': {
-            //   borderBottom: '1px solid currentColor',
-            // },
-            'a:hover::before': {
-              top: 0,
+            'a:hover': {
+              boxShadow: `inset 0 -1.5em 0 ${theme('colors.primary.400/50%')}`,
             },
             'a code': {
               color: 'inherit',
