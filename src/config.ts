@@ -6,7 +6,7 @@ const config: Config = {
   title: '银河渡舟',
   description: '浊以静之徐清，安以动之徐生。',
   author: 'Wider',
-  favicon: url('favicon.svg'),
+  favicon: url('favicon.ico'),
   navbar: {
     menu: [
       {
