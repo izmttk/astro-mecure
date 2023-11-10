@@ -28,7 +28,6 @@ import rehypePostReadingTime from './plugins/rehype/rehypePostReadingTime';
 import rehypePostRaw from './plugins/rehype/rehypePostRaw';
 
 import { remarkCodeHike } from '@code-hike/mdx';
-import theme from 'shiki/themes/github-dark-dimmed.json';
 
 // https://astro.build/config
 const config: AstroUserConfig = {

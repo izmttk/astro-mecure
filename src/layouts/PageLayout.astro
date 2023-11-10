@@ -150,7 +150,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
   <slot name="head" slot="head" />
   {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar} client:load />}
   {hasHero && heroConfig && <Hero class='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} />}
-  <main class="mx-auto w-full lg:max-w-[74rem] my-3 flex-grow flex">
+  <main class="mx-auto w-full lg:max-w-[74rem] md:my-1 flex-grow flex">
     <div class={twMerge(
       "p-3 min-w-0 w-full",
       hasSidebar && sidebarConfig && "md:w-[calc(100%_-_17rem)]",

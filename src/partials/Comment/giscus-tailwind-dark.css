@@ -1,0 +1,137 @@
+main {
+  --color-prettylights-syntax-comment: #768390;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #adbac7;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-variable: #f69d50;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-invalid-illegal-text: #cdd9e5;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-carriage-return-text: #cdd9e5;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-italic: #adbac7;
+  --color-prettylights-syntax-markup-bold: #adbac7;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-ignored-text: #adbac7;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-brackethighlighter-angle: #768390;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #545d68;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+
+  --color-btn-text: #adbac7;
+  --color-btn-bg: theme(colors.gray.700);
+  --color-btn-border: transparent;
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: theme(colors.gray.600);
+  --color-btn-hover-border: transparent;
+  --color-btn-active-bg: theme(colors.gray.600 / 50%);
+  --color-btn-active-border: transparent;
+  --color-btn-selected-bg: theme(colors.gray.700);
+
+  --color-btn-primary-text: #fff;
+  --color-btn-primary-bg: theme(colors.primary.600);
+  --color-btn-primary-border: transparent;
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: theme(colors.primary.800);
+  --color-btn-primary-hover-border: transparent;
+  --color-btn-primary-selected-bg: theme(colors.primary.700);
+  --color-btn-primary-selected-shadow: 0 0 transparent;
+  --color-btn-primary-disabled-text: rgb(205 217 229 / 50%);
+  --color-btn-primary-disabled-bg: theme(colors.primary.900);
+  --color-btn-primary-disabled-border: transparent;
+  
+  --color-action-list-item-default-hover-bg: rgb(144 157 171 / 12%);
+  --color-segmented-control-bg: theme(colors.gray.700 / 50%);
+  --color-segmented-control-button-bg: theme(colors.gray.700);
+  --color-segmented-control-button-selected-border: transparent;
+  --color-fg-default: theme(colors.text.primary.dark);
+  --color-fg-muted: theme(colors.text.secondary.dark);
+  --color-fg-subtle: theme(colors.text.disabled.dark);
+
+  --color-canvas-default: theme(colors.gray.800);
+  --color-canvas-overlay: theme(colors.gray.700);
+  --color-canvas-inset: theme(colors.gray.900);
+  --color-canvas-subtle: theme(colors.gray.700);
+
+  --color-border-default: transparent;
+  --color-border-muted: transparent;
+  --color-neutral-muted: rgb(99 110 123 / 40%);
+  --color-accent-fg: theme(colors.primary.500);
+  --color-accent-emphasis: theme(colors.primary.600);
+  --color-accent-muted: theme(colors.primary.600 / 40%);
+  --color-accent-subtle: theme(colors.primary.600 / 10%);
+  --color-success-fg: #57ab5a;
+  --color-attention-fg: #c69026;
+  --color-attention-muted: rgb(174 124 20 / 40%);
+  --color-attention-subtle: rgb(174 124 20 / 15%);
+  --color-danger-fg: #e5534b;
+  --color-danger-muted: rgb(229 83 75 / 40%);
+  --color-danger-subtle: rgb(229 83 75 / 10%);
+  --color-primer-shadow-inset: 0 0 transparent;
+  --color-scale-gray-7: #373e47;
+  --color-scale-blue-8: #143d79;
+
+  /*! Extensions from @primer/css/alerts/flash.scss */
+  --color-social-reaction-bg-hover: var(--color-scale-gray-7);
+  --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
+}
+main .gsc-comment-box {
+  border-radius: 0.75rem!important;
+}
+main .gsc-comment-box-tabs {
+  border-start-end-radius: 0.75rem;
+  border-start-start-radius: 0.75rem;
+}
+main .gsc-comment-box-tabs button {
+  border-radius: 0.5rem 0.5rem 0 0;
+  border-start-end-radius: 0.5rem!important;
+  border-start-start-radius: 0.5rem!important;
+  padding-bottom: 0.35rem!important;
+  padding-top: 0.35rem!important;
+  padding-inline-end: 0.65rem!important;
+  padding-inline-start: 0.65rem!important;
+}
+main .gsc-comment .gsc-comment-box-tabs {
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+main .gsc-comment > div{
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+main .gsc-timeline {
+  gap: 0.5rem;
+}
+main .gsc-timeline > * + * {
+  border-top: 1px solid theme(colors.gray.700);
+  padding-top: 0.5rem;
+}
+main .gsc-comment-header {
+  padding-inline-end: 0;
+  padding-inline-start: 0;
+}
+main .gsc-reply-box {
+  background: none;
+  border: none;
+}
+main .pagination-loader-container {
+  background-image: url("https://github.com/images/modules/pulls/progressive-disclosure-line-dark.svg");
+}
+main .gsc-loading-image {
+  background-image: url("https://github.githubassets.com/images/mona-loading-dimmed.gif");
+}
