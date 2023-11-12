@@ -31,7 +31,7 @@ import { remarkCodeHike } from '@code-hike/mdx';
 
 // https://astro.build/config
 const config: AstroUserConfig = {
-  site: 'https://suborbit.me/',
+  site: 'https://suborbit.net/',
   // base: 'blog',
   output: 'static',
   // adapter: node({
