@@ -78,7 +78,6 @@ export interface MenuProps extends React.PropsWithChildren {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   size?: 'compact' | 'normal' | 'loose';
-  subMenuSize?: 'compact' | 'normal' | 'loose';
 }
 
 export default function Menu({
@@ -86,7 +85,6 @@ export default function Menu({
   open,
   onOpenChange,
   size = 'normal',
-  subMenuSize = 'normal',
   children
 }: MenuProps) {
   return (

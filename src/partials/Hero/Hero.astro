@@ -1,22 +1,13 @@
 ---
 import { twMerge } from 'tailwind-merge';
-import IconCalendarFill from '~icons/mingcute/calendar-fill';
-import IconTextFill from '~icons/mingcute/text-fill';
-import IconTimeFill from '~icons/mingcute/time-fill';
-import IconDocument from '~icons/mingcute/document-fill';
-import IconEdit from '~icons/mingcute/edit-fill';
-import IconUser from '~icons/mingcute/user-3-fill';
 
-// import Logo from './Logo'
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 import type { Page, Post } from '@/types';
-import Category from '@/components/Category';
-import Tag from '@/components/Tag';
-import DateTime from '@/components/DateTime';
 import type { HTMLAttributes } from 'astro/types';
 import Background from './Background';
+import PostMeta from './PostMeta';
 interface HeroPostInfo {
   type: 'post',
   date: Post['date'],
@@ -81,7 +72,6 @@ const {
   info
 } = config;
 ---
-
 <header class={twMerge(
   className
 )} {...rest}>
@@ -98,35 +88,7 @@ const {
         )
       }
       {!info && description && <div class='mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>{description}</div>}
-      {info?.type === 'post' && (
-        <>
-          <div class='flex flex-wrap justify-center text-[0.8125rem] gap-x-4 gap-y-1 mt-4'>
-            {/* make sure that prerendered html isn't afftected by timezone */}
-            {info.date && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
-              <IconCalendarFill className='inline mr-1' />发布于 <DateTime date={info.date} />
-            </div>}
-            {info.updateDate && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
-              <IconEdit className='inline mr-1' />修改于 <DateTime date={info.updateDate} />
-            </div>}
-            {info.readingTime && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
-              <IconTimeFill className='inline mr-1' />约{info.readingTime}分钟
-            </div>}
-            {info.wordCount && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
-              <IconTextFill className='inline mr-1' />共{info.wordCount}字
-            </div>}
-            {info.author && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
-              <IconUser className='inline mr-1' />{info.author.name}
-            </div>}
-            {info.draft && <div class='flex items-center bg-white/70 text-text-primary pl-1.5 pr-2.5 py-0.5 rounded-full shadow-md'>
-              <IconDocument />草稿
-            </div>}
-          </div>
-          <div class='flex flex-wrap items-center justify-center mt-4 gap-2 pointer-events-auto'>
-            <Category onlyText className='text-text-primary text-[0.8125rem] rounded-full pl-1.5 pr-2.5 py-0.5 bg-white/70 shadow-md hover:bg-primary-500 hover:text-white transition duration-75' category={info.category} />
-            {info.tags.map(tag => <Tag onlyText className='text-text-primary text-[0.8125rem] rounded-full pl-1.5 pr-2.5 py-0.5 bg-white/70 shadow-md hover:bg-primary-500 hover:text-white transition duration-75' tag={tag} />)}
-          </div>
-        </>
-      )}
+      {info?.type === 'post' && <PostMeta client:load {...info} />}
       {info?.type === 'categories' && (
         <div class='flex flex-wrap justify-center mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>
           <div class=''>共{info.count}个分类</div>

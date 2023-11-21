@@ -1,5 +1,5 @@
 ---
-import Sidebar from './Sidebar';
+import ReactSidebar from './Sidebar';
 
 import Profile from '@/components/Profile';
 import TagCloud from '@/components/TagCloud';
@@ -25,7 +25,7 @@ const {
 const { widgets } = config;
 
 ---
-<Sidebar className={className} showSidebarOnDesktop={showSidebarOnDesktop} client:load>
+<ReactSidebar className={className} showSidebarOnDesktop={showSidebarOnDesktop} client:load>
   <div class="flex flex-col gap-3">
     {widgets?.map(widget => {
       const { name, title, show, ...props} = widget;
@@ -54,4 +54,4 @@ const { widgets } = config;
       }
     })}
   </div>
-</Sidebar>
+</ReactSidebar>

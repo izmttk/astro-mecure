@@ -1,5 +1,4 @@
 import type { ImageMetadata, MarkdownHeading, MarkdownInstance } from 'astro';
-import { Page as AstroPage } from 'astro';
 export interface Tag {
   slug: string;
   label: string;

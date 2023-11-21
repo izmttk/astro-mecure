@@ -10,5 +10,7 @@ export default function DateTime({
   const dateString = format(date, 'PPP', {
     locale: zhCN
   })
-  return dateString;
+  return (
+    <>{dateString}</>
+  );
 }
