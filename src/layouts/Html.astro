@@ -22,7 +22,7 @@ import "@/styles/global.css";
 // import "/styles/ch-style.css"
 
 import { ViewTransitions } from "astro:transitions";
-// import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/ProgressBar";
 ---
 
 <html lang="zh-CN">
@@ -60,7 +60,7 @@ import { ViewTransitions } from "astro:transitions";
   <body class="min-h-screen flex flex-col">
     <noscript><b>Enable JavaScript to run this website.</b></noscript>
     <slot />
-    <!-- <ProgressBar client:only="react" transition:persist="progress-bar" /> -->
+    <ProgressBar client:load transition:persist="progress-bar" />
   </body>
 </html>
 
