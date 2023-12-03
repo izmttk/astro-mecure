@@ -74,7 +74,7 @@ const config: AstroUserConfig = {
     //   // },
     //   html: false
     // }),
-    // sitemap(),
+    sitemap(),
   ],
 
   markdown: {

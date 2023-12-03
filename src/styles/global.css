@@ -30,7 +30,7 @@ body {
   }
 }
 
-@media screen(md) {
+/* @media screen(md) {
   body::before {
     content: '';
     position: fixed;
@@ -46,7 +46,7 @@ body {
   .dark body::before {
     opacity: 0.3;
   }
-}
+} */
 
 /* FireFox ScrollBar Thin Style */
 :root, :root * {

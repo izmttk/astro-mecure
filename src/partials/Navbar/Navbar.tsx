@@ -162,7 +162,7 @@ export default function CustomNavbar({
   const onNavCollapseOpenChange = useCallback((open: boolean) => set('collapse', open), []);
 
   return (
-    <Navbar ref={ref} position='floating' {...rest} hideOnScroll show={show} onShowChange={onShowChange}>
+    <Navbar ref={ref} position='floating' {...rest} hideOnScroll transparentOnTop show={show} onShowChange={onShowChange}>
       <NoSSR>
         <div className={twMerge(
           'flex items-center w-full h-full text-sm',

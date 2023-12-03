@@ -129,7 +129,7 @@ const config: Config = {
   },
   typography: {
     outdateTip: {
-      outdateLimit: 90,
+      outdateLimit: 180,
     },
     license: {
       licenseName: 'CC BY-NC-SA 4.0',
