@@ -214,7 +214,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({
   const shouldHide = position !== 'static' && hideOnScroll && direction.vertical === 'down';
   const isShow = show ?? !shouldHide;
   const [states, dispatch] = useReducer(collapseReducer, initialStates);
-  const shouldTransparent = transparentOnTop && isTop;
+  const shouldTransparent = transparentOnTop && isTop && states.open === false;
   // no render when onShowChange changed
   const handleShowChange = useCallbackRef(onShowChange);
   useEffect(() => {
@@ -266,7 +266,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({
                 'bg-white/80 dark:bg-gray-800/75',
                 'backdrop-blur-md backdrop-saturate-150',
                 'transition-[background-color,backdrop-filter,border-color,box-shadow] duration-300',
-                shouldTransparent && '!bg-transparent !border-transparent backdrop-blur-0 backdrop-saturate-100 !shadow-none'
+                shouldTransparent && '!bg-transparent !border-transparent !backdrop-blur-0 !backdrop-saturate-100 !shadow-none'
               )}>
                 <div className='flex h-[3.75rem]'>{children}</div>
                 {states.node && (
