@@ -19,7 +19,7 @@ export default function ScrollToTop({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   return (
-    <button className="relative w-11 h-11 bg-white dark:bg-gray-700 plate-shadow border-highlight rounded-full flex items-center justify-center" onClick={scrollToTop}>
+    <button className="relative w-11 h-11 bg-white dark:bg-gray-700 plate-shadow border-highlight rounded-full flex items-center justify-center" onClick={scrollToTop} aria-label="Scroll To Top">
       <IconChevronUp className="w-6 h-6 z-10" />
       <NoSSR>
         <svg className="w-full h-full absolute" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
