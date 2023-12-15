@@ -50,7 +50,7 @@ export default function Background({
       onMouseMove={handleMouseMove}
       ref={ref}
     >
-      <animated.img style={{ transform: xys.to(trans) }} src={bg} className='w-full h-full object-cover pointer-events-none select-none transform-gpu' alt='background' />
+      <animated.img style={{ transform: xys.to(trans) }} src={bg} className='w-full h-full object-cover pointer-events-none select-none transform-gpu' alt='background' loading='eager' />
     </div>
   )
 }

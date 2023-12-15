@@ -26,9 +26,9 @@ const bg = image ? (typeof image === 'string' ? image : image.src) : undefined;
   ...rest,
 }}>
   {typeof image === 'string' ? (
-    <img src={image} alt='backdrop' class='object-fill h-full w-full' />
+    <img src={image} alt='backdrop' class='object-fill h-full w-full' loading='eager' />
   ) : (
-    <Image src={image} alt='backdrop' class='object-fill h-full w-full' />
+    <Image src={image} alt='backdrop' class='object-fill h-full w-full' loading='eager' />
   )}
 </div>
 
