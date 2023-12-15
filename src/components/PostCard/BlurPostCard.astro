@@ -20,14 +20,7 @@ const {
   ...rest
 } = Astro.props;
 
-
-const bg = image ? (typeof image === 'string' ? image : (await getImage({
-  src: image,
-  width: 100,
-  height: 33,
-  quality: 50,
-})).src): undefined;
-
+const bg = image ? (typeof image === 'string' ? image : image.src) : undefined;
 ---
 
 <div class={twMerge(

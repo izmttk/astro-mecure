@@ -29,7 +29,7 @@ export default function SearchToggle({
   }, []);
   return (
     <button onClick={handleClick} aria-label='Search Toggle' className={twMerge(
-      'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
+      'p-2 rounded-full bg-gradient-to-b from-gray-100/50 to-white/50 ring-1 ring-gray-900/5 dark:from-gray-500/30 dark:to-gray-400/30 dark:ring-white/20 shadow-lg shadow-gray-800/10',
       className,
     )} {...rest}><IconSearch className='h-[1.125rem] w-[1.125rem] m-px' /></button>
   )

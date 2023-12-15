@@ -34,7 +34,7 @@ function ThemeToggle({
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>
         <button aria-label='Theme Toggle' className={twMerge(
-          'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
+          'p-2 rounded-full bg-gradient-to-b from-gray-100/50 to-white/50 ring-1 ring-gray-900/5 dark:from-gray-500/30 dark:to-gray-400/30 dark:ring-white/20 shadow-lg shadow-gray-800/10',
           className,
         )} {...rest}>{stateIcon}</button>
       </DropdownMenu.Trigger>

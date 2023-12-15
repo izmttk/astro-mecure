@@ -3,6 +3,7 @@ import Navbar from '@/partials/Navbar';
 import Footer from '@/partials/Footer';
 import Sidebar from '@/partials/Sidebar';
 import Fabs from '@/components/Fabs';
+import BlurredBackdrop from '@/components/BlurredBackdrop';
 import type { SidebarConfig, TocConfig } from '@/partials/Sidebar';
 import getTags from '@/utils/getTags';
 import getCategories from '@/utils/getCategories';
@@ -149,7 +150,10 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 >
   <slot name="head" slot="head" />
   {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar} client:load />}
-  {hasHero && heroConfig && <Hero class='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} transition:animate="fade" />}
+  {hasHero && heroConfig && (
+    <BlurredBackdrop image={heroConfig.bg} class='h-[22rem] absolute left-0 right-0 top-0 -z-10' />
+    <Hero class='mx-auto w-full h-72 md:h-96 lg:max-w-[74rem] p-3' config={heroConfig} transition:animate="fade" />
+  )}
   <main class="mx-auto w-full lg:max-w-[74rem] md:my-1 flex-grow flex" transition:animate="fade">
     <div class={twMerge(
       "p-3 min-w-0 w-full",

@@ -55,7 +55,7 @@ export default function CustomSidebar({
     <ScrollArea type='scroll' className='h-full' containerClassName={twMerge(
       'items-center space-y-4 p-3',
       styles.sidebarContainer
-     )} useMask={false}>
+     )}>
       {children}
     </ScrollArea>
   )

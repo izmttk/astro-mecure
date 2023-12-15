@@ -43,7 +43,7 @@ function SideToggle() {
   }
   return (
     <button aria-label='Sidebar Toggle' className={twMerge(
-      'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
+      'p-2 rounded-full bg-gray-400/30 dark:bg-600/30',
     )} onClick={handleClick}><IconSidebarExpand className='h-5 w-5' /></button>
   )
 }
@@ -172,7 +172,7 @@ export default function CustomNavbar({
           {!isMd && (
             <Navbar.Content className='md:ml-3 space-x-2'>
               <Navbar.Trigger className={twMerge(
-                'p-1.5 rounded-full bg-gray-400/30 dark:bg-600/30',
+                'p-2 rounded-full bg-gray-400/30 dark:bg-600/30',
               )}>
                 {map['collapse'] ? <IconX className='h-5 w-5' /> : <IconMenu2 className='h-5 w-5' />}
               </Navbar.Trigger>
