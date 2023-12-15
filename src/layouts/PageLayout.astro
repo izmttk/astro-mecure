@@ -143,7 +143,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 ---
 
 <Html
-  title={page.type === 'index' ? config.title : page.title}
+  title={page.type === 'index' ? config.title : `${page.title} - ${config.title}`}
   description={page.description ?? config.description}
   author={page.type === 'post' ? page.post.author.name : config.author}
   favicon={config.favicon}
