@@ -113,11 +113,11 @@ function count(target: string, options: Options = {}): Result {
   };
 }
 
-const rehypeReadingTime: RemarkPlugin = () => {
+const remarkPostWordCount: RemarkPlugin = () => {
   return (tree, file) => {
     const { frontmatter } = file.data.astro as MarkdownAstroData;
     frontmatter.wordCount = count(mdastToString(tree)).characters;
   };
 };
 
-export default rehypeReadingTime;
+export default remarkPostWordCount;

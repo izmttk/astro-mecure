@@ -101,11 +101,12 @@ const config: AstroUserConfig = {
   // build: {
   //   assets: 'assets'
   // },
+  // prefetch: {
+  //   prefetchAll: true,
+  // },
   vite: {
     plugins: [
-      svgr({
-        exportAsDefault: true
-      }),
+      svgr(),
       icons({
         compiler: 'jsx',
         jsx: 'react',

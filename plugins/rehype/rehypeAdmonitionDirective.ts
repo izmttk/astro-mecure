@@ -2,7 +2,7 @@ import { visit } from 'unist-util-visit';
 import type { RehypePlugin } from '@astrojs/markdown-remark';
 import styles from '/src/components/MDXComponents/Admonition/Admonition.module.css';
 import { h, s } from 'hastscript';
-import type { Content } from 'hast';
+import type { RootContent } from 'hast';
 import { twMerge } from 'tailwind-merge';
 import { fromHtml } from 'hast-util-from-html';
 
@@ -51,7 +51,7 @@ function getDefaultInfo(type: AdmonitionType) {
 function htmlTemplate(
   type: AdmonitionType,
   title?: string, 
-  children?: Content[],
+  children?: RootContent[],
 ) {
   const defaultInfo = getDefaultInfo(type);
   if (defaultInfo === null) {

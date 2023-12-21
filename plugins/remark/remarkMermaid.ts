@@ -27,7 +27,7 @@ declare module 'mdast' {
   }
 }
 
-const plugin: RemarkPlugin = () => {
+const remarkMermaid: RemarkPlugin = () => {
 
   return (root) => {
     visit(root, 'code', (node: Code, index, parent) => {
@@ -46,4 +46,4 @@ const plugin: RemarkPlugin = () => {
   };
 }
 
-export default plugin;
+export default remarkMermaid;

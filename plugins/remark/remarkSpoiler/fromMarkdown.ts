@@ -15,21 +15,28 @@ declare module 'mdast' {
   }
 }
 
+let currentNodes: Spoiler[] = [];
+
 export const fromMarkdown = (): FromMarkdownExtension => {
   const enterSpoiler: Handle = function(token) {
-    this.enter<Spoiler>({
+    const node: Spoiler = {
       type: 'spoiler',
       children: [],
-    }, token);
+    };
+    this.enter(node, token);
+    currentNodes.push(node);
   }
   const exitSpoiler: Handle = function(token) {
-    const node = this.exit(token) as Spoiler;
-    node.data = {
-      ...node.data,
-      hName: 'span',
-      hProperties: {
-        className: 'bg-current hover:bg-transparent transition-colors duration-200 rounded px-0.5 mx-0.5',
-      },
+    this.exit(token);
+    const node = currentNodes.pop();
+    if (node) {
+      node.data = {
+        ...node.data,
+        hName: 'span',
+        hProperties: {
+          className: 'bg-current hover:bg-transparent transition-colors duration-200 rounded px-0.5 mx-0.5',
+        },
+      }
     }
   }
   return {
