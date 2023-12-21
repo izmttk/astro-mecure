@@ -24,11 +24,11 @@
 }
 
 .gradientMask {
-  --mask-margin: 2.5rem;
-  --left-mask: linear-gradient(#000, #000) left/var(--mask-margin) calc(100% - var(--mask-margin) * 2) no-repeat;
-  --right-mask: linear-gradient(#000, #000) right/var(--mask-margin) calc(100% - var(--mask-margin) * 2) no-repeat;
-  --top-mask: linear-gradient(#000, #000) top/calc(100% - var(--mask-margin) * 2) var(--mask-margin) no-repeat;
-  --bottom-mask: linear-gradient(#000, #000) bottom/calc(100% - var(--mask-margin) * 2) var(--mask-margin) no-repeat;
+  --mask-margin: 24px;
+  --left-mask: linear-gradient(#000, #000) left/var(--mask-margin) calc(100% - var(--mask-margin) * 2 + 1px) no-repeat;
+  --right-mask: linear-gradient(#000, #000) right/var(--mask-margin) calc(100% - var(--mask-margin) * 2 + 1px) no-repeat;
+  --top-mask: linear-gradient(#000, #000) top/calc(100% - var(--mask-margin) * 2 + 1px) var(--mask-margin) no-repeat;
+  --bottom-mask: linear-gradient(#000, #000) bottom/calc(100% - var(--mask-margin) * 2 + 1px) var(--mask-margin) no-repeat;
   --left-top-mask: linear-gradient(#000, #000) left top/var(--mask-margin) var(--mask-margin) no-repeat;
   --left-bottom-mask: linear-gradient(#000, #000) left bottom/var(--mask-margin) var(--mask-margin) no-repeat;
   --right-top-mask: linear-gradient(#000, #000) right top/var(--mask-margin) var(--mask-margin) no-repeat;
@@ -42,7 +42,7 @@
     var(--left-bottom-mask),
     var(--right-top-mask),
     var(--right-bottom-mask),
-    linear-gradient(to top, #000, #000) center center/calc(100% - var(--mask-margin) * 2) calc(100% - var(--mask-margin) * 2) no-repeat;
+    linear-gradient(to top, #000, #000) center center/calc(100% - var(--mask-margin) * 2 + 1px) calc(100% - var(--mask-margin) * 2 + 1px) no-repeat;
 }
 
 .gradientMask.leftMask {
@@ -58,7 +58,7 @@
 }
 
 .gradientMask.topMask {
-  --top-mask: linear-gradient(to bottom, transparent, #000) top/calc(100% - var(--mask-margin) * 2)var(--mask-margin) no-repeat;
+  --top-mask: linear-gradient(to bottom, transparent, #000) top/calc(100% - var(--mask-margin) * 2) var(--mask-margin) no-repeat;
   --left-top-mask: linear-gradient(to bottom, transparent, #000) left top/var(--mask-margin) var(--mask-margin) no-repeat;
   --right-top-mask: linear-gradient(to bottom, transparent, #000) right top/var(--mask-margin) var(--mask-margin) no-repeat;
 }

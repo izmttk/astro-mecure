@@ -111,7 +111,7 @@ const NavbarItem = withPolymorphic<'div', NavbarItemProps>(forwardRef(({
       isActive && 'font-bold',
       isActive && context.variant === 'underline' ? 'h-full text-primary-500 after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:rounded-full after:bg-primary-500' : null,
       isActive && context.variant === 'highlight' ? 'text-primary-600 dark:text-primary-400 rounded-full bg-primary-400/30 dark:bg-primary-600/30' : null,
-      isActive && context.variant === 'filled' ? 'text-gray-100 rounded-full bg-primary-600' : null,
+      isActive && context.variant === 'filled' ? 'text-gray-100 rounded-full bg-primary-500 dark:text-gray-800 dark:bg-gray-100' : null,
       isActive && activeClassName,
       className,
     )} {...rest}></Polymorphic>

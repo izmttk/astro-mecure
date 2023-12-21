@@ -119,11 +119,14 @@ export default function CustomNavbar({
   }, [size]);
 
   const navMenu = (
-    <ScrollArea className='w-full h-full px-2' containerClassName='!flex items-center'>
+    <ScrollArea className='w-full h-full' containerClassName='!flex items-center px-2'>
       {menu.map((item, index) => {
         if ('url' in item) {
           return (
-            <Navbar.Item as='a' href={item.url}  isActive={active === index} className='px-3 py-1 flex-none' key={index}>
+            <Navbar.Item as='a' href={item.url}  isActive={active === index} className={twMerge(
+              'px-3 py-1 flex-non ',
+              'transition-transform duration-100 ease-out hover:-translate-y-1'
+             )} key={index}>
               {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
               {item.label}
             </Navbar.Item>
@@ -144,7 +147,7 @@ export default function CustomNavbar({
   );
 
   const navCollapse = (
-    <Navbar.Content className='h-16 text-sm' variant='highlight'>
+    <Navbar.Content className='h-16 text-sm' variant='filled'>
       {navMenu}
     </Navbar.Content>
   );
@@ -182,7 +185,7 @@ export default function CustomNavbar({
             <Logo className='h-10' />
           </Navbar.Logo>
           {isMd && (
-            <Navbar.Content className='mr-auto w-0 flex-1' variant='highlight'>
+            <Navbar.Content className='mr-auto w-0 flex-1' variant='filled'>
               {navMenu}
             </Navbar.Content>
           )}
