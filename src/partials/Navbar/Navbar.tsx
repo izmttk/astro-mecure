@@ -124,7 +124,7 @@ export default function CustomNavbar({
         if ('url' in item) {
           return (
             <Navbar.Item as='a' href={item.url}  isActive={active === index} className={twMerge(
-              'px-3 py-1 flex-non ',
+              'px-3 py-1 flex-none',
               'transition-transform duration-100 ease-out hover:-translate-y-1'
              )} key={index}>
               {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
