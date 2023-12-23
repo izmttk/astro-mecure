@@ -2,18 +2,29 @@ import type { Author, Post } from '@/types';
 import config from '@/config';
 import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
 
-// import fs from 'node:fs';
+import fs from 'node:fs';
+import { globSync } from 'glob';
 // import { slug } from 'github-slugger';
 
 import transformTags from './transformTags';
 import transformCategory from './transformCategory';
 import { url } from './url';
+import getFileCreateTime from './getFileCreateTime';
+import getFileUpdateTime from './getFileUpdateTime';
 
 
 const collection = 'blog';
 
 function getPostPath(id: string) {
-  return `src/content/${collection}/${id}`;
+  const path = `src/content/${collection}/${id}`;
+  if (fs.statSync(path).isDirectory()) {
+    const files = globSync(`${path}/index.{md,mdx,html}`);
+    if (files.length === 0) {
+      throw new Error(`Post "${id}" has no index file.`);
+    }
+    return files[0];
+  }
+  return path;
 }
 
 function countTags(posts: CollectionEntry<'blog'>[]) {
@@ -48,16 +59,16 @@ async function getPosts(): Promise<Post[]> {
   return Promise.all(posts.map(async post => {
     const { Content, headings, remarkPluginFrontmatter } = await post.render();
     const author = (await getEntry(post.data.author)).data ?? {name: config.author};
-    // const date = post.data.date ?? fs.statSync(getPostPath(post.id)).birthtime;
-    // const updateDate = post.data.updateDate ?? fs.statSync(getPostPath(post.id)).mtime;
+    const date = post.data.date ?? getFileCreateTime(getPostPath(post.id));
+    const updateDate = post.data.updateDate ?? getFileUpdateTime(getPostPath(post.id));
     return {
       slug: post.data.permalink ?? post.slug,
       title: post.data.title ?? '无标题',
       url: postUrl(post.slug),
       author: author,
       image: post.data.image,
-      date: post.data.date,
-      updateDate: post.data.updateDate ?? post.data.date,
+      date: post.data.date ?? date,
+      updateDate: post.data.updateDate ?? updateDate,
       draft: post.data.draft,
       category: {
         ...transformCategory(post.data.category),

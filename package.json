@@ -47,6 +47,7 @@
     "date-fns": "^2.29.3",
     "feed": "^4.2.2",
     "github-slugger": "^2.0.0",
+    "glob": "^10.3.10",
     "hast-util-excerpt": "^2.0.0",
     "hast-util-from-html": "^2.0.1",
     "hast-util-reading-time": "^2.0.0",
