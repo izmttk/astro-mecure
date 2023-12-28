@@ -1,6 +1,7 @@
 ---
 title: 给你的Markdown扩展新语法吧：下篇
 date: 2023-08-07
+updateDate: 2023-12-28
 tags: [Markdown, Remark, Unified, Javascript]
 category: [前端]
 image: ./cover.jpg
@@ -8,6 +9,18 @@ image: ./cover.jpg
 
 !!! info 注意
     这篇文章仅适用于基于 [Remark.js](https://github.com/remarkjs/remark) 开发的 Markdown 应用，如 Astro.js、MDX 等等。
+
+!!! caution 版本更新提醒
+    从 [mdast-util-from-markdown 2.0.0](https://github.com/syntax-tree/mdast-util-from-markdown/releases/tag/2.0.0) 开始，this.exit() 方法删除了返回值，不再返回 AST 节点，因此在该版本里，我们需要自己使用其他方法获取节点。例如：
+    ```ts
+    function exitMyNodeType(token) {
+      const node = this.stack[this.stack.length - 1] as MyNodeType;
+      this.exit(token);
+      // previous code will case error
+      // const node = this.exit(token) as MyNodeType;
+    }
+    ```
+    该变更影响 remark 15.0.0 及以上版本，请注意你所使用的框架的依赖版本。
 
 [上一篇文章](./扩展markdown语法-上篇) 讲了 Remark 扩展新语法的方法，现在我们就来实践吧。
 
