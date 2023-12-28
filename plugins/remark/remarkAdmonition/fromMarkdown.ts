@@ -156,8 +156,6 @@ function htmlTemplate(
   ])
 }
 
-let currentNodes: Admonition[] = [];
-
 export const fromMarkdown = (): FromMarkdownExtension => {
   const enterAdmonition: Handle = function(token) {
     const node: Admonition = {
@@ -166,7 +164,6 @@ export const fromMarkdown = (): FromMarkdownExtension => {
       children: [],
     }
     this.enter(node, token);
-    currentNodes.push(node);
   }
   const enterAdmonitionTitle: Handle = function(token) {
     this.enter<Paragraph>({
@@ -178,26 +175,24 @@ export const fromMarkdown = (): FromMarkdownExtension => {
     }, token);
   }
   const exitAdmonition: Handle = function(token) {
+    const node = this.stack[this.stack.length - 1] as Admonition;
     this.exit(token)
-    const node = currentNodes.pop();
-    if (node) {
-      const type = node.name;
-      const titleNodeIndex = node.children.findIndex((child) => {
-        return child.type === 'paragraph' && child.data?.admonitionTitle;
-      });
-      const titleNode = titleNodeIndex >= 0
-        ? node.children.splice(titleNodeIndex, 1)[0] as Paragraph
-        : undefined;
-      if (titleNode) {
-        titleNode.data = {
-          ...titleNode.data,
-          hName: 'span'
-        }
+    const type = node.name;
+    const titleNodeIndex = node.children.findIndex((child) => {
+      return child.type === 'paragraph' && child.data?.admonitionTitle;
+    });
+    const titleNode = titleNodeIndex >= 0
+      ? node.children.splice(titleNodeIndex, 1)[0] as Paragraph
+      : undefined;
+    if (titleNode) {
+      titleNode.data = {
+        ...titleNode.data,
+        hName: 'span'
       }
-      const subtree = htmlTemplate(type, titleNode, node.children);
-      if (subtree) {
-        Object.assign(node, subtree);
-      }
+    }
+    const subtree = htmlTemplate(type, titleNode, node.children);
+    if (subtree) {
+      Object.assign(node, subtree);
     }
   }
   const exitAdmonitionName: Handle = function(token) {

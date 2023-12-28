@@ -15,8 +15,6 @@ declare module 'mdast' {
   }
 }
 
-let currentNodes: Spoiler[] = [];
-
 export const fromMarkdown = (): FromMarkdownExtension => {
   const enterSpoiler: Handle = function(token) {
     const node: Spoiler = {
@@ -24,19 +22,16 @@ export const fromMarkdown = (): FromMarkdownExtension => {
       children: [],
     };
     this.enter(node, token);
-    currentNodes.push(node);
   }
   const exitSpoiler: Handle = function(token) {
+    const node = this.stack[this.stack.length - 1] as Spoiler;
     this.exit(token);
-    const node = currentNodes.pop();
-    if (node) {
-      node.data = {
-        ...node.data,
-        hName: 'span',
-        hProperties: {
-          className: 'bg-current hover:bg-transparent transition-colors duration-200 rounded px-0.5 mx-0.5',
-        },
-      }
+    node.data = {
+      ...node.data,
+      hName: 'span',
+      hProperties: {
+        className: 'bg-current hover:bg-transparent transition-colors duration-200 rounded px-0.5 mx-0.5',
+      },
     }
   }
   return {
