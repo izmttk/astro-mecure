@@ -9,7 +9,6 @@ import getPosts from '@/utils/getPosts';
 export interface Props {
   tag: Tag;
 }
-export const prerender = true;
 
 export async function getStaticPaths() {
   const tags = await getTags();

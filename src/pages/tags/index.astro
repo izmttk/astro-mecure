@@ -3,7 +3,6 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import Tag from '@/components/Tag';
 import getTags from '@/utils/getTags';
 import type { Page } from '@/types';
-export const prerender = true;
 
 const tags = (await getTags()).sort((a, b) => b.count - a.count);
 const page: Page = {

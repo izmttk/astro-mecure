@@ -3,7 +3,6 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import Category from '@/components/Category';
 import getCategories from '@/utils/getCategories';
 import type { Page } from '@/types';
-export const prerender = true;
 
 const categories = (await getCategories()).sort((a, b) => b.count - a.count);
 

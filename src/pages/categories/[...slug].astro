@@ -9,7 +9,6 @@ import getPosts from '@/utils/getPosts';
 export interface Props {
   category: Category;
 }
-export const prerender = true;
 
 export async function getStaticPaths() {
   const categories = await getCategories();
