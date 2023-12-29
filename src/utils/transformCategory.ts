@@ -1,19 +1,14 @@
 import { slug } from 'github-slugger';
 import { url } from './url';
+import { UNCATEGOTIZED_CAT } from '@/constants';
 
 function categoryUrl(slug: string) {
   return url('categories', slug);
 }
 
-const uncategorized = {
-  label: '未分类',
-  slug: 'uncategorized',
-  url: categoryUrl('uncategorized'),
-}
-
 function transformCategory(categoryPath: string[]) {
   if (categoryPath.length === 0) {
-    return uncategorized;
+    return UNCATEGOTIZED_CAT;
   }
   const categorySlug = categoryPath.map(item => slug(item)).join('/');
   return {

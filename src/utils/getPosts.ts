@@ -8,15 +8,16 @@ import { globSync } from 'glob';
 
 import transformTags from './transformTags';
 import transformCategory from './transformCategory';
-import { url } from './url';
+import { url, urlJoin } from './url';
 import getFileCreateTime from './getFileCreateTime';
 import getFileUpdateTime from './getFileUpdateTime';
-
-
-const collection = 'blog';
+import { CONTENT_DIR, BLOG_COLLECTION_NAME as collection } from '@/constants';
 
 function getPostPath(id: string) {
-  const path = `src/content/${collection}/${id}`;
+  let path = urlJoin(CONTENT_DIR, `${collection}/${id}`);
+  if (path.startsWith('/')) {
+    path = path.slice(1)
+  }
   if (fs.statSync(path).isDirectory()) {
     const files = globSync(`${path}/index.{md,mdx,html}`);
     if (files.length === 0) {
