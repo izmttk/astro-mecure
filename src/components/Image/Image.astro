@@ -1,0 +1,74 @@
+---
+import BlurHash from './BlurHash';
+import { getImage  } from 'astro:assets';
+import { rgbaToThumbHash } from 'thumbhash';
+import importAssets from '@/utils/importAssets';
+import { createCanvas, loadImage } from '@napi-rs/canvas';
+import type { RemoteImageProps as AstroRemoteImageProps, LocalImageProps as AstroLocalImageProps } from 'astro:assets';
+import type { HTMLAttributes } from 'astro/types';
+import { FS_PREFIX } from '@/constants';
+
+function transformVitePath(path: string) {
+  if (path.startsWith(FS_PREFIX)) {
+    const prunedPath = new URL(path, 'http://localhost').pathname
+    return prunedPath.slice(FS_PREFIX.length)
+  } else {
+    throw new Error(`Path "${path}" is not started with ${FS_PREFIX}`)
+  }
+}
+
+// todo: performance optimization
+async function loadImageAndConvertToHash(imagePath: string) {
+  const maxSize = 100;
+  const image = await loadImage(transformVitePath(imagePath));
+  const width = image.width;
+  const height = image.height;
+
+  const scale = Math.min(maxSize / width, maxSize / height);
+  const resizedWidth = Math.floor(width * scale);
+  const resizedHeight = Math.floor(height * scale);
+
+  const canvas = createCanvas(resizedWidth, resizedHeight);
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(image, 0, 0, resizedWidth, resizedHeight);
+
+  const imageData = ctx.getImageData(0, 0, resizedWidth, resizedHeight);
+  const rgba = new Uint8Array(imageData.data.buffer);
+  const hash = rgbaToThumbHash(resizedWidth, resizedHeight, rgba);
+  return Buffer.from(hash).toString('base64');
+}
+
+type ExtraProps = {
+  src: string;
+  alt?: string;
+};
+type LocalImageProps = Omit<AstroLocalImageProps, keyof ExtraProps> & ExtraProps;
+type RemoteImageProps = Omit<AstroRemoteImageProps, keyof ExtraProps> & ExtraProps;
+export type Props = LocalImageProps | RemoteImageProps;
+const {
+  src,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const originImage = await importAssets(src);
+const image = await getImage({
+  src: originImage,
+  ...rest,
+})
+const additionalAttributes: HTMLAttributes<'img'> = {};
+if (image.srcSet.values.length > 0) {
+	additionalAttributes.srcset = image.srcSet.attribute;
+}
+const blurhash = await loadImageAndConvertToHash(originImage.src);
+---
+
+<div class="relative inline-block">
+  <img src={image.src} class={className} {...additionalAttributes} {...image.attributes} />
+  <BlurHash 
+    className="absolute inset-0"
+    src={image.src}
+    blurhash={blurhash}
+    client:load
+  />
+</div>
