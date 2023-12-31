@@ -1,11 +1,10 @@
-import urlJoin from "url-join"
 import { ASSETS_LIST as assets, ASSETS_DIR as assetsDir } from "@/constants"
 
 function importOne(filePath: string) {
-  if (!assets[urlJoin(assetsDir, filePath)]) {
-    throw new Error(`All assets must be placed in root directory of ${assetsDir}`)
+  if (!assets[filePath]) {
+    throw new Error(`Asset "${filePath}" must be placed in root directory of ${assetsDir}`)
   }
-  return assets[urlJoin(assetsDir, filePath)]().then((res) => res.default)
+  return assets[filePath]().then((res) => res.default)
 }
 
 export default function importAssets(filePath: string): Promise<ImageMetadata>;

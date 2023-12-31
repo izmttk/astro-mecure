@@ -86,9 +86,7 @@ function getHeroInfo(page: Page): HeroConfig['info'] {
 
 let heroConfig: HeroConfig | false = false;
 if (hero) {
-  const heroBgSource = page.image ?? hero.bg;
-  const heroBg = typeof heroBgSource === 'string' ? heroBgSource 
-    : (await getImage({ src: heroBgSource, width: 1920, quality: 80 })).src;
+  const heroBg = page.image ?? hero.bg;
   heroConfig = {
     bg: heroBg,
     title: page.type === 'index' ? hero.title : page.title,

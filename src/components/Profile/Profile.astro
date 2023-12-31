@@ -3,7 +3,7 @@ import styles from './Profile.module.css'
 import { Icon } from 'astro-icon/components';
 import { twMerge } from 'tailwind-merge';
 import type { ProfileProps } from '.';
-
+import Image from '../Image';
 export type Props = ProfileProps;
 
 const {
@@ -16,12 +16,12 @@ const {
 ---
 <div class='plate-bg border-highlight p-4 rounded-xl overflow-hidden relative'>
   {background && (
-    <img src={background} class={twMerge(
-      'absolute top-0 left-0 w-full h-32 object-cover select-none',
+    <Image src={background} class={twMerge(
+      'absolute top-0 left-0 w-full h-32 select-none',
       styles.profileBg
     )} alt='background' />
   )}
-  {avatar && <img src={avatar} class="relative w-28 h-28 rounded-full mt-8 mx-auto ring-white ring-8 dark:ring-gray-800" alt='avatar' />}
+  {avatar && <Image src={avatar} class="block relative w-28 h-28 rounded-full mt-8 mx-auto ring-white ring-8 dark:ring-gray-800 overflow-hidden" alt='avatar' />}
   <div class="text-center my-4">
     {author && <div class='text-2xl font-bold'>{author}</div>}
     {description && <div class='text-sm mt-2'>{description}</div>}

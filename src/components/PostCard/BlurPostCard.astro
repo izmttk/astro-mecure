@@ -2,7 +2,7 @@
 import PostDetails from './PostDetails.astro';
 import type { BlurPostCardProps as PostCardProps } from '.';
 import { twMerge } from 'tailwind-merge';
-import { Image, getImage } from 'astro:assets';
+import Image from '../Image';
 export type BlurPostCardProps = Omit<PostCardProps, 'variant'>;
 export type Props = BlurPostCardProps;
 const {
@@ -19,8 +19,6 @@ const {
   readingTime,
   ...rest
 } = Astro.props;
-
-const bg = image ? (typeof image === 'string' ? image : image.src) : undefined;
 ---
 
 <div class={twMerge(
@@ -28,23 +26,17 @@ const bg = image ? (typeof image === 'string' ? image : image.src) : undefined;
   'bg-[#0b0f19]',
   className
 )} {...rest}>
-  <div class={twMerge(
-    'absolute brightness-[0.8] md:brightness-[0.7] blur-xl',
-    'w-[calc(100%_+_64px)] h-[calc(100%_+_64px)] ml-[-32px] mt-[-32px]',
-    'scale-y-[200%] md:scale-y-100 origin-bottom md:origin-center',
-  )} style={{
-    background: bg ? `url(${bg}) center/cover` : undefined
-  }}></div>
   {image && (
+    <Image src={image} alt='cover' class={twMerge(
+      'absolute brightness-[0.8] md:brightness-[0.7]',
+      'w-full h-full',
+      'scale-y-[200%] md:scale-y-100 origin-bottom md:origin-center',
+    )} onlyBlur />
     <a class={twMerge(
       'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink',
       imagePosition === 'left' ? 'clip-left' : 'clip-right'
     )} href={url} aria-label='cover'>
-      {typeof image === 'string' ? (
-        <img src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
-      ) : (
-        <Image src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
-      )}
+      <Image src={image} alt='cover' class='h-full w-full scale-[1.025]' />
     </a>
   )}
   <PostDetails

@@ -1,9 +1,10 @@
 function useSSR() {
-  const isDOM =
+  const isDOM = Boolean(
     typeof window !== 'undefined' &&
     window.document &&
     window.document.documentElement
-
+  );
+  
   return {
     isBrowser: isDOM,
     isServer: !isDOM,
