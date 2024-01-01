@@ -1,10 +1,14 @@
-import { ASSETS_LIST as assets, ASSETS_DIR as assetsDir } from "@/constants"
+import { ASSETS_LIST, ASSETS_DIR, ASSETS_URL_PREFIX } from "@/constants"
+import urlJoin from "url-join"
 
 function importOne(filePath: string) {
-  if (!assets[filePath]) {
-    throw new Error(`Asset "${filePath}" must be placed in root directory of ${assetsDir}`)
+  if (filePath.startsWith(ASSETS_URL_PREFIX)) {
+    filePath = urlJoin(ASSETS_DIR, filePath.slice(ASSETS_URL_PREFIX.length))
   }
-  return assets[filePath]().then((res) => res.default)
+  if (!ASSETS_LIST[filePath]) {
+    throw new Error(`Asset "${filePath}" must be placed in root directory of ${ASSETS_DIR}`)
+  }
+  return ASSETS_LIST[filePath]().then((res) => res.default)
 }
 
 export default function importAssets(filePath: string): Promise<ImageMetadata>;

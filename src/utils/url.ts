@@ -1,5 +1,5 @@
 import urlJoin from 'url-join';
-import { BASE_URL, ASSETS_DIR } from '@/constants';
+import { BASE_URL, ASSETS_URL_PREFIX } from '@/constants';
 
 export { default as urlJoin } from 'url-join';
 
@@ -12,5 +12,5 @@ export function isUnderBaseUrl(path: string): boolean {
 }
 
 export function assetsUrl(...paths: string[]): string {
-  return urlJoin(ASSETS_DIR, ...paths);
+  return urlJoin(ASSETS_URL_PREFIX, ...paths);
 }

@@ -1,7 +1,5 @@
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash';
-import { DEV, DIST_DIR, FS_PREFIX } from '@/constants';
-import urlJoin from 'url-join';
 
 class Cache<T> {
   private cache: Map<string, T> = new Map();
@@ -23,7 +21,7 @@ const hashCache = new Cache(hashLoader);
 
 async function hashLoader(imagePath: string) {
   const maxSize = 100;
-  const image = await loadImage(transformVitePath(imagePath));
+  const image = await loadImage(imagePath);
   const width = image.width;
   const height = image.height;
 
@@ -39,19 +37,6 @@ async function hashLoader(imagePath: string) {
   const rgba = new Uint8Array(imageData.data.buffer);
   const hash = rgbaToThumbHash(resizedWidth, resizedHeight, rgba);
   return hash;
-}
-
-function transformVitePath(path: string) {
-  if (DEV) {
-    if (path.startsWith(FS_PREFIX)) {
-      const prunedPath = new URL(path, 'http://localhost').pathname
-      return prunedPath.slice(FS_PREFIX.length)
-    } else {
-      throw new Error(`Path "${path}" is not started with ${FS_PREFIX}`)
-    }
-  } else {
-    return urlJoin(process.cwd(), DIST_DIR, path)
-  }
 }
 
 // todo: performance optimization

@@ -2,11 +2,12 @@
 import BlurHash from './BlurHash';
 import { getImage  } from 'astro:assets';
 import importAssets from '@/utils/importAssets';
-import type { RemoteImageProps as AstroRemoteImageProps, LocalImageProps as AstroLocalImageProps } from 'astro:assets';
-import type { HTMLAttributes } from 'astro/types';
-
+import { DEV, DIST_DIR, FS_PREFIX } from '@/constants';
+import urlJoin from 'url-join';
 import { imageToHashBase64 } from './converter';
 import { twMerge } from 'tailwind-merge';
+import type { RemoteImageProps as AstroRemoteImageProps, LocalImageProps as AstroLocalImageProps } from 'astro:assets';
+import type { HTMLAttributes } from 'astro/types';
 
 type ExtraProps = {
   src: string | ImageMetadata | Promise<{
@@ -25,7 +26,33 @@ const {
   ...rest
 } = Astro.props;
 
-const isRemoteImage = typeof src === 'string' && /^https?:\/\//.test(src);
+function transformVitePath(path: string) {
+  if (DEV) {
+    if (path.startsWith(FS_PREFIX)) {
+      const prunedPath = new URL(path, 'http://localhost').pathname
+      return prunedPath.slice(FS_PREFIX.length)
+    } else {
+      throw new Error(`Path "${path}" is not started with ${FS_PREFIX}`)
+    }
+  } else {
+    return urlJoin(process.cwd(), DIST_DIR, path)
+  }
+}
+
+function isValidUrl(str: string): boolean {
+	try {
+		new URL(str);
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+function isRemoteUrl(src: string) {
+	return isValidUrl(src) || src.startsWith('/');
+}
+
+const isRemoteImage = typeof src === 'string' && isRemoteUrl(src);
 const image = await getImage({
   src: typeof src === 'string' ? await (
     isRemoteImage ? src : importAssets(src)
@@ -39,7 +66,9 @@ if (image.srcSet.values.length > 0) {
   additionalAttributes.srcset = image.srcSet.attribute;
 }
 const hasBlurHash = image.options.format !== 'svg' && !isRemoteImage;
-const blurhash = hasBlurHash ? await imageToHashBase64((image.options.src as ImageMetadata).src) : undefined;
+const blurhash = hasBlurHash ? await imageToHashBase64(
+  transformVitePath((image.options.src as ImageMetadata).src)
+) : undefined;
 ---
 {onlyBlur ? (
   blurhash && (
