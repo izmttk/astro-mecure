@@ -30,7 +30,6 @@
     "@iconify-json/mingcute": "^1.1.6",
     "@iconify-json/tabler": "^1.1.78",
     "@iconify/react": "^4.1.0",
-    "@napi-rs/canvas": "^0.1.44",
     "@radix-ui/react-collapsible": "^1.0.1",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-dropdown-menu": "^2.0.2",
