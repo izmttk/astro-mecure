@@ -2,6 +2,7 @@
 import PostDetails from './PostDetails.astro';
 import type { PlainPostCardProps as PostCardProps } from '.';
 import { twMerge } from 'tailwind-merge';
+import Image from '../Image';
 
 export type PlainPostCardProps = Omit<PostCardProps, 'variant'>;
 export type Props = PlainPostCardProps;
@@ -29,7 +30,7 @@ const {
 )}>
   {image && (
     <div class='flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink'>
-      <img src={image} alt='cover' class='object-cover h-full w-full scale-[1.025]' />
+      <Image src={image} alt='cover' class='h-full w-full scale-[1.025]' />
     </div>
   )}
   <PostDetails

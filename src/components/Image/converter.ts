@@ -1,4 +1,5 @@
-import { createCanvas, loadImage } from '@napi-rs/canvas';
+// import { createCanvas, loadImage } from '@napi-rs/canvas';
+import sharp from 'sharp';
 import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash';
 
 class Cache<T> {
@@ -20,22 +21,34 @@ class Cache<T> {
 const hashCache = new Cache(hashLoader);
 
 async function hashLoader(imagePath: string) {
+  // const maxSize = 100;
+  // const image = await loadImage(imagePath);
+  // const width = image.width;
+  // const height = image.height;
+
+  // const scale = Math.min(maxSize / width, maxSize / height);
+  // const resizedWidth = Math.floor(width * scale);
+  // const resizedHeight = Math.floor(height * scale);
+
+  // const canvas = createCanvas(resizedWidth, resizedHeight);
+  // const ctx = canvas.getContext('2d');
+  // ctx.drawImage(image, 0, 0, resizedWidth, resizedHeight);
+
+  // const imageData = ctx.getImageData(0, 0, resizedWidth, resizedHeight);
+  // const rgba = new Uint8Array(imageData.data.buffer);
+    
   const maxSize = 100;
-  const image = await loadImage(imagePath);
-  const width = image.width;
-  const height = image.height;
-
-  const scale = Math.min(maxSize / width, maxSize / height);
-  const resizedWidth = Math.floor(width * scale);
-  const resizedHeight = Math.floor(height * scale);
-
-  const canvas = createCanvas(resizedWidth, resizedHeight);
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(image, 0, 0, resizedWidth, resizedHeight);
-
-  const imageData = ctx.getImageData(0, 0, resizedWidth, resizedHeight);
-  const rgba = new Uint8Array(imageData.data.buffer);
-  const hash = rgbaToThumbHash(resizedWidth, resizedHeight, rgba);
+  const image = await sharp(imagePath);
+  const {
+    data: resizedImageData, 
+    info: resizedInfo
+  } = await image
+    .resize(maxSize, maxSize, { fit: 'inside' })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const {width: resizedWidth, height: resizedHeight} = resizedInfo;
+  const hash = rgbaToThumbHash(resizedWidth, resizedHeight, resizedImageData);
   return hash;
 }
 

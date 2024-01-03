@@ -82,7 +82,7 @@ const blurhash = hasBlurHash ? await imageToHashBase64(
   )
 ) : (
   <div class={twMerge(
-    "relative inline-block",
+    "relative inline-block overflow-hidden",
     className
   )}>
     {<img src={image.src} class="w-full h-full object-cover" {...additionalAttributes} {...image.attributes} />}

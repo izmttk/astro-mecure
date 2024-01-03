@@ -1,6 +1,6 @@
 ---
 import { twMerge } from 'tailwind-merge';
-import { Image, getImage } from 'astro:assets';
+import Image from '@/components/Image';
 import type { ImageMetadata } from 'astro';
 import type { HTMLAttributes } from 'astro/types';
 import DateTime from '@/components/DateTime';
@@ -26,14 +26,6 @@ const {
   class: className,
   ...rest
 } = Astro.props;
-
-
-const bg = image ? (typeof image === 'string' ? image : (await getImage({
-  src: image,
-  width: 400,
-  height: 300,
-  quality: 50,
-})).src): undefined;
 ---
 
 <div class={twMerge(
@@ -41,13 +33,11 @@ const bg = image ? (typeof image === 'string' ? image : (await getImage({
   image && 'text-white',
   className
 )} {...rest}>
-  <div class={twMerge(
-    'absolute top-0 left-0 blur-xl brightness-[.8] saturate-[1.35]',
-    'w-[calc(100%_+_64px)] h-[calc(100%_+_64px)] ml-[-32px] mt-[-32px]',
+  {image && <Image src={image} onlyBlur class={twMerge(
+    'absolute top-0 left-0 brightness-[.8]',
+    'w-full h-full',
     'select-none pointer-events-none',
-  )} style={{
-    background: bg ? `url(${bg}) center/cover` : undefined
-  }}></div>
+  )} />}
   <a href={url} class={twMerge(
     'block text-lg font-bold truncate mb-1 relative',
   )} title={title}>{title}</a>
@@ -59,11 +49,7 @@ const bg = image ? (typeof image === 'string' ? image : (await getImage({
       )}><DateTime date={date} /></div>
       <div class='text-xs line-clamp-2'>{description}</div>
     </div>
-    {image && (typeof image === 'string' ? (
-      <img src={image} class='flex-none w-14 h-14 object-cover rounded-lg ml-2 shadow-lg' alt='cover' />
-    ) : (
-      <Image src={image} class='flex-none w-14 h-14 object-cover rounded-lg ml-2 shadow-lg' alt='cover' />
-    ))}
+    {image && <Image src={image} width={200} height={200} class='flex-none w-14 h-14 rounded-lg ml-2 shadow-lg' alt='cover' />}
   </div>
 </div>
 
