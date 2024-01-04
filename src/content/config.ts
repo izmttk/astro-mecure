@@ -6,7 +6,7 @@ export const authors = defineCollection({
     name: z.string(),
     avatar: z.union([
       image(),
-      z.string().url()
+      z.string()
     ]).optional(),
     description: z.string().optional()
   })
@@ -17,9 +17,9 @@ const blog = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     image: z.union([
-      image(), //.transform(image => image.src),
-      z.string().url()
-    ]).optional(), //z.string().optional(),
+      image(),
+      z.string()
+    ]).optional(),
     date: z.date().optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().default(false),
@@ -45,7 +45,7 @@ export const friends = defineCollection({
     textColor: z.string(),
     avatar: z.union([
       image(),
-      z.string().url()
+      z.string()
     ]),
     description: z.string(),
   })
