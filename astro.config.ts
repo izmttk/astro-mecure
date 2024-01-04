@@ -4,13 +4,13 @@ import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
-import compress from 'astro-compress';
+// import compress from 'astro-compress';
 
 import svgr from 'vite-plugin-svgr';
 import icons from 'unplugin-icons/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+// import node from '@astrojs/node';
 
 import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
