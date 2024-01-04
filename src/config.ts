@@ -145,7 +145,7 @@ const config: Config = {
       category: 'General',
       categoryId: 'DIC_kwDOJIxtIc4CU1cl',
       mapping: 'pathname',
-      reactionsEnabled: '0',
+      reactionsEnabled: '1',
       emitMetadata: '0',
       inputPosition: 'top',
       lang: 'zh-CN',
