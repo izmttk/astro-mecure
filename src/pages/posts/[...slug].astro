@@ -6,6 +6,7 @@ import MDXComponents from '@/components/MDXComponents';
 import ArticleOutdateTip from '@/components/ArticleOutdateTip';
 import ArticleLicense from '@/components/ArticleLicense';
 import config from '@/config';
+import PostMeta from '@/components/PostMeta';
 
 export interface Props {
   post: Post;
@@ -27,32 +28,43 @@ const { post: postProp } = Astro.props;
 const { Content, ...post } = postProp;
 const outdateTipConfig = config.typography?.outdateTip;
 const licenseConfig = config.typography?.license;
+console.log(outdateTipConfig)
 ---
 
 <PostLayout post={post}>
-  {
-    outdateTipConfig && <ArticleOutdateTip
-      updateDate={post.updateDate}
-      outdateLimit={outdateTipConfig.outdateLimit}
-      className="not-prose -mx-4 md:-mx-8 mb-4 md:mb-8 px-4 md:px-8"
-      client:only="react"
-      slot="header"
-    />
-  }
-  <Content components={MDXComponents} />
-  {
-    licenseConfig && <ArticleLicense
-      url={decodeURI(Astro.url.href)}
-      title={post.title}
-      author={post.author.name}
+  <div class="not-prose -mx-4 -mt-4 md:-mx-8 md:-mt-8 mb-3 md:mb-6" slot="header">
+    <PostMeta 
       date={post.date}
       updateDate={post.updateDate}
-      licenseName={licenseConfig.licenseName}
-      licenseUrl={licenseConfig.licenseUrl}
-      infoText={licenseConfig.infoText}
-      class="not-prose -mx-4 md:-mx-8 mt-4 md:mt-8 px-4 md:px-8"
-      slot="footer"
+      draft={post.draft}
+      author={post.author}
+      readingTime={post.readingTime}
+      wordCount={post.wordCount}
+      class="px-4 md:px-8 pt-4 md:pt-5 pb-3"
     />
-  }
-
+    {
+      outdateTipConfig && <ArticleOutdateTip
+        updateDate={post.updateDate}
+        outdateLimit={outdateTipConfig.outdateLimit}
+        className="px-4 md:px-8"
+        client:load
+      />
+    }
+  </div>
+  <Content components={MDXComponents} />
+  <div class="not-prose -mx-4 md:-mx-8 mt-4 md:mt-8" slot="footer">
+    {
+      licenseConfig && <ArticleLicense
+        url={decodeURI(Astro.url.href)}
+        title={post.title}
+        author={post.author.name}
+        date={post.date}
+        updateDate={post.updateDate}
+        licenseName={licenseConfig.licenseName}
+        licenseUrl={licenseConfig.licenseUrl}
+        infoText={licenseConfig.infoText}
+        class="px-4 md:px-8"
+      />
+    }
+  </div>
 </PostLayout>

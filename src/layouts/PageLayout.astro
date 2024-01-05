@@ -51,14 +51,8 @@ function getHeroInfo(page: Page): HeroConfig['info'] {
   if (page.type === 'post') {
     return {
       type: 'post',
-      date: page.post.date,
-      updateDate: page.post.updateDate,
-      draft: page.post.draft,
       category: page.post.category,
-      tags: page.post.tags,
-      author: page.post.author,
-      readingTime: Math.ceil(page.post.readingTime ?? 0),
-      wordCount: page.post.wordCount,
+      tags: page.post.tags
     }
   } else if (page.type === 'categories') {
     return {

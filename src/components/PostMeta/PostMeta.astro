@@ -1,0 +1,56 @@
+---
+import type { Author } from "@/types";
+import type { HTMLAttributes } from "astro/types";
+
+import IconTextFill from '~icons/mingcute/text-fill';
+import IconTimeFill from '~icons/mingcute/time-fill';
+import IconDocument from '~icons/mingcute/document-fill';
+import IconUser from '~icons/mingcute/user-3-fill';
+import PostDate from './PostDate';
+import { twMerge } from "tailwind-merge";
+
+interface PostMetaProps extends HTMLAttributes<'div'> {
+  date: Date;
+  updateDate: Date;
+  draft: boolean;
+  author: Author;
+  wordCount?: number;
+  readingTime?: number;
+}
+export type Props = PostMetaProps;
+
+const {
+  class: className,
+  date,
+  updateDate,
+  draft,
+  author,
+  wordCount,
+  readingTime,
+  ...rest
+} = Astro.props;
+---
+
+<div class={twMerge(
+  'flex flex-wrap text-[0.8125rem] gap-1.5 not-prose',
+  className
+)} {...rest}>
+  {date && <PostDate
+    className='flex items-center bg-gray-400/20 text-gray-600 dark:bg-gray-600/40 dark:text-gray-300 py-1 px-1.5 rounded-md'
+    date={date}
+    updateDate={updateDate}
+    client:load
+  />}
+  {readingTime && <div class='hidden md:flex items-center bg-gray-400/20 text-gray-600 dark:bg-gray-600/40 dark:text-gray-300 py-1 px-1.5 rounded-md'>
+    <IconTimeFill className='inline mr-1' />约{Math.ceil(readingTime ?? 0)}分钟
+  </div>}
+  {wordCount && <div class='hidden md:flex items-center bg-gray-400/20 text-gray-600 dark:bg-gray-600/40 dark:text-gray-300 py-1 px-1.5 rounded-md'>
+    <IconTextFill className='inline mr-1' />共{wordCount}字
+  </div>}
+  {draft && <div class='hidden md:flex items-center bg-gray-400/20 text-gray-600 dark:bg-gray-600/40 dark:text-gray-300 py-1 px-1.5 rounded-md'>
+    <IconDocument />草稿
+  </div>}
+  {author && <div class='flex items-center ml-auto bg-gray-400/20 text-gray-600 dark:bg-gray-600/40 dark:text-gray-300 py-1 px-1.5 rounded-md'>
+    <IconUser className='inline mr-1' />{author.name}
+  </div>}
+</div>

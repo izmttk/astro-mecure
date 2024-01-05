@@ -19,10 +19,10 @@ export default function Tooltip({
         <RadixTooltip.Portal>
           <RadixTooltip.Content className={twMerge(
             styles.tooltipContent,
-            'rounded-md plate-bg plate-shadow border-highlight text-xs px-2.5 py-1.5'
+            'rounded-md bg-gray-700 text-xs text-white px-2.5 py-1.5'
           )} side='bottom' sideOffset={5}>
             {content}
-            <RadixTooltip.Arrow className='fill-plate-light dark:fill-plate-dark' />
+            <RadixTooltip.Arrow className='fill-gray-700' />
           </RadixTooltip.Content>
         </RadixTooltip.Portal>
       </RadixTooltip.Root>

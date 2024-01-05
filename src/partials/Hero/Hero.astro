@@ -7,17 +7,12 @@ import type { ImageMetadata } from 'astro';
 import type { Page, Post } from '@/types';
 import type { HTMLAttributes } from 'astro/types';
 // import Background from './Background';
-import PostMeta from './PostMeta';
+import Category from '@/components/Category';
+import Tag from '@/components/Tag';
 interface HeroPostInfo {
   type: 'post',
-  date: Post['date'],
-  updateDate: Post['updateDate'],
-  draft: Post['draft'],
   category: Post['category'],
-  tags: Post['tags'],
-  author: Post['author'],
-  readingTime: Post['readingTime'],
-  wordCount: Post['wordCount'],
+  tags: Post['tags']
 }
 
 interface HeroCategoriesInfo {
@@ -79,16 +74,19 @@ const {
     <!-- <Background bg={bg} client:load /> -->
     <Image src={bg} class='w-full h-full select-none' alt='background' />
 
-    <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white pointer-events-none'>
+    <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white'>
       {title 
-        ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)] pointer-events-auto'>{title}</h1> 
+        ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{title}</h1> 
         : (logo && (
             <Image src={logo} alt='cover' class='h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]' />
           )
         )
       }
       {!info && description && <div class='mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>{description}</div>}
-      {info?.type === 'post' && <PostMeta client:load {...info} />}
+      {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
+        <Category className='bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-[0.1875rem] rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white' onlyText category={info.category} />
+        {info.tags.map(tag => <Tag className='bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-[0.1875rem] rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white' onlyText tag={tag} />)}
+      </div>}
       {info?.type === 'categories' && (
         <div class='flex flex-wrap justify-center mt-4 bg-black/50 rounded-xl text-xs px-2 py-[0.1875rem] shadow-md'>
           <div class=''>共{info.count}个分类</div>
