@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import ScrollToTop from "./ScrollToTop";
+import { twMerge } from "tailwind-merge";
+export type Props = HTMLAttributes<'div'>;
+
+const {
+  class: className,
+  ...rest
+} = Astro.props;
+---
+<div class={twMerge(
+  "fixed right-4 bottom-4 z-40",
+  className
+)} {...rest}>
+  <ScrollToTop client:load />
+</div>
