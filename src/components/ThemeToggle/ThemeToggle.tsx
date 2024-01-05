@@ -11,8 +11,8 @@ import Menu from '../Menu';
 
 const itemClassName = twMerge(
   'px-2 py-0.5 outline-none cursor-pointer flex items-center rounded',
-  'data-[highlighted]:bg-primary-400/30 dark:data-[highlighted]:bg-primary-600/30 data-[highlighted]:text-primary-600 dark:data-[highlighted]:text-primary-400',
-  'data-[state=checked]:text-primary-600 dark:data-[state=checked]:text-primary-400'
+  'data-[highlighted]:bg-primary-400/20 dark:data-[highlighted]:bg-primary-600/30 data-[highlighted]:text-primary-600 dark:data-[highlighted]:text-primary-300',
+  'data-[state=checked]:text-primary-600 dark:data-[state=checked]:text-primary-300'
 );
 
 export interface ThemeToggleProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'button'>> {
