@@ -10,7 +10,7 @@ export interface Spoiler extends Parent {
   type: 'spoiler',
 };
 declare module 'mdast' {
-  interface StaticPhrasingContentMap {
+  interface RootContentMap {
     spoiler: Spoiler;
   }
 }

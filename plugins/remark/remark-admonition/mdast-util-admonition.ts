@@ -2,7 +2,7 @@ import type {
   Paragraph,
   Parent,
   Text,
-  Content,
+  RootContent as MdastContent,
 } from 'mdast';
 
 import type { RootContent as HastContent } from 'hast';
@@ -28,7 +28,7 @@ export interface admonitionHTML extends Parent {
 }
 
 declare module 'mdast' {
-  interface BlockContentMap {
+  interface RootContentMap {
     admonitionHTML: admonitionHTML;
     admonition: Admonition;
   }
@@ -72,9 +72,9 @@ const admonitionConfig: Record<string, {
 function h (
   tagName: string,
   properties: Record<string, any>,
-  children?: (Content | undefined | null | false)[],
+  children?: (MdastContent | undefined | null | false)[],
 ): admonitionHTML {
-  const filteredChildren = children?.filter<Content>((child): child is Content => {
+  const filteredChildren = children?.filter<MdastContent>((child): child is MdastContent => {
     return child !== undefined && child !== null && child !== false;
   }) ?? [];
   return {
@@ -116,8 +116,8 @@ function toMdast(node: HastContent) {
 
 function htmlTemplate(
   type: string,
-  title?: string | Content,
-  children?: (Content | undefined | null | false)[],
+  title?: string | MdastContent,
+  children?: (MdastContent | undefined | null | false)[],
 ) {
   const key = type in admonitionConfig ? type : 'note';
   const config = admonitionConfig[key];
@@ -166,7 +166,7 @@ export const fromMarkdown = (): FromMarkdownExtension => {
     this.enter(node, token);
   }
   const enterAdmonitionTitle: Handle = function(token) {
-    this.enter<Paragraph>({
+    this.enter({
       type: 'paragraph',
       data: {
         admonitionTitle: true,

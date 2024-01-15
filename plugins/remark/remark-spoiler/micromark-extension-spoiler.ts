@@ -12,6 +12,12 @@ import type {
   Extension as MicromarkExtension,
 } from 'micromark-util-types';
 
+declare module 'micromark-util-types' {
+  interface TokenTypeMap {
+    spoiler: 'spoiler';
+    spoilerMarker: 'spoilerMarker';
+  }
+}
 
 const tokenizeSpoiler: Tokenizer = function(effects, ok, nok) {
   const self = this;

@@ -16,16 +16,15 @@ import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import remarkGemoji from 'remark-gemoji';
-import remarkPostWordCount from './plugins/remark/remarkPostWordCount';
-// import remarkAdmonitionDirective from './plugins/remark/remarkAdmonitionDirective';
-import remarkMermaid from './plugins/remark/remarkMermaid';
-import remarkAdmonition from './plugins/remark/remarkAdmonition';
-import remarkSpoiler from './plugins/remark/remarkSpoiler';
+import remarkMermaid from './plugins/remark/remark-mermaid';
+import remarkAdmonition from './plugins/remark/remark-admonition';
+import remarkSpoiler from './plugins/remark/remark-spoiler';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
-import rehypePostExcerpt from './plugins/rehype/rehypePostExcerpt';
-import rehypePostReadingTime from './plugins/rehype/rehypePostReadingTime';
-import rehypePostRaw from './plugins/rehype/rehypePostRaw';
+import rehypePostExcerpt from './plugins/rehype/rehype-post-excerpt';
+import rehypePostWordCount from './plugins/rehype/rehype-post-word-count';
+import rehypePostReadingTime from './plugins/rehype/rehype-post-reading-time';
+import rehypePostRaw from './plugins/rehype/rehype-post-raw';
 
 import { remarkCodeHike } from '@code-hike/mdx';
 
@@ -42,7 +41,6 @@ const config: AstroUserConfig = {
     tailwind(),
     mdx({
       remarkPlugins: [
-        remarkPostWordCount,
         [remarkToc, { tight: true, ordered: true }],
         remarkMath,
         remarkGemoji,
@@ -82,7 +80,6 @@ const config: AstroUserConfig = {
       theme: 'github-dark'
     },
     remarkPlugins: [
-      remarkPostWordCount,
       [remarkToc, { tight: true, ordered: true }],
       remarkMath,
       remarkGemoji,
@@ -94,6 +91,7 @@ const config: AstroUserConfig = {
       [rehypeRaw, { passThrough: ['comment'] }],
       rehypePostRaw,
       [rehypePostExcerpt, { limit: 220 }],
+      rehypePostWordCount,
       rehypePostReadingTime,
       rehypeKatex,
     ],

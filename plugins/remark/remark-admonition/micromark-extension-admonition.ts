@@ -17,8 +17,23 @@ import type {
   Exiter,
   State,
   Token,
+  TokenType,
   Extension as MicromarkExtension,
 } from 'micromark-util-types';
+
+declare module 'micromark-util-types' {
+  interface TokenTypeMap {
+    admonition: 'admonition';
+    admonitionPrefix: 'admonitionPrefix';
+    admonitionMarker: 'admonitionMarker';
+    admonitionName: 'admonitionName';
+    admonitionTitle: 'admonitionTitle';
+    admonitionIndent: 'admonitionIndent';
+  }
+  interface ContainerState {
+    indent?: number;
+  }
+}
 
 
 // characters in name can be: a-z, A-Z, 0-9, -, _
@@ -28,7 +43,7 @@ function factoryName(
   effects: Effects, 
   ok: State, 
   nok: State, 
-  type: string
+  type: TokenType
 ) {
   const self = this;
 
@@ -64,7 +79,7 @@ function factoryTitle(
   effects: Effects,
   ok: State,
   nok: State,
-  type: string,
+  type: TokenType,
 ) {
   let previous: Token;
   const start: State = function(code) {

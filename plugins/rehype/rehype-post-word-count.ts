@@ -1,5 +1,5 @@
-import type { RemarkPlugin, MarkdownAstroData } from '@astrojs/markdown-remark';
-import { toString as mdastToString } from 'mdast-util-to-string';
+import type { RehypePlugin, MarkdownAstroData } from '@astrojs/markdown-remark';
+import { toText as hastToText } from 'hast-util-to-text';
 
 export interface Result {
   paragraphs: number;
@@ -113,11 +113,11 @@ function count(target: string, options: Options = {}): Result {
   };
 }
 
-const remarkPostWordCount: RemarkPlugin = () => {
+const rehypePostWordCount: RehypePlugin = () => {
   return (tree, file) => {
     const { frontmatter } = file.data.astro as MarkdownAstroData;
-    frontmatter.wordCount = count(mdastToString(tree)).characters;
+    frontmatter.wordCount = count(hastToText(tree)).characters;
   };
 };
 
-export default remarkPostWordCount;
+export default rehypePostWordCount;
