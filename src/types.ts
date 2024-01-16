@@ -113,14 +113,22 @@ interface Sortable {
 }
 
 export type NavbarConfig = NavbarPartialConfig;
-export type HeroConfig = Omit<HeroPartialConfig, 'info'>;
+export type HeroConfig = Omit<HeroPartialConfig, 'info' | 'background' | 'logo'> & {
+  background?: string;
+  logo?: string;
+}
 
-export type ProfileWidgetConfig = ProfileConfig;
+export type ProfileWidgetConfig = Omit<ProfileConfig, 'avatar' | 'background'> & {
+  background?: string;
+  avatar?: string;
+};
 export type TagCloudWidgetConfig = Omit<TagCloudConfig, 'tags'> & Sortable;
 export type CategoryTreeWidgetConfig = Omit<CategoryTreeConfig, 'categories'> & Sortable;
 
+export type WidgetConfig = ProfileWidgetConfig | TagCloudWidgetConfig | CategoryTreeWidgetConfig;
+
 export type SidebarConfig = Omit<SidebarPartialConfig, 'widgets'> & {
-  widgets?: (ProfileWidgetConfig | TagCloudWidgetConfig | CategoryTreeWidgetConfig)[];
+  widgets?: WidgetConfig[];
 };
 
 export type PaginationConfig = PaginationPartialConfig;

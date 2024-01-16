@@ -1,9 +1,10 @@
 export { default } from './Profile.astro';
 export * from './Profile.astro';
+import type { ImageMetadata } from 'astro';
 
 export interface ProfileProps {
-  avatar?: string;
-  background?: string;
+  avatar?: string | ImageMetadata;
+  background?: string | ImageMetadata;
   author?: string;
   description?: string;
   socialIcons?: {

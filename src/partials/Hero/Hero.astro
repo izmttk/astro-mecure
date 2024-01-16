@@ -39,7 +39,7 @@ type HeroInfo = HeroPostInfo | HeroCategoriesInfo | HeroTagsInfo | HeroPostsInfo
 
 
 export interface HeroConfig {
-  bg: ImageMetadata | string;
+  background?: ImageMetadata | string;
   title?: string;
   description?: string;
   logo?: ImageMetadata | string;
@@ -60,7 +60,7 @@ const {
 } = Astro.props;
 
 const {
-  bg,
+  background,
   title,
   description,
   logo,
@@ -70,43 +70,81 @@ const {
 <header class={twMerge(
   className
 )} {...rest}>
-  <div class='w-full h-full overflow-hidden rounded-xl relative plate-bg plate-shadow border-highlight'>
-    <!-- <Background bg={bg} client:load /> -->
-    <Image src={bg} class='w-full h-full select-none' alt='background' />
-
-    <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white'>
-      {title 
-        ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{title}</h1> 
-        : (logo && (
-            <Image src={logo} alt='cover' class='h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]' />
+  {background ? (
+    <div class='w-full h-full overflow-hidden rounded-xl relative plate-bg plate-shadow border-highlight'>
+      <Image src={background} class='w-full h-full select-none' alt='background' />
+      <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white'>
+        {title 
+          ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{title}</h1> 
+          : (logo && (
+              <Image src={logo} alt='cover' class='h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]' />
+            )
           )
-        )
-      }
-      {!info && description && <div class='mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>{description}</div>}
-      {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
-        <Category className='bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-1 rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white' onlyText category={info.category} />
-        {info.tags.map(tag => <Tag className='bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-1 rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white' onlyText tag={tag} />)}
-      </div>}
-      {info?.type === 'categories' && (
-        <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-          <div class=''>共{info.count}个分类</div>
-        </div>
-      )}
-      {info?.type === 'tags' && (
-        <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-          <div class=''>共{info.count}个标签</div>
-        </div>
-      )}
-      {info?.type === 'posts' && (
-        <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-          <div class=''>共{info.count}篇文章</div>
-        </div>
-      )}
-      {info?.type === 'archive' && (
-        <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-          <div class=''>共{info.count}篇文章</div>
-        </div>
-      )}
+        }
+        {!info && description && <div class='mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>{description}</div>}
+        {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
+          <Category className='bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-1 rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white' onlyText category={info.category} />
+          {info.tags.map(tag => <Tag className='bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-1 rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white' onlyText tag={tag} />)}
+        </div>}
+        {info?.type === 'categories' && (
+          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
+            <div class=''>共{info.count}个分类</div>
+          </div>
+        )}
+        {info?.type === 'tags' && (
+          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
+            <div class=''>共{info.count}个标签</div>
+          </div>
+        )}
+        {info?.type === 'posts' && (
+          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
+            <div class=''>共{info.count}篇文章</div>
+          </div>
+        )}
+        {info?.type === 'archive' && (
+          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
+            <div class=''>共{info.count}篇文章</div>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
+  ) : (
+    <div class='w-full h-full text-primary'>
+      <div class='py-4 md:py-6 md:pt-8 flex flex-col justify-center items-center'>
+        {title 
+          ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words'>{title}</h1> 
+          : (logo && (
+              <Image src={logo} alt='cover' class='h-24 md:h-28' />
+            )
+          )
+        }
+        {!info && description && <div class='mt-4 text-sm leading-4'>{description}</div>}
+        {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
+          <Category className='text-[0.8125rem] pl-1.5 pr-2 py-[0.1875rem] plate-bg plate-shadow border-highlight rounded-md duration-75 leading-4 hover:bg-primary-500 hover:text-white' onlyText category={info.category} />
+          {info.tags.map(tag => <Tag className='text-[0.8125rem] pl-1.5 pr-2 py-[0.1875rem] plate-bg plate-shadow border-highlight rounded-md duration-75 leading-4 hover:bg-primary-500 hover:text-white' onlyText tag={tag} />)}
+        </div>}
+        {info?.type === 'categories' && (
+          <div class='flex flex-wrap justify-center mt-4 text-sm'>
+            <div class=''>共{info.count}个分类</div>
+          </div>
+        )}
+        {info?.type === 'tags' && (
+          <div class='flex flex-wrap justify-center mt-4 text-sm'>
+            <div class=''>共{info.count}个标签</div>
+          </div>
+        )}
+        {info?.type === 'posts' && (
+          <div class='flex flex-wrap justify-center mt-4 text-sm'>
+            <div class=''>共{info.count}篇文章</div>
+          </div>
+        )}
+        {info?.type === 'archive' && (
+          <div class='flex flex-wrap justify-center mt-4 text-sm'>
+            <div class=''>共{info.count}篇文章</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+
 </header>
