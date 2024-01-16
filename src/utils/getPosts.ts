@@ -1,5 +1,5 @@
 import type { Author, Post } from '@/types';
-import config from '@/config';
+import config from 'virtual:user-config';
 import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
 
 import fs from 'node:fs';

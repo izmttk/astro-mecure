@@ -28,6 +28,9 @@ import rehypePostRaw from './plugins/rehype/rehype-post-raw';
 
 import { remarkCodeHike } from '@code-hike/mdx';
 
+import vitePluginUserConfig from './plugins/vite/vite-plugin-user-config';
+import userConfig from './src/config';
+
 // https://astro.build/config
 const config: AstroUserConfig = {
   site: 'https://suborbit.net/',
@@ -104,6 +107,7 @@ const config: AstroUserConfig = {
   // },
   vite: {
     plugins: [
+      vitePluginUserConfig(userConfig),
       svgr(),
       icons({
         compiler: 'jsx',
@@ -114,11 +118,11 @@ const config: AstroUserConfig = {
         template: 'treemap'
       }),
     ],
-    resolve: {
-      alias: {
-        '@': '/src'
-      }
-    },
+    // resolve: {
+    //   alias: {
+    //     '@': '/src'
+    //   }
+    // },
     ssr: {
       noExternal: ['date-fns', 'react-use', '@radix-ui/*', 'domelementtype']
     },

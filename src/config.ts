@@ -1,6 +1,10 @@
 import type { Config } from './types';
 import { getYear } from 'date-fns';
-import { url, assetsUrl } from '@/utils/url';
+
+import urlJoin from 'url-join';
+function url(...paths: string[]): string {
+  return urlJoin(import.meta.env.BASE_URL, ...paths);
+}
 
 const config: Config = {
   title: '银河渡舟',
@@ -61,10 +65,10 @@ const config: Config = {
     hasThemeToggle: true,
   },
   hero: {
-    background: assetsUrl('hero-bg.jpg'),
+    background: 'src/assets/hero-bg.jpg',
     // title: '银河渡舟',
     description: '欢迎来到银河渡舟的记事簿，看看最近我在折腾啥吧。',
-    logo: assetsUrl('logo.svg'),
+    logo: 'src/assets/logo.svg',
   },
   sidebar: {
     widgets: [
@@ -72,8 +76,8 @@ const config: Config = {
         name: 'profile',
         author: '银河渡舟',
         description: '浊以静之徐清，安以动之徐生',
-        avatar: assetsUrl('avatar.png'),
-        background: assetsUrl('profile-bg.jpg'),
+        avatar: 'src/assets/avatar.png',
+        background: 'src/assets/profile-bg.jpg',
         socialIcons: [
           {
             label: 'github',

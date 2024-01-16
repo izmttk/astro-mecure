@@ -6,7 +6,7 @@ import getPosts from '@/utils/getPosts';
 import { compareDesc } from 'date-fns';
 import type { Page, Post } from '@/types';
 import { createPaginator } from '@/utils/createPaginator';
-import config from '@/config';
+import config from 'virtual:user-config';
 
 export interface Props {
   page: AstroPage<Omit<Post, 'Content'>>;

@@ -12,11 +12,12 @@ import Html from './Html.astro';
 import Hero, { type HeroConfig } from '@/partials/Hero';
 import Pagination from '@/partials/Pagination';
 import Comment from '@/partials/Comment';
-import config from '@/config';
+import config from 'virtual:user-config';
 import sortByProperty from '@/utils/sortByProperty';
 import { twMerge } from 'tailwind-merge';
 import generateToc from '@/utils/generateToc';
 import Search from '@/components/Search';
+import * as images from 'virtual:user-images';
 
 export interface Props {
   page: Page;
@@ -79,19 +80,25 @@ function getHeroInfo(page: Page): HeroConfig['info'] {
 
 let heroConfig: HeroConfig | false = false;
 if (hero) {
-  const heroBg = page.image ?? hero.background;
+  const heroBg = page.image ?? images.heroBg;
   heroConfig = {
     background: heroBg,
     title: page.type === 'index' ? hero.title : page.title,
     description: page.type === 'index' ? hero.description : page.description,
-    logo: hero.logo,
+    logo: images.heroLogo,
     info: getHeroInfo(page),
   }
 }
 
 const widgetConfig: SidebarConfig['widgets'] = sidebar && sidebar.widgets ? 
   await Promise.all(sidebar.widgets.map(async widget => {
-    if (widget.name === 'tag-cloud') {
+    if (widget.name === 'profile') {
+      return {
+        ...widget,
+        avatar: images.profileAvatar,
+        background: images.profileBg,
+      }
+    } else if (widget.name === 'tag-cloud') {
       const allTags = await getTags();
       return {
         name: widget.name,

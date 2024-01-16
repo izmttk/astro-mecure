@@ -14,3 +14,14 @@ declare module '*.svg' {
 //   import { AstroComponentFactory } from 'astro'
 //   export default AstroComponentFactory;
 // }
+
+declare module 'virtual:user-config' {
+	const config: import('./types').Config;
+  export default config
+}
+
+declare module 'virtual:user-images' {
+	type ImageMetadata = import('astro').ImageMetadata;
+  const [ favicon, heroLogo, heroBg, profileAvatar, profileBg ]: (ImageMetadata | string | undefined)[];
+  export { favicon, heroLogo, heroBg, profileAvatar, profileBg }
+}
