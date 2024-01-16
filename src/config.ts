@@ -61,7 +61,7 @@ const config: Config = {
     hasThemeToggle: true,
   },
   hero: {
-    bg: assetsUrl('hero-bg.jpg'),
+    background: assetsUrl('hero-bg.jpg'),
     // title: '银河渡舟',
     description: '欢迎来到银河渡舟的记事簿，看看最近我在折腾啥吧。',
     logo: assetsUrl('logo.svg'),
