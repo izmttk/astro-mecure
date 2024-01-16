@@ -1,18 +1,17 @@
 ---
 import BlurHash from './BlurHash';
 import { getImage  } from 'astro:assets';
-import importAssets from '@/utils/importAssets';
-import { DEV, DIST_DIR, FS_PREFIX } from '@/constants';
-import urlJoin from 'url-join';
+import { DEV, FS_PREFIX } from '@/constants';
 import { imageToHashBase64 } from './converter';
 import { twMerge } from 'tailwind-merge';
 import type { RemoteImageProps as AstroRemoteImageProps, LocalImageProps as AstroLocalImageProps } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
+import { fileURLToPath } from 'node:url';
+// hack method to get the assetsDir, this member is not exported by astro:assets but is used internally
+import { assetsDir } from 'astro:assets';
 
 type ExtraProps = {
-  src: string | ImageMetadata | Promise<{
-    default: ImageMetadata;
-  }>;
+  src: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   alt?: string;
   onlyBlur?: boolean;
 };
@@ -26,49 +25,28 @@ const {
   ...rest
 } = Astro.props;
 
-function transformVitePath(path: string) {
-  if (DEV) {
-    if (path.startsWith(FS_PREFIX)) {
-      const prunedPath = new URL(path, 'http://localhost').pathname
-      return prunedPath.slice(FS_PREFIX.length)
-    } else {
-      throw new Error(`Path "${path}" is not started with ${FS_PREFIX}`)
-    }
-  } else {
-    return urlJoin(process.cwd(), DIST_DIR, path)
-  }
+function isESMImportedImage(src: any): src is ImageMetadata |  Promise<{default: ImageMetadata}> {
+  return typeof src === "object";
 }
 
-function isValidUrl(str: string): boolean {
-	try {
-		new URL(str);
-		return true;
-	} catch {
-		return false;
-	}
-}
-
-function isRemoteUrl(src: string) {
-	return isValidUrl(src) || src.startsWith('/');
-}
-
-const isRemoteImage = typeof src === 'string' && isRemoteUrl(src);
 const image = await getImage({
-  src: typeof src === 'string' ? await (
-    isRemoteImage ? src : importAssets(src)
-  ) : (
-    src instanceof Promise ? (await src).default : src
-  ),
+  src,
   ...rest,
 })
+
 const additionalAttributes: HTMLAttributes<'img'> = {};
 if (image.srcSet.values.length > 0) {
   additionalAttributes.srcset = image.srcSet.attribute;
 }
-const hasBlurHash = image.options.format !== 'svg' && !isRemoteImage;
-const blurhash = hasBlurHash ? await imageToHashBase64(
-  transformVitePath((image.options.src as ImageMetadata).src)
-) : undefined;
+
+let blurhash: string | undefined = undefined;
+if (image.options.format !== 'svg' && isESMImportedImage(src)) {
+  const resolvedSrc = 'then' in src ? (await src).default ?? await src : src;
+  const filePath = DEV
+		? new RegExp(`^${FS_PREFIX}([^?#]*)`).exec(resolvedSrc.src)?.[1] ?? ''
+		: fileURLToPath(new URL('.' + resolvedSrc.src, assetsDir));
+  blurhash = await imageToHashBase64(filePath);
+}
 ---
 {onlyBlur ? (
   blurhash && (

@@ -25,3 +25,7 @@ declare module 'virtual:user-images' {
   const [ favicon, heroLogo, heroBg, profileAvatar, profileBg ]: (ImageMetadata | string | undefined)[];
   export { favicon, heroLogo, heroBg, profileAvatar, profileBg }
 }
+
+declare module 'astro:assets' {
+  export const assetsDir: URL;
+}
