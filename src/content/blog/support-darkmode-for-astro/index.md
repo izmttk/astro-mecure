@@ -212,7 +212,7 @@ Astro 提供了 `is:inline` 指令，允许我们为页面保留 `script` 和 `s
 </script>
 ```
 
-最好将这段代码置于 `head` 标签尽量靠前的位置，以便尽浏览器尽早执行。
+最好将这段代码置于 `head` 标签尽量靠前的位置，以便浏览器尽早执行。
 
 最后我们还需要支持 Astro 的 ViewTransition 功能，否则会出现同 FOUC 一样的闪烁问题，由于 Astro 不会在页面切换时重新执行内联脚本（参考[官方文档](https://docs.astro.build/en/guides/view-transitions/#script-behavior-during-page-navigation)），我们在页面的 astro 代码中添加：
 
