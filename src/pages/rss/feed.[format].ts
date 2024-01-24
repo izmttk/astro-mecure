@@ -2,21 +2,19 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import generateRssFeed from '@/utils/generateRSSFeed';
 import config from '@/config'
 
-export const get: APIRoute = async ({params, site}) => {
+export const GET: APIRoute = async ({params, site}) => {
   if (!site) {
-    return { body: '' }
+    return new Response();
   }
   const format = params.format as 'xml' | 'json';
-  return {
-    body: await generateRssFeed({
-      title: config.title,
-      description: config.description,
-      site: site.href,
-      author: config.author,
-      favicon: config.favicon,
-      format: format,
-    })
-  }
+  return new Response(await generateRssFeed({
+    title: config.title,
+    description: config.description,
+    site: site.href,
+    author: config.author,
+    favicon: config.favicon,
+    format: format,
+  }))
   // return rss({
   //   title: 'Title',
   //   description: 'A humble Astronaut’s guide to the stars',

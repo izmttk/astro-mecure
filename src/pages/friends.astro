@@ -3,12 +3,11 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import type { Page } from '@/types';
 import Friend from '@/components/Friend';
 import { getCollection } from 'astro:content';
-import { assetsUrl } from '@/utils/url';
 import { FRIENDS_COLLECTION_NAME } from '@/constants';
 const page: Page = {
   title: '友情链接',
   description: '「花径不曾缘客扫，蓬门今始为君开」',
-  image: assetsUrl('friends-bg.jpg'),
+  image: import('src/assets/friends-bg.jpg'),
 }
 const friendEntries = await getCollection(FRIENDS_COLLECTION_NAME);
 ---

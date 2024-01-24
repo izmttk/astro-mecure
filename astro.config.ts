@@ -8,9 +8,8 @@ import sitemap from '@astrojs/sitemap';
 
 import svgr from 'vite-plugin-svgr';
 import icons from 'unplugin-icons/vite';
-import { visualizer } from 'rollup-plugin-visualizer';
+// import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'astro/config';
-// import node from '@astrojs/node';
 
 import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
@@ -26,16 +25,13 @@ import rehypePostWordCount from './plugins/rehype/rehype-post-word-count';
 import rehypePostReadingTime from './plugins/rehype/rehype-post-reading-time';
 import rehypePostRaw from './plugins/rehype/rehype-post-raw';
 
-import { remarkCodeHike } from '@code-hike/mdx';
+// import { remarkCodeHike } from '@code-hike/mdx';
 
 // https://astro.build/config
 const config: AstroUserConfig = {
   site: 'https://suborbit.net/',
   // base: 'blog',
   output: 'static',
-  // adapter: node({
-  //   mode: 'standalone'
-  // }),
   integrations: [
     react(),
     tailwind(),
@@ -96,12 +92,6 @@ const config: AstroUserConfig = {
       rehypeKatex,
     ],
   },
-  // build: {
-  //   assets: 'assets'
-  // },
-  // prefetch: {
-  //   prefetchAll: true,
-  // },
   vite: {
     plugins: [
       svgr(),
@@ -110,9 +100,9 @@ const config: AstroUserConfig = {
         jsx: 'react',
         autoInstall: true
       }),
-      visualizer({
-        template: 'treemap'
-      }),
+      // visualizer({
+      //   template: 'treemap'
+      // }),
     ],
     resolve: {
       alias: {
@@ -120,7 +110,12 @@ const config: AstroUserConfig = {
       }
     },
     ssr: {
-      noExternal: ['date-fns', 'react-use', '@radix-ui/*', 'domelementtype']
+      noExternal: ['date-fns', 'react-use', '@radix-ui/*']
+    },
+    // Astro will report error in dev mode without this
+    // I still don't know why
+    optimizeDeps: {
+      exclude: ['sharp']
     },
   }
 };

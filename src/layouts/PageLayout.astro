@@ -162,7 +162,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
   </main>
   {('paginator' in page && page.paginator) && pagination && (
     <Pagination
-      className='my-6 mx-auto'
+      className='my-6 mx-auto max-w-fit'
       current={page.paginator.current}
       total={page.paginator.total}
       pageUrls={page.paginator.pageUrls}

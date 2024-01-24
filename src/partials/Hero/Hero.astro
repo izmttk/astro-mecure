@@ -39,10 +39,10 @@ type HeroInfo = HeroPostInfo | HeroCategoriesInfo | HeroTagsInfo | HeroPostsInfo
 
 
 export interface HeroConfig {
-  background?: ImageMetadata | string;
+  background?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   title?: string;
   description?: string;
-  logo?: ImageMetadata | string;
+  logo?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   info?: HeroInfo,
 }
 

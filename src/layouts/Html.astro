@@ -29,14 +29,12 @@ import ProgressBar from "@/components/ProgressBar";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href={favicon} />
+    {title && <title>{title}</title>}
     {description && <meta name="description" content={description} />}
     {author && <meta name="author" content={author} />}
     {generator && <meta name="generator" content={generator} />}
     {canonical && <link rel="canonical" href={canonical} />}
-    <link rel="icon" href={favicon} />
-    {title && <title>{title}</title>}
-    <ViewTransitions />
-
     <script is:inline>
       (function() {
         const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
@@ -55,6 +53,7 @@ import ProgressBar from "@/components/ProgressBar";
         }
       })()
     </script>
+    <ViewTransitions />
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">

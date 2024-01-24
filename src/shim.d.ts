@@ -8,6 +8,9 @@ declare module '*.svg' {
   export default Component;
 }
 
+declare module 'astro:assets' {
+  export const assetsDir: URL;
+}
 
 // // support importing .astro in .ts file
 // declare module '*.astro' {

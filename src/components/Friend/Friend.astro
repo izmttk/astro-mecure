@@ -5,7 +5,7 @@ import Image from '@/components/Image';
 import type { ImageMetadata } from 'astro';
 
 export interface FriendProps extends HTMLAttributes<'a'> {
-  avatar: ImageMetadata | string;
+  avatar: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   name: string;
   description: string;
   link: string;

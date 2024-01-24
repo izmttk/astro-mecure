@@ -4,7 +4,7 @@ import type { ImageMetadata } from 'astro';
 import Image from '../Image';
 interface BlurredBackdropProps {
   class?: string;
-  image: string | ImageMetadata;
+  image: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   blur?: number;
 }
 export type Props = BlurredBackdropProps;

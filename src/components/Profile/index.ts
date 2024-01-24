@@ -3,8 +3,8 @@ export * from './Profile.astro';
 import type { ImageMetadata } from 'astro';
 
 export interface ProfileProps {
-  avatar?: string | ImageMetadata;
-  background?: string | ImageMetadata;
+  avatar?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  background?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   author?: string;
   description?: string;
   socialIcons?: {

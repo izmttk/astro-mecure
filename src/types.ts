@@ -15,7 +15,7 @@ export interface Category {
 
 export interface Author {
   name: string;
-  avatar?: ImageMetadata | string;
+  avatar?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   description?: string;
 }
 
@@ -31,7 +31,7 @@ export interface Post {
   author: Author;
 
   excerpt?: string;
-  image?: ImageMetadata | string;
+  image?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   permalink?: string;
   readingTime?: number;
   wordCount?: number;
@@ -57,7 +57,7 @@ export interface Paginator {
 export interface BasePage {
   title: string;
   description?: string;
-  image?: ImageMetadata | string;
+  image?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   type?: never;
 }
 
@@ -113,15 +113,9 @@ interface Sortable {
 }
 
 export type NavbarConfig = NavbarPartialConfig;
-export type HeroConfig = Omit<HeroPartialConfig, 'info' | 'background' | 'logo'> & {
-  background?: string;
-  logo?: string;
-}
+export type HeroConfig = Omit<HeroPartialConfig, 'info'>;
 
-export type ProfileWidgetConfig = Omit<ProfileConfig, 'avatar' | 'background'> & {
-  background?: string;
-  avatar?: string;
-};
+export type ProfileWidgetConfig = ProfileConfig;
 export type TagCloudWidgetConfig = Omit<TagCloudConfig, 'tags'> & Sortable;
 export type CategoryTreeWidgetConfig = Omit<CategoryTreeConfig, 'categories'> & Sortable;
 
