@@ -1,0 +1,30 @@
+---
+import bailu from '@/assets/bailu.png';
+import { Image } from 'astro:assets';
+---
+<div class="relative h-44 p-5 rounded-xl overflow-hidden ring-1 ring-red-500 shadow-lg shadow-red-800/50 dark:brightness-90" style={{
+  backgroundColor: 'rgb(230,15,12)',
+  color: 'rgb(255,196,110)',
+  border: '1px solid rgb(255,196,110)',
+}}>
+  <Image src={bailu} alt="白露给你拜个年" class="w-24 absolute right-0 bottom-0 select-none" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591.29 216.5" class="absolute -left-6 bottom-4 w-40">
+    <defs>
+      <style>
+        .cloud-decoration {
+          fill: url(#cloud-decoration-gradient);
+          stroke-width: 0px;
+        }
+      </style>
+      <linearGradient id="cloud-decoration-gradient" x1="0" y1="108.25" x2="591.29" y2="108.25" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#f5ab27"/>
+        <stop offset="1" stop-color="#f8d186"/>
+      </linearGradient>
+    </defs>
+    <g>
+      <path class="cloud-decoration" d="m587.7,216.5h-297.04c-13.87,0-25.12-8.48-25.12-18.94h0c0-10.46,11.25-18.94,25.12-18.94h72.57c9.91,0,17.94-6.06,17.94-13.53h0c0-7.47-8.03-13.53-17.94-13.53H35.49c-19.6,0-35.49-11.98-35.49-26.76h0c0-14.78,15.89-26.76,35.49-26.76h134.76c9.47,0,17.14-5.79,17.14-12.93h0c0-7.14-7.68-12.93-17.14-12.93h-35.09c-12.99,0-23.52-7.94-23.52-17.74h0c0-9.8,10.53-17.74,23.52-17.74h89.71c11.45,0,20.73-7,20.73-15.64h0c0-8.64-9.28-15.64-20.73-15.64H34.29c-1.98,0-3.59-1.21-3.59-2.71h0C30.7,1.21,32.31,0,34.29,0h232.05c15.41,0,27.91,9.42,27.91,21.05h0c0,11.62-12.5,21.05-27.91,21.05h-105.66c-9.03,0-16.35,5.52-16.35,12.33h0c0,6.81,7.32,12.33,16.35,12.33h33.49c13.43,0,24.32,8.21,24.32,18.34h0c0,10.13-10.89,18.34-24.32,18.34h-107.65c-15.63,0-28.31,9.56-28.31,21.35h0c0,11.79,12.67,21.35,28.31,21.35h354.85c13.87,0,25.12,8.48,25.12,18.94h0c0,10.46-11.25,18.94-25.12,18.94h-109.25c-9.91,0-17.94,6.06-17.94,13.53h0c0,7.47,8.03,13.53,17.94,13.53h255.57c1.98,0,3.59,1.21,3.59,2.71h0c0,1.49-1.61,2.71-3.59,2.71Z"/>
+    </g>
+  </svg>
+  <span class="font-bold text-4xl">新年快乐！</span>
+  <span class="font-bold text-lg">Happy Lunar New Year</span>
+</div>

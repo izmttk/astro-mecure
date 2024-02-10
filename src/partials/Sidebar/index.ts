@@ -5,11 +5,17 @@ import type { ProfileProps } from '@/components/Profile';
 import type { TagCloudProps } from '@/components/TagCloud';
 import type { CategoryTreeProps } from '@/components/CategoryTree';
 import type { TocProps } from '@/components/Toc';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 
 export interface WidgetConfig {
   name: string;
   title?: string;
   show?: boolean;
+}
+
+export interface ComponentConfig extends WidgetConfig {
+  name: 'component',
+  component: AstroComponentFactory | Promise<{default: AstroComponentFactory}>;
 }
 
 export interface TocConfig extends TocProps, WidgetConfig {
@@ -29,5 +35,5 @@ export interface CategoryTreeConfig extends CategoryTreeProps, WidgetConfig {
 }
 
 export interface SidebarConfig {
-  widgets?: (TocConfig | ProfileConfig | TagCloudConfig | CategoryTreeConfig)[];
+  widgets?: (ComponentConfig | TocConfig | ProfileConfig | TagCloudConfig | CategoryTreeConfig)[];
 }

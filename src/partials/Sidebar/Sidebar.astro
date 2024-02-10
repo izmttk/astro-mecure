@@ -6,10 +6,6 @@ import TagCloud from '@/components/TagCloud';
 import CategoryTree from '@/components/CategoryTree';
 import Toc from '@/components/Toc';
 import type { SidebarConfig } from '.';
-import type { ProfileProps } from '@/components/Profile';
-import type { TagCloudProps } from '@/components/TagCloud';
-import type { CategoryTreeProps } from '@/components/CategoryTree';
-import type { TocProps } from '@/components/Toc';
 export interface Props {
   config: SidebarConfig;
   class?: string;
@@ -23,32 +19,46 @@ const {
 } = Astro.props;
 
 const { widgets } = config;
-
 ---
 <ReactSidebar className={className} showSidebarOnDesktop={showSidebarOnDesktop} client:load>
   <div class="flex flex-col gap-3">
-    {widgets?.map(widget => {
-      const { name, title, show, ...props} = widget;
-      if (show === false) {
+    {widgets?.map(async widget => {
+      if (widget.show === false) {
         return null;
       }
-      switch (name) {
-        case 'profile':
+      switch (widget.name) {
+        case 'component':
+          const { name, title, show, ...props} = widget;
+          const Component = 'then' in widget.component ? (await widget.component).default : widget.component;
           return (
-            <Profile {...props as ProfileProps} />
+            <Component {...props} />
           );
-        case 'tag-cloud':
+        case 'profile': {
+          const { name, title, show, ...props} = widget;
           return (
-            <TagCloud {...props as TagCloudProps} />
+            <Profile {...props} />
           );
-        case 'category-tree':
+        }
+
+        case 'tag-cloud': {
+          const { name, title, show, ...props} = widget;
           return (
-            <CategoryTree {...props as CategoryTreeProps} client:load />
+            <TagCloud {...props} />
           );
-        case 'toc':
+        }
+
+        case 'category-tree': {
+          const { name, title, show, ...props} = widget;
           return (
-            <Toc {...props as TocProps} client:load />
+            <CategoryTree {...props} client:load />
           );
+        }
+        case 'toc': {
+          const { name, title, show, ...props} = widget;
+          return (
+            <Toc {...props} client:load />
+          );
+        }
         default:
           return null;
       }

@@ -100,7 +100,7 @@ export type Page = IndexPage | PostPage | CategoriesPage | TagsPage | PostsPage 
 
 import type { NavbarConfig as NavbarPartialConfig } from './partials/Navbar';
 import type { HeroConfig as HeroPartialConfig } from './partials/Hero';
-import type { CategoryTreeConfig, ProfileConfig, SidebarConfig as SidebarPartialConfig, TagCloudConfig } from './partials/Sidebar';
+import type { CategoryTreeConfig, ComponentConfig, ProfileConfig, SidebarConfig as SidebarPartialConfig, TagCloudConfig } from './partials/Sidebar';
 import type { PaginationConfig as PaginationPartialConfig } from './partials/Pagination';
 import type { CommentConfig as CommentPartialConfig } from './partials/Comment';
 import type { FooterConfig as FooterPartialConfig } from './partials/Footer';
@@ -115,11 +115,13 @@ interface Sortable {
 export type NavbarConfig = NavbarPartialConfig;
 export type HeroConfig = Omit<HeroPartialConfig, 'info'>;
 
+
+export type ComponentWidgetConfig = ComponentConfig;
 export type ProfileWidgetConfig = ProfileConfig;
 export type TagCloudWidgetConfig = Omit<TagCloudConfig, 'tags'> & Sortable;
 export type CategoryTreeWidgetConfig = Omit<CategoryTreeConfig, 'categories'> & Sortable;
 
-export type WidgetConfig = ProfileWidgetConfig | TagCloudWidgetConfig | CategoryTreeWidgetConfig;
+export type WidgetConfig = ComponentWidgetConfig | ProfileWidgetConfig | TagCloudWidgetConfig | CategoryTreeWidgetConfig;
 
 export type SidebarConfig = Omit<SidebarPartialConfig, 'widgets'> & {
   widgets?: WidgetConfig[];
