@@ -106,7 +106,15 @@ import IconArrowRight from '~icons/mingcute/arrow-right-fill'
 
 function renderSubtree(tree: InternalTreeNode, expandDepth: number, depth: number) {
   return (
-    <TreeView.Item label={tree.label}
+    <TreeView.Item
+      label={
+        tree.url ? (
+          <a href={tree.url} className='hover:font-bold group' onClick={e => e.stopPropagation()}>
+            {tree.label}
+            <IconArrowRight className='inline transition opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0' width={12} height={12} />
+          </a>
+        ) : tree.label
+      }
       icon={<IconFolderFill width={15} height={15} />}
       endIcon={<div className='text-xs px-1'>{tree.count}篇</div>}
       defaultExpanded={depth <= expandDepth}
