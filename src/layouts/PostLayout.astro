@@ -1,17 +1,22 @@
 ---
 import type { Post, Page } from '@/types';
 import PageLayout from './PageLayout.astro';
-
+import { Icon } from 'astro-icon/components';
+import Image from '@/components/Image';
 interface Props {
   post: Omit<Post, 'Content'>;
+  prev?: Omit<Post, 'Content'>;
+  next?: Omit<Post, 'Content'>;
 }
 
-const { post } = Astro.props;
+const { post, prev, next } = Astro.props;
 const page: Page = {
   title: post.title,
   image: post.image,
   type: 'post',
   post: post,
+  prev: prev,
+  next: next
 }
 
 import "@/styles/typography.css";
@@ -27,5 +32,38 @@ import "katex/dist/katex.min.css";
     </article>
     <slot name="footer" />
   </div>
-
+  <div class="flex flex-wrap my-4 gap-4">
+    {prev ? (
+      <a href={prev.url} class="relative w-full md:flex-1 p-4 plate-bg plate-shadow border-highlight rounded-xl text-lg font-bold overflow-hidden group">
+        {prev.image && <Image src={prev.image} alt="Prev Post Cover" class="absolute inset-0 select-none group-hover:brightness-75 group-hover:scale-110 transition" />}
+        <div class:list={[
+          'relative flex flex-col z-10',
+          prev.image && 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,.3)]'
+        ]}>
+          <Icon name="tabler:arrow-left" is:inline size={24} />
+          <span>{prev.title}</span>
+        </div>
+      </a>
+    ) : (
+      <div class="w-full md:flex-1 p-4 plate-bg plate-shadow border-highlight rounded-xl text-lg font-bold hidden md:flex flex-col justify-end">
+        没有更早的文章了
+      </div>
+    )}
+    {next ? (
+      <a href={next.url} class="relative w-full md:flex-1 p-4 plate-bg plate-shadow border-highlight rounded-xl text-lg font-bold overflow-hidden group">
+        {next.image && <Image src={next.image} alt="Next Post Cover" class="absolute inset-0 select-none group-hover:brightness-75 group-hover:scale-110 transition" />}
+        <div class:list={[
+          'relative flex flex-col md:items-end z-10',
+          next.image && 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,.3)]'
+        ]}>
+          <Icon name="tabler:arrow-right" is:inline size={24} />
+          <span>{next.title}</span>
+        </div>
+      </a>
+    ) : (
+      <div class="w-full md:flex-1 p-4 plate-bg plate-shadow border-highlight rounded-xl text-lg font-bold hidden md:flex flex-col justify-end items-end">
+        没有更新的文章了
+      </div>
+    )}
+  </div>
 </PageLayout>

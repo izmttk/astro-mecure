@@ -1,4 +1,5 @@
 ---
+import type { GetStaticPathsResult } from "astro";
 import PostLayout from '@/layouts/PostLayout.astro';
 import type { Post } from '@/types';
 import getPosts from '@/utils/getPosts';
@@ -7,30 +8,49 @@ import ArticleOutdateTip from '@/components/ArticleOutdateTip';
 import ArticleLicense from '@/components/ArticleLicense';
 import config from '@/config';
 import PostMeta from '@/components/PostMeta';
+import { compareAsc } from 'date-fns';
 
 export interface Props {
   post: Post;
+  prev?: Post;
+  next?: Post;
 }
 
 export async function getStaticPaths() {
-  const allPosts = await getPosts();
-  return allPosts.map(post => ({
-    params: {
-      slug: post.slug,
-    },
-    props: {
-      post: post,
-    },
-  }))
+  const allPosts = (await getPosts()).filter(post => !post.draft).sort((a, b) => compareAsc(a.date, b.date));
+  const results: GetStaticPathsResult = [];
+  for (let i = 0; i < allPosts.length; i++) {
+    const prev = i === 0 ? undefined : allPosts[i - 1];
+    const next = i === allPosts.length - 1 ? undefined : allPosts[i + 1];
+    const post = allPosts[i];
+    results.push({
+      params: {
+        slug: post.slug,
+      },
+      props: {
+        post,
+        prev,
+        next,
+      },
+    });
+  }
+  return results;
 }
 
-const { post: postProp } = Astro.props;
+const { post: postProp, prev: prevProp, next: nextProp } = Astro.props;
 const { Content, ...post } = postProp;
+const prev = prevProp ? Object.fromEntries(
+  Object.entries(prevProp).filter(([key]) => key !== 'Content')
+) as Omit<Post, 'Content'> : undefined;
+const next = nextProp ? Object.fromEntries(
+  Object.entries(nextProp).filter(([key]) => key !== 'Content')
+) as Omit<Post, 'Content'> : undefined;
+
 const outdateTipConfig = config.typography?.outdateTip;
 const licenseConfig = config.typography?.license;
 ---
 
-<PostLayout post={post}>
+<PostLayout post={post} prev={prev} next={next}>
   <div class="not-prose -mx-4 -mt-4 md:-mx-8 md:-mt-8 mb-3 md:mb-6" slot="header">
     <PostMeta 
       date={post.date}

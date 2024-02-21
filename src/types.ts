@@ -71,6 +71,8 @@ export interface IndexPage extends Omit<BasePage, 'type'> {
 export interface PostPage extends Omit<BasePage, 'type'> {
   type: 'post';
   post: Omit<Post, 'Content'>;
+  prev?: Omit<Post, 'Content'>;
+  next?: Omit<Post, 'Content'>;
 }
 
 export interface CategoriesPage extends Omit<BasePage, 'type'> {
