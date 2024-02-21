@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import kokomi from '../../assets/kokomi-thumb.jpg';
+---
+<div class="relative rounded-lg overflow-hidden shadow-lg">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-tr from-primary-500 to-secondary-500"></div>
+  <a class="relative block rounded-[0.4375rem] m-px p-4 bg-gray-50 dark:bg-gray-950" href="https://github.com/izmttk/astro-mecure" target="_blank">
+    <Image src={kokomi} width={300} alt="背景" class="absolute w-full h-full inset-0 object-cover opacity-30 select-none" />
+    <div class="relative z-10">
+      <span class="font-bold text-lg">
+        想使用该
+        <span class="bg-clip-text text-transparent bg-gradient-to-tr from-primary-500 to-secondary-500 font-black">主题</span>
+        <br>
+        建立自己的站点吗？
+      </span>
+      <br>
+      <span class="text-sm *:align-middle">
+        <span>不妨看看站点的</span>
+        <Icon name='tabler:brand-github' is:inline class="inline"/>
+        <span>仓库吧</span>
+        <Icon name='tabler:arrow-right' is:inline class="inline"/>
+      </span>
+    </div>
+  </a>
+</div>

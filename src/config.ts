@@ -69,10 +69,6 @@ const config: Config = {
   sidebar: {
     widgets: [
       {
-        name: 'component',
-        component: import('src/components/custom/Greeting.astro'),
-      },
-      {
         name: 'profile',
         author: '银河渡舟',
         description: '浊以静之徐清，安以动之徐生',
@@ -122,7 +118,11 @@ const config: Config = {
         sortBy: 'count',
         order: 'desc',
         expandDepth: 2,
-      }
+      },
+      {
+        name: 'component',
+        component: import('@/components/custom/Recommend.astro'),
+      },
     ]
   },
   pagination: {
