@@ -54,12 +54,7 @@ const config: AstroUserConfig = {
         // }],
       ]
     }),
-    icon({
-      include: {
-        mingcute: ["*"],
-        tabler: ["*"],
-      },
-    }),
+    icon(),
     // compress({
     //   // avoid react hydration error
     //   // html: {
