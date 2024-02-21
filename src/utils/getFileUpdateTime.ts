@@ -3,11 +3,15 @@ import { execSync } from "child_process";
 const COMMITER_DATE_ISO_FORMAT = "%cI";
 
 export default function getFileUpdateTime(filePath: string): Date {
-  const result = execSync(`git log --pretty=format:"${COMMITER_DATE_ISO_FORMAT}" ${filePath}`).toString();
-  // not committed yet
-  if (!result) {
+  try {
+    const result = execSync(`git log --pretty=format:"${COMMITER_DATE_ISO_FORMAT}" ${filePath}`).toString();
+    if (!result) {
+      throw new Error('Git command failed to execute');
+    }
+    const commits = result.split(/\r?\n/g);
+    return new Date(commits[0]);
+  } catch(e) {
+    // not committed yet
     return new Date();
   }
-  const commits = result.split(/\r?\n/g);
-  return new Date(commits[0]);
 }

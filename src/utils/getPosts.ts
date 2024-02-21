@@ -51,17 +51,22 @@ function postUrl(slug: string) {
   return url('posts', slug);
 }
 
+let cache: Post[] | null = null;
+
 async function getPosts(): Promise<Post[]> {
+  if (cache !== null) {
+    return cache;
+  }
   const posts = await getCollection(collection);
 
   const tagsBucket = countTags(posts);
   const categoriesBucket = countCategories(posts);
   
-  return Promise.all(posts.map(async post => {
+  cache = await Promise.all(posts.map(async post => {
     const { Content, headings, remarkPluginFrontmatter } = await post.render();
     const author = (await getEntry(post.data.author)).data ?? {name: config.author};
-    const date = post.data.date ?? getFileCreateTime(getPostPath(post.id));
-    const updateDate = post.data.updateDate ?? getFileUpdateTime(getPostPath(post.id));
+    const date = post.data.date ?? getFileCreateTime(await getPostPath(post.id));
+    const updateDate = post.data.updateDate ?? getFileUpdateTime(await getPostPath(post.id));
     return {
       slug: post.data.permalink ?? post.slug,
       title: post.data.title ?? '无标题',
@@ -88,6 +93,7 @@ async function getPosts(): Promise<Post[]> {
       Content: Content,
     }
   }))
+  return cache;
 }
 
 export default getPosts;
