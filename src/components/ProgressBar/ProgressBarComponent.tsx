@@ -81,7 +81,7 @@ const ProgressBar = forwardRef<ProgressBarRef>(({
       ...style,
       ...spring
     }} className={twMerge(
-      'fixed top-0 left-0 h-0.5 bg-gradient-to-r from-secondary-500 to-primary-500 z-[100] rounded-r-full',
+      'fixed top-0 left-0 h-1 bg-gradient-to-r from-secondary-500 to-primary-500 z-[100] rounded-r-full',
       'after:absolute after:w-12 after:h-1 after:right-0 after:top-0 after:bg-primary-700 after:blur-sm after:rotate-6 after:-translate-y-1/2',
       ' dark:after:bg-primary-400',
       className
