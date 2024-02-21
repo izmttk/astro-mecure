@@ -158,7 +158,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
         </div>
       )}
     </div>
-    {sidebarConfig && <Sidebar class="w-[17rem] flex-none" config={sidebarConfig} showSidebarOnDesktop={hasSidebar} />}
+    {sidebarConfig && <Sidebar class="w-[17rem] flex-none" config={sidebarConfig} show={hasSidebar} />}
   </main>
   {('paginator' in page && page.paginator) && pagination && (
     <Pagination
