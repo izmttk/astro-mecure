@@ -12,8 +12,8 @@ declare module 'astro:assets' {
   export const assetsDir: URL;
 }
 
-// // support importing .astro in .ts file
-// declare module '*.astro' {
-//   import { AstroComponentFactory } from 'astro'
-//   export default AstroComponentFactory;
-// }
+// support importing .astro in .ts file
+declare module '*.astro' {
+  import { AstroComponentFactory } from 'astro/runtime/server/index.js';
+  export default AstroComponentFactory;
+}

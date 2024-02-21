@@ -1,6 +1,3 @@
-export { default } from './Sidebar.astro';
-export * from './Sidebar.astro';
-
 import type { ProfileProps } from '@/components/Profile';
 import type { TagCloudProps } from '@/components/TagCloud';
 import type { CategoryTreeProps } from '@/components/CategoryTree';
@@ -37,3 +34,6 @@ export interface CategoryTreeConfig extends CategoryTreeProps, WidgetConfig {
 export interface SidebarConfig {
   widgets?: (ComponentConfig | TocConfig | ProfileConfig | TagCloudConfig | CategoryTreeConfig)[];
 }
+
+export { default } from './Sidebar.astro';
+export * from './Sidebar.astro';
