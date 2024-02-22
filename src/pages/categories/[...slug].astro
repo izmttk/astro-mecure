@@ -5,12 +5,13 @@ import { compareDesc } from 'date-fns';
 import PostCard from '@/components/PostCard';
 import getCategories from '@/utils/getCategories';
 import getPosts from '@/utils/getPosts';
+import type { GetStaticPaths } from 'astro';
 
 export interface Props {
   category: Category;
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
   const categories = await getCategories();
   return categories.map(category => ({
     params: {
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
       category: category,
     },
   }))
-}
+}) satisfies GetStaticPaths;
 
 const { slug } = Astro.params;
 const { category: categoryProp } = Astro.props;

@@ -12,7 +12,7 @@ export interface Props {
   page: AstroPage<Omit<Post, 'Content'>>;
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+export const getStaticPaths = (async ({ paginate }) => {
   const allPosts = (await getPosts()).filter(post => !post.draft).sort((a, b) => compareDesc(a.date, b.date));
   const paths: GetStaticPathsResult = paginate(allPosts, {
     pageSize: 20,
@@ -33,7 +33,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
     })
   }
   return paths;
-}
+}) satisfies GetStaticPaths;
+
 const { page }= Astro.props;
 
 const pageConfig: Page = {

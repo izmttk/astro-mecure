@@ -32,9 +32,9 @@ export const GET: APIRoute = async ({params, site}) => {
   // })
 }
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths = (() => {
   return [ 
     { params: { format: 'xml'} },
     { params: { format: 'json'} },
   ]
-}
+}) satisfies GetStaticPaths;
