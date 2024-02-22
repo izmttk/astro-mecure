@@ -43,7 +43,7 @@ image: ./cover.jpg
 
 ### 文件结构
 
-```plain
+```plaintext
 - remarkSpoiler
   - syntax.ts       // micromark 扩展
   - fromMarkdown.ts // mdast-util-from-markdown 扩展
@@ -240,7 +240,7 @@ export default remarkSpoiler;
 
 ### 文件结构
 
-```plain
+```plaintext
 - remarkAdmonition
   - syntax.ts       // micromark 扩展
   - fromMarkdown.ts // mdast-util-from-markdown 扩展

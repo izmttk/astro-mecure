@@ -92,7 +92,7 @@ All commands are run from the root of the project, from a terminal:
 
 ## Project Structure
 
-```plain
+```plaintext
 /
 ├── plugins/             # remark and rehype plugins
 ├── public/              # static assets for the site

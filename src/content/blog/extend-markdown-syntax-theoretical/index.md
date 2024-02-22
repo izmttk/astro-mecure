@@ -39,7 +39,7 @@ MDAST 是 remark产生的语法树，在得到 MDAST 后需要使用 remark-rehy
 
 关于这套工具链的流程，[discussion](https://github.com/orgs/remarkjs/discussions/869#discussioncomment-1602674) 中的回答可能会帮助你理解。
 
-```plain
+```plaintext
 1. Input            | .~~~~ ['#','F','o','o','EOL'] <~~~ file.md
                     | |
 2. Tokenize         | `~~~~ micromark(string)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
