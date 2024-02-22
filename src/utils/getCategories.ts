@@ -6,7 +6,7 @@ async function getCategories(): Promise<Category[]> {
     if (cache !== null) {
         return cache;
     }
-    const posts = await getPosts();
+    const posts = (await getPosts()).filter(post => !post.draft);
     cache = posts.flatMap(post => post.category).filter((category, index, arr) => {
         return arr.findIndex(item => item.label === category.label) === index;
     });
