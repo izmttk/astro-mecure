@@ -2,8 +2,6 @@ import type { Author, Post } from '@/types';
 import config from '@/config';
 import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
 
-import fs from 'node:fs';
-import { globSync } from 'glob';
 // import { slug } from 'github-slugger';
 
 import transformTags from './transformTags';
