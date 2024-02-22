@@ -129,7 +129,9 @@ export type SidebarConfig = Omit<SidebarPartialConfig, 'widgets'> & {
   widgets?: WidgetConfig[];
 };
 
-export type PaginationConfig = PaginationPartialConfig;
+export type PaginationConfig = PaginationPartialConfig & {
+  pageSize?: number;
+}
 export type CommentConfig = CommentPartialConfig;
 export type FooterConfig = FooterPartialConfig;
 

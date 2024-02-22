@@ -79,7 +79,6 @@
     "typescript": "^5.2.2",
     "unist-util-visit": "^5.0.0",
     "unplugin-icons": "^0.18.1",
-    "url-join": "^5.0.0",
     "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {

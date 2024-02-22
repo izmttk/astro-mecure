@@ -126,6 +126,7 @@ const config: Config = {
     ]
   },
   pagination: {
+    pageSize: 20,
     hasControls: true,
     hasEdges: false,
     siblings: 2,

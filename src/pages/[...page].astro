@@ -1,5 +1,5 @@
 ---
-import type { GetStaticPaths, GetStaticPathsResult, Page as AstroPage } from 'astro';
+import type { GetStaticPaths, Page as AstroPage } from 'astro';
 import PageLayout from '@/layouts/PageLayout.astro';
 import PostCard from '@/components/PostCard';
 import getPosts from '@/utils/getPosts';
@@ -14,25 +14,15 @@ export interface Props {
 
 export const getStaticPaths = (async ({ paginate }) => {
   const allPosts = (await getPosts()).filter(post => !post.draft).sort((a, b) => compareDesc(a.date, b.date));
-  const paths: GetStaticPathsResult = paginate(allPosts, {
-    pageSize: 20,
-  }).map(item => {
-    return {
-      params: {
-        page: `page/${item.params.page}`,
-      },
-      props: item.props,
-    };
-  });
-  if (paths.length > 0) {
-      paths.push({
-      params: {
-        page: undefined,
-      },
-      props: paths[0].props,
-    })
-  }
-  return paths;
+  return paginate(allPosts, {
+    pageSize: config.pagination === false ? Infinity : config.pagination?.pageSize,
+  }).map(item => ({
+    params: {
+      // page is undefined for the first page when using rest parameter in filename
+      page: item.params.page ? `page/${item.params.page}` : undefined
+    },
+    props: item.props,
+  }));
 }) satisfies GetStaticPaths;
 
 const { page }= Astro.props;
@@ -43,7 +33,7 @@ const pageConfig: Page = {
   description: config.description,
   posts: page.data,
   paginator: createPaginator(page, {
-    firstPageIsIndex: true,
+    includesFirstPageNumber: true,
   })
 }
 ---

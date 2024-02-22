@@ -1,5 +1,3 @@
-import urlJoin from 'url-join';
-
 // vite & astro built-in
 export const FS_PREFIX = '/@fs/'
 export const BASE_URL = import.meta.env.BASE_URL
@@ -16,5 +14,5 @@ export const AUTHORS_COLLECTION_NAME = 'authors'
 export const UNCATEGOTIZED_CAT = {
   label: '未分类',
   slug: 'uncategorized',
-  url: urlJoin(BASE_URL, 'categories/uncategorized'),
+  url: BASE_URL + 'categories/uncategorized'
 }

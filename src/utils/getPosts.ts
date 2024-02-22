@@ -8,22 +8,15 @@ import { globSync } from 'glob';
 
 import transformTags from './transformTags';
 import transformCategory from './transformCategory';
-import { url, urlJoin } from './url';
+import { url } from './url';
 import getFileCreateTime from './getFileCreateTime';
 import getFileUpdateTime from './getFileUpdateTime';
 import { CONTENT_DIR, BLOG_COLLECTION_NAME as collection } from '@/constants';
 
 function getPostPath(id: string) {
-  let path = urlJoin(CONTENT_DIR, `${collection}/${id}`);
+  let path = url(CONTENT_DIR, collection, id);
   if (path.startsWith('/')) {
     path = path.slice(1)
-  }
-  if (fs.statSync(path).isDirectory()) {
-    const files = globSync(`${path}/index.{md,mdx,html}`);
-    if (files.length === 0) {
-      throw new Error(`Post "${id}" has no index file.`);
-    }
-    return files[0];
   }
   return path;
 }
@@ -65,8 +58,8 @@ async function getPosts(): Promise<Post[]> {
   cache = await Promise.all(posts.map(async post => {
     const { Content, headings, remarkPluginFrontmatter } = await post.render();
     const author = (await getEntry(post.data.author)).data ?? {name: config.author};
-    const date = post.data.date ?? getFileCreateTime(await getPostPath(post.id));
-    const updateDate = post.data.updateDate ?? getFileUpdateTime(await getPostPath(post.id));
+    const date = post.data.date ?? getFileCreateTime(getPostPath(post.id));
+    const updateDate = post.data.updateDate ?? getFileUpdateTime(getPostPath(post.id));
     return {
       slug: post.data.permalink ?? post.slug,
       title: post.data.title ?? '无标题',
