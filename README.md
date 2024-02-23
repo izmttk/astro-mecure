@@ -129,156 +129,367 @@ All commands are run from the root of the project, from a terminal:
 
 ## Configuration
 
-more details in [config.ts](./src/config.ts)
+### Special Fields
+
+#### Image
+
+Some fields are of type `Image`, you can provide a string or an `ImageMetadata` object.
+
+If it's a string, it will be kept as is. If it's an `ImageMetadata` object, it will be processed by astro built-in optimization.
+
+If you want to process your image with astro, you can write your config like this:
 
 ```ts
-const config: Config = {
-  title: '<site_title>',
-  description: '<site_description>',
-  author: '<author_name>',
-  favicon: url('favicon.ico'),
-  navbar: {
-    menu: [ // menu support cascading
-      {
-        label: 'demo',
-        icon: 'tabler:menu-2', // optional, you can use tabler icons
-        children: [ // optional, children and url are mutually exclusive
-          { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
-          { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
-          {
-            label: 'SubItem3',
-            icon: 'tabler:menu-2',
-            children: [
-              { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
-              { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
-              { label: 'SubItem3', url: '#', icon: 'tabler:circle'},
-            ]
-          },
-        ]
-      },
-    ],
-    hasSearchToggle: true, // search is powered by algolia
-    hasThemeToggle: true, // dark mode toggle button
-  },
-  hero: {
-    bg: url('/assets/hero-bg.jpg'),
-    title: '<hero_title>', // title and logo are mutually exclusive
-    description: '<hero_description>',
-    logo: url('/assets/logo.svg'),
-  },
-  sidebar: {
-    widgets: [ // widget config
-      {
-        name: 'profile',
-        author: '<author_name>',
-        description: '<author_description>',
-        avatar: url('/assets/avatar.png'),
-        background: url('/assets/profile-bg.jpg'),
-        socialIcons: [
-          {
-            label: 'github',
-            color: '#7c8690',
-            icon: 'tabler:brand-github',
-            url: ''
-          },
-          {
-            label: 'bilibili',
-            color: '#fc87b2',
-            icon: 'tabler:brand-bilibili',
-            url: ''
-          },
-          {
-            label: 'netease music',
-            color: '#ff4e6a',
-            icon: 'tabler:brand-netease-music',
-            url: ''
-          },
-          {
-            label: 'twitter',
-            color: '#1d9bf0',
-            icon: 'tabler:brand-twitter',
-            url: ''
-          },
-          {
-            label: 'mail',
-            color: '#7562c7',
-            icon: 'tabler:mail',
-            url: 'mailto:example@example.com'
-          }
-        ],
-      },
-      {
-        name: 'tag-cloud',
-        sortBy: 'count',
-        order: 'desc',
-        limit: 30,
-      },
-      {
-        name: 'category-tree',
-        sortBy: 'count',
-        order: 'desc',
-        expandDepth: 2,
-      }
-    ]
-  },
-  pagination: {
-    hasControls: true,
-    hasEdges: false,
-    siblings: 2,
-    boundaries: 1,
-  },
-  typography: {
-    outdateTip: { // outdate tip will be shown when the post is outdate
-      outdateLimit: 90, // days
-    },
-    license: {
-      licenseName: 'CC BY-NC-SA 4.0',
-      licenseUrl: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh',
-      infoText: '转载或引用本文时请注明作者及出处，不得用于商业用途。',
-    }
-  },
-  comment: {
-    provider: 'giscus', // currently support giscus and waline
-    options: {
-      repo: 'xxxx/xxxxxxxxxxxxx',
-      repoId: 'XXXXXXXXXX',
-      category: 'General',
-      categoryId: 'XXXXXXXXXXXXXXXXX',
-      mapping: 'pathname',
-      reactionsEnabled: '0',
-      emitMetadata: '0',
-      inputPosition: 'top',
-      lang: 'zh-CN',
-    },
-    // provider: 'waline',
-    // options: {
-    //   serverURL: 'xxxxxxxxxxxxxxxx',
-    //   meta: ['nick', 'mail', 'link'],
-    //   requiredMeta: ['nick', 'mail'],
-    //   wordLimit: 200,
-    //   commentSorting: 'latest',
-    //   login: 'disable',
-    //   search: false,
-    //   copyright: false,
-    //   reaction: false,
-    // }
-  },
-  footer: {
-    links: [
-      { label: '友情链接', url: url('friends')},
-      { label: 'Github', url: 'https://github.com/izmttk'},
-    ],
-    declarations: [
-      `Copyright © ${getYear(new Date())} 银河渡舟 All Rights Reserved.`,
-    ],
-    generator: true,
-    rss: true,
-    sitemap: true,
-  },
-  algolia: {
-    appId: 'XXXXXXXXXX',
-    apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    indexName: 'your_index_name',
-  }
+import AvatarImage from './assets/avatar.jpg';
+const config = {
+  // imported image
+  avatar: AvatarImage
+  // or even using dymatic import
+  background: import('./assets/background.jpg')
 }
 ```
+
+#### Url
+
+Some fields are url strings which can be clicked to navigate to the target page. But if you want to set an internal link, you can use the `url` utility function to generate the url. It will join the base url of the site and the provided path.
+
+```ts
+import { url } from '@/utils/url';
+
+const config = {
+  // internal link: /base-path/your-path
+  link: url('/your-path'),
+}
+```
+
+### Site Options
+
+#### title
+
+**Type**: `string`
+
+Title of your site. This will be used in the meta data of your site.
+
+#### description
+
+**Type**: `string`
+
+Description of your site. This will be used in the meta data of your site.
+
+#### author
+
+**Type**: `string`
+
+Author of the site. This will be used in the meta data of your site.
+
+#### favicon
+
+**Type**: `string`
+
+Path to the favicon of your site. You need to put your favicon in the `public` folder.
+
+### Navbar Options
+
+Navbar is always floating on top of viewport. It can be disabled by setting `navbar` to `false`, or you should provide a `navbar` object with the following options.
+
+#### navbar.menu
+
+**Type**: `MenuConfig`
+**Default**: `[]`
+
+Menu will be shown in the navbar. The type of `MenuItem` is:
+
+```ts
+type MenuConfig = (MenuSubItemConfig | MenuLinkItemConfig)[];
+interface MenuLinkItemConfig {
+  label: string;
+  url: string;
+  icon?: string;
+}
+
+interface MenuSubItemConfig {
+  label: string;
+  icon?: string;
+  children: MenuConfig;
+}
+```
+
+- `label`
+  **Type**: `string`
+  
+  Label of the menu item.
+
+- `url`
+  **Type**: `string`
+
+  URL of the menu item. sub menu item has no url.
+
+- `icon`
+  **Type**: `string | undefined`
+  **Default**: `undefined`
+
+  Each item supports an icon, which follows the format of `<pack>:<icon>`, such as `tabler:home`. You can explore more icons in [Icônes](https://icones.js.org/). Before using a pack, you need to install icon set dependencies. For example, to use `mdi` icons, you need to install `@iconify-json/mdi` package.
+
+  ```bash
+  npm install @iconify-json/mdi
+  ```
+
+  We have already installed `tabler` and `mingcute` icons for you.
+
+- `children`
+  **Type**: `MenuConfig`
+  **Default**: `[]`
+
+  For sub menu item, you can provide a `children` array to create a dropdown menu, which follows the same format as `MenuConfig`. Sub menu supports cascading.
+
+  ```ts
+  {
+    label: 'menu demo',
+    icon: 'tabler:menu-2',
+    children: [
+      { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
+      { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
+      {
+        label: 'SubItem3',
+        icon: 'tabler:menu-2',
+        children: [
+          { label: 'SubItem1', url: '#', icon: 'tabler:circle'},
+          { label: 'SubItem2', url: '#', icon: 'tabler:circle'},
+          { label: 'SubItem3', url: '#', icon: 'tabler:circle'}
+        ]
+      }
+    ]
+  }
+  ```
+
+#### navbar.hasSearchToggle
+
+**Type**: `boolean`
+**Default**: `true`
+
+Whether to show search button in navbar.
+
+#### navbar.hasThemeToggle
+
+**Type**: `boolean`
+**Default**: `true`
+
+Whether to show dark mode switch button in navbar.
+
+### Hero Options
+
+Hero section is the first area of a web page, providing some key information of the page. It can be disabled by setting `hero` to `false`.
+
+#### hero.background
+
+**Type**: `Image`
+
+Background image of the hero section.
+
+#### hero.description
+
+**Type**: `string | undefined`
+**Default**: `undefined`
+
+Description in hero section. It will be shown below the title or logo.
+
+#### hero.logo
+
+**Type**: `Image | undefined`
+**Default**: `undefined`
+
+Logo in hero section. This option is mutually exclusive to `hero.title`.
+
+#### hero.title
+
+**Type**: `string | undefined`
+**Default**: `undefined`
+
+Title in hero section. This option is mutually exclusive to `hero.logo`.
+
+### Sidebar Options
+
+It can be disabled by setting `hero` to `false`.
+
+#### sidebar.widgets
+
+### Pagination Options
+
+When a page contains a list of articles, pagination will be shown at the bottom of the page. It can be disabled by setting `pagination` to `false`.
+
+#### pagination.pageSize
+
+**Type**: `number`
+**Default**: `10`
+
+The number of articles per page.
+
+#### pagination.hasControls
+
+**Type**: `boolean`
+**Default**: `true`
+
+Show or hide prev/next control buttons.
+
+#### pagination.hasEdges
+
+**Type**: `boolean`
+**Default**: `false`
+
+Show or hide first/last control buttons.
+
+#### pagination.siblings
+
+**Type**: `number`
+**Default**: `1`
+
+Amount of sibling pages on left/right side of current page.
+
+#### pagination.boundaries
+
+**Type**: `number`
+**Default**: `1`
+
+Amount of pages visible on left/right edges.
+
+### Article Options
+
+Options for some elements in the article page.
+
+#### article.outdateTip
+
+**Type**: `false | outdateTipConfig`
+
+Show an outdate tip at the top of the article when the article is out of date. It can be disabled by setting `outdateTip` to `false`.
+
+`outdateTipConfig` is an object with `outdateLimit` properties.
+
+##### article.outdateTip.outdateLimit
+
+**Type**: `number`
+**Default**: `30`
+
+The number of days after which the article is considered out of date.
+
+#### article.license
+
+**Type**: `false | licenseConfig`
+
+Show a license info at the bottom of the article. It can be disabled by setting `license` to `false`.
+
+`licenseConfig` is an object containing `licenseName`, `licenseUrl`, `infoText` properties.
+
+##### article.license.licenseName
+
+**Type**: `string`
+
+Name of the license, e.g. `CC BY-NC-SA 4.0`. If you use CC license, you can find the license name in the [CC License Chooser](https://creativecommons.org/choose/).
+
+##### article.license.licenseUrl
+
+**Type**: `string | undefined`
+**Default**: `undefined`
+
+URL of the license, e.g. `https://creativecommons.org/licenses/by-nc-sa/4.0/`.
+
+##### article.license.infoText
+
+**Type**: `string | undefined`
+**Default**: `undefined`
+
+Info text of the license, e.g. `This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.`.
+
+### Comment Options
+
+We support two comment providers: `giscus` and `waline` now. You can choose one of them. It can be disabled by setting `comment` to `false`.
+
+#### comment.provider
+
+**Type**: `giscus | waline`
+
+Choose a comment provider.
+
+#### comment.options
+
+**Type**: `giscusOptions | walineOptions`
+
+Options for the comment provider. You can find the details in the [Giscus Component](https://github.com/giscus/giscus-component) and [Waline Component Props](https://waline.js.org/reference/client/props.html) documentation.
+
+### Footer Options
+
+Footer section is at the bottom of every page. It can be disabled by setting `footer` to `false`.
+
+#### footer.links
+
+**Type**: `FooterLink[]`
+
+Links in the footer. The type of `FooterLink` is:
+
+```ts
+interface FooterLink {
+  label: string;
+  url: string;
+}
+```
+
+- `label`
+  **Type**: `string`
+  
+  Label of the link.
+
+- `url`
+  **Type**: `string`
+
+  URL of the link.
+
+#### footer.declarations
+
+**Type**: `string[]`
+**Default**: `[]`
+
+A set of declarative statements in the footer. It can be used to declare the license, the author, the technology stack, etc.
+
+#### footer.generator
+
+**Type**: `boolean`
+**Default**: `true`
+
+Whether to show the generator info in the footer.
+
+#### footer.rss
+
+**Type**: `boolean`
+**Default**: `true`
+
+Whether to show the RSS link in the footer.
+
+#### footer.sitemap
+
+**Type**: `boolean`
+**Default**: `true`
+
+Whether to show the sitemap link in the footer.
+
+### Search Options
+
+We support Algolia DocSearch now. You should apply for [Algolia DocSearch](https://docsearch.algolia.com/) and get the `appId`, `apiKey`, and `indexName`.
+
+#### algolia.appId
+
+**Type**: `string`
+
+Your Algolia application ID.
+
+#### algolia.apiKey
+
+**Type**: `string`
+
+Your Algolia Search API key.
+
+#### algolia.indexName
+
+**Type**: `string`
+
+Your Algolia index name.
+
+more details in [config.ts](./src/config.ts)
