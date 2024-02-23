@@ -46,8 +46,8 @@ const next = nextProp ? Object.fromEntries(
   Object.entries(nextProp).filter(([key]) => key !== 'Content')
 ) as Omit<Post, 'Content'> : undefined;
 
-const outdateTipConfig = config.typography?.outdateTip;
-const licenseConfig = config.typography?.license;
+const outdateTipConfig = config.article?.outdateTip;
+const licenseConfig = config.article?.license;
 ---
 
 <PostLayout post={post} prev={prev} next={next}>

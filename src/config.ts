@@ -132,7 +132,7 @@ const config: Config = {
     siblings: 2,
     boundaries: 1,
   },
-  typography: {
+  article: {
     outdateTip: {
       outdateLimit: 180,
     },

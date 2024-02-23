@@ -135,9 +135,7 @@ export type PaginationConfig = PaginationPartialConfig & {
 export type CommentConfig = CommentPartialConfig;
 export type FooterConfig = FooterPartialConfig;
 
-export type TypographyConfig = {
-  fontSize?: number;
-  lineHeight?: number;
+export type ArticleConfig = {
   outdateTip?: false | {
     outdateLimit?: number;
   };
@@ -165,6 +163,6 @@ export interface Config {
   pagination?: PaginationConfig | false;
   comment?: CommentConfig | false;
   footer?: FooterConfig | false;
-  typography?: TypographyConfig;
+  article?: ArticleConfig;
   algolia?: AlgoliaConfig;
 }
