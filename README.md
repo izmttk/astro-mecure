@@ -5,7 +5,9 @@
 
 This is the source code for my blog, which is built with [Astro](https://astro.build), and deployed to [Netlify](https://netlify.com).
 
-## Examples
+## Preview
+
+![Theme Preview](https://github.com/izmttk/astro-mecure/assets/26360968/4c79fba0-390d-48f6-a887-bcbc39c5e462)
 
 - 银河渡舟的小站: <https://suborbit.net>
 
@@ -129,6 +131,27 @@ All commands are run from the root of the project, from a terminal:
 
 ## Configuration
 
+### Example
+
+```ts
+export default {
+  title: 'My Blog',
+  description: 'This is my blog.',
+  author: 'John',
+  favicon: '/favicon.ico',
+  navbar: { /* ... */ },
+  hero: { /* ... */ },
+  sidebar: { /* ... */ },
+  pagination: { /* ... */ },
+  article: { /* ... */ },
+  comment: { /* ... */ },
+  footer: { /* ... */ },
+  algolia: { /* ... */ }
+}
+```
+
+more details in [config.ts](./src/config.ts)
+
 ### Special Fields
 
 #### Image
@@ -161,6 +184,16 @@ const config = {
   link: url('/your-path'),
 }
 ```
+
+#### Icon
+
+Some fields are icon strings which can be used to show an icon. The format of the icon is `<pack>:<icon>`, such as `tabler:home`. You can explore more icons in [Icônes](https://icones.js.org/). Before using a pack, you need to install icon set dependencies. For example, to use `mdi` icons, you need to install `@iconify-json/mdi` package.
+
+```bash
+npm install @iconify-json/mdi
+```
+
+We have already installed `tabler` and `mingcute` icons for you.
 
 ### Site Options
 
@@ -195,6 +228,7 @@ Navbar is always floating on top of viewport. It can be disabled by setting `nav
 #### navbar.menu
 
 **Type**: `MenuConfig`
+
 **Default**: `[]`
 
 Menu will be shown in the navbar. The type of `MenuItem` is:
@@ -215,29 +249,29 @@ interface MenuSubItemConfig {
 ```
 
 - `label`
+
   **Type**: `string`
   
   Label of the menu item.
 
 - `url`
+
   **Type**: `string`
 
   URL of the menu item. sub menu item has no url.
 
 - `icon`
+
   **Type**: `string | undefined`
+
   **Default**: `undefined`
 
-  Each item supports an icon, which follows the format of `<pack>:<icon>`, such as `tabler:home`. You can explore more icons in [Icônes](https://icones.js.org/). Before using a pack, you need to install icon set dependencies. For example, to use `mdi` icons, you need to install `@iconify-json/mdi` package.
-
-  ```bash
-  npm install @iconify-json/mdi
-  ```
-
-  We have already installed `tabler` and `mingcute` icons for you.
+  Each item supports an optional icon before the label.
 
 - `children`
+
   **Type**: `MenuConfig`
+
   **Default**: `[]`
 
   For sub menu item, you can provide a `children` array to create a dropdown menu, which follows the same format as `MenuConfig`. Sub menu supports cascading.
@@ -265,6 +299,7 @@ interface MenuSubItemConfig {
 #### navbar.hasSearchToggle
 
 **Type**: `boolean`
+
 **Default**: `true`
 
 Whether to show search button in navbar.
@@ -272,6 +307,7 @@ Whether to show search button in navbar.
 #### navbar.hasThemeToggle
 
 **Type**: `boolean`
+
 **Default**: `true`
 
 Whether to show dark mode switch button in navbar.
@@ -289,6 +325,7 @@ Background image of the hero section.
 #### hero.description
 
 **Type**: `string | undefined`
+
 **Default**: `undefined`
 
 Description in hero section. It will be shown below the title or logo.
@@ -296,6 +333,7 @@ Description in hero section. It will be shown below the title or logo.
 #### hero.logo
 
 **Type**: `Image | undefined`
+
 **Default**: `undefined`
 
 Logo in hero section. This option is mutually exclusive to `hero.title`.
@@ -303,15 +341,165 @@ Logo in hero section. This option is mutually exclusive to `hero.title`.
 #### hero.title
 
 **Type**: `string | undefined`
+
 **Default**: `undefined`
 
 Title in hero section. This option is mutually exclusive to `hero.logo`.
 
 ### Sidebar Options
 
-It can be disabled by setting `hero` to `false`.
+Sidebar is a section on the right side of the page. It contains some widgets and can be disabled by setting `sidebar` to `false`.
 
 #### sidebar.widgets
+
+**Type**: `WidgetConfig[]`
+
+**Default**: `[]`
+
+We provide 4 types of widgets: `profile`, `tag-cloud`, `category-tree`, and `component`. They will be shown in the order you provide.\
+Each widget has 3 public properties: `name`, `title`, and `show`.
+
+- `name`
+
+  **Type**: `'profile' | 'tag-cloud' | 'category-tree' | 'component'`
+  
+  Name of the widget.
+
+- `title`
+
+  **Type**: `string | undefined`
+
+  Title of the widget. Title will be shown at the top of the widget.
+
+- `show`
+
+  **Type**: `boolean`
+
+  **Default**: `true`
+
+  Show or hide the widget.
+
+##### Profile Widget
+
+- `author`
+
+  **Type**: `string | undefined`
+
+  Author Name shown in the profile widget.
+
+- `avatar`
+
+  **Type**: `Image | undefined`
+
+  Avatar image shown in the profile widget.
+
+- `description`
+
+  **Type**: `string | undefined`
+
+  Description shown in the profile widget.
+
+- `socialIcons`
+
+  **Type**: `SocialIcon[]`
+
+  **Default**: `[]`
+
+  Social icons. The type of `SocialIcon` is:
+
+  ```ts
+  interface SocialIcon {
+    label: string;
+    color?: string;
+    icon: string; // format: <pack>:<icon>
+    url: string;
+  }
+  ```
+
+##### Tag Cloud Widget
+
+- `sortBy`
+
+  **Type**: `'label' | 'count'`
+
+  **Default**: `'count'`
+
+  Sort the tags by tag label or article count.
+
+- `order`
+
+  **Type**: `'asc' | 'desc'`
+
+  **Default**: `'desc'`
+
+  Sort the tags in ascending or descending order.
+
+- `limit`
+
+  **Type**: `number | undefined`
+
+  **Default**: `30`
+
+  Limit the number of tags shown in the tag cloud widget. If you set `limit` to `undefined`, all tags will be shown.
+
+##### Category Tree Widget
+
+- `sortBy`
+
+  **Type**: `'label' | 'count'`
+
+  **Default**: `'count'`
+
+  Sort the tags by tag label or article count.
+
+- `order`
+
+  **Type**: `'asc' | 'desc'`
+
+  **Default**: `'desc'`
+
+  Sort the tags in ascending or descending order.
+
+- `limit`
+
+  **Type**: `number | undefined`
+
+  **Default**: `undefined`
+
+  Limit the number of categories shown in the category tree widget. If you set `limit` to `undefined`, all categories will be shown.
+
+- `expandDepth`
+
+  **Type**: `number`
+
+  **Default**: `2`
+
+  The depth of the category tree to expand. Any category deeper than this depth will not be shown.
+
+##### Component Widget
+
+- `component`
+
+  **Type**: `AstroComponentFactory`
+  
+  You can provide an astro component to the widget as a totally custom widget. For example:
+
+  ```ts
+  import Greeting from '@/components/Greeting.astro';
+  const config = {
+    widgets: [
+      {
+        name: 'component',
+        component: Greeting 
+      },
+      {
+        // or you can use dynamic import
+        name: 'component',
+        component: import('@/components/Greeting.astro')
+      }
+    ]
+  }
+  ```
 
 ### Pagination Options
 
@@ -320,6 +508,7 @@ When a page contains a list of articles, pagination will be shown at the bottom 
 #### pagination.pageSize
 
 **Type**: `number`
+
 **Default**: `10`
 
 The number of articles per page.
@@ -327,6 +516,7 @@ The number of articles per page.
 #### pagination.hasControls
 
 **Type**: `boolean`
+
 **Default**: `true`
 
 Show or hide prev/next control buttons.
@@ -334,6 +524,7 @@ Show or hide prev/next control buttons.
 #### pagination.hasEdges
 
 **Type**: `boolean`
+
 **Default**: `false`
 
 Show or hide first/last control buttons.
@@ -341,6 +532,7 @@ Show or hide first/last control buttons.
 #### pagination.siblings
 
 **Type**: `number`
+
 **Default**: `1`
 
 Amount of sibling pages on left/right side of current page.
@@ -348,6 +540,7 @@ Amount of sibling pages on left/right side of current page.
 #### pagination.boundaries
 
 **Type**: `number`
+
 **Default**: `1`
 
 Amount of pages visible on left/right edges.
@@ -367,6 +560,7 @@ Show an outdate tip at the top of the article when the article is out of date. I
 ##### article.outdateTip.outdateLimit
 
 **Type**: `number`
+
 **Default**: `30`
 
 The number of days after which the article is considered out of date.
@@ -388,6 +582,7 @@ Name of the license, e.g. `CC BY-NC-SA 4.0`. If you use CC license, you can find
 ##### article.license.licenseUrl
 
 **Type**: `string | undefined`
+
 **Default**: `undefined`
 
 URL of the license, e.g. `https://creativecommons.org/licenses/by-nc-sa/4.0/`.
@@ -395,6 +590,7 @@ URL of the license, e.g. `https://creativecommons.org/licenses/by-nc-sa/4.0/`.
 ##### article.license.infoText
 
 **Type**: `string | undefined`
+
 **Default**: `undefined`
 
 Info text of the license, e.g. `This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.`.
@@ -433,11 +629,13 @@ interface FooterLink {
 ```
 
 - `label`
+
   **Type**: `string`
   
   Label of the link.
 
 - `url`
+
   **Type**: `string`
 
   URL of the link.
@@ -445,6 +643,7 @@ interface FooterLink {
 #### footer.declarations
 
 **Type**: `string[]`
+
 **Default**: `[]`
 
 A set of declarative statements in the footer. It can be used to declare the license, the author, the technology stack, etc.
@@ -452,6 +651,7 @@ A set of declarative statements in the footer. It can be used to declare the lic
 #### footer.generator
 
 **Type**: `boolean`
+
 **Default**: `true`
 
 Whether to show the generator info in the footer.
@@ -459,6 +659,7 @@ Whether to show the generator info in the footer.
 #### footer.rss
 
 **Type**: `boolean`
+
 **Default**: `true`
 
 Whether to show the RSS link in the footer.
@@ -466,6 +667,7 @@ Whether to show the RSS link in the footer.
 #### footer.sitemap
 
 **Type**: `boolean`
+
 **Default**: `true`
 
 Whether to show the sitemap link in the footer.
@@ -491,5 +693,3 @@ Your Algolia Search API key.
 **Type**: `string`
 
 Your Algolia index name.
-
-more details in [config.ts](./src/config.ts)
