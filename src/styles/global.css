@@ -6,6 +6,7 @@
 
 body {
   @apply bg-background-light dark:bg-background-dark text-primary;
+  @apply flex flex-col min-h-screen;
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
