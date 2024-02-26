@@ -139,13 +139,13 @@ const { widgets } = config;
     if (scrollY > prevY) {
       // scroll down
       contentEl.style.bottom = '';
-      contentEl.style.top = `-${contentRect.height - viewportHeight}px`;
+      contentEl.style.top = `${-(contentRect.height - viewportHeight)}px`;
     } else if (scrollY < prevY) {
       // scroll up
       const contentOffset = Math.max(0, contentRect.top - containerRect.top);
       spaceEl.style.marginTop = `${contentOffset}px`;
       contentEl.style.top = '';
-      contentEl.style.bottom = `-${contentRect.height - viewportHeight + stickyMarginTop}px`;
+      contentEl.style.bottom = `${-(contentRect.height - viewportHeight + stickyMarginTop)}px`;
     }
     prevY = scrollY;
   };
