@@ -129,6 +129,92 @@ All commands are run from the root of the project, from a terminal:
 └── tsconfig.json
 ```
 
+## Frontmatter
+
+An example of a blog post frontmatter:
+
+```yaml
+---
+title: Hello, Astro!
+slug: hello-astro
+date: 2022-01-01
+updateDate: 2022-01-01 08:00:00
+author: john
+description: This is a blog post.
+image: hello-astro.jpg
+tags:
+  - Astro
+  - Blog
+  - Markdown
+category:
+  - Web Development
+  - Frontend
+  - Astro
+draft: false
+cardVariant: blur
+---
+```
+
+- `title` **required**
+  
+  Title of the post.
+
+- `slug`
+  
+  slug of the post used in the url.
+
+- `date`
+  
+  Date of the post. If not provided, it will use the first git commit date of the post file.
+  
+  You can use a relaxed format like `2022-01-01`, `2022-01-01 08:00:00`, or ISO 8601 format. e.g. `2022-01-01T08:00:00Z`.
+
+- `updateDate`
+  
+  Date of the last update. If not provided, it will use the last git commit date of the post file.
+
+- `author`
+  
+  Author id of the post. The author should be defined in `src/content/authors/` previously. If author id can't be found, `config.author` will be used as the default author name.
+
+  Authors in `src/content/authors/` should be defined in `json` format. The file name is the corresponding author id.
+  
+  ```json
+  // src/content/authors/john.json
+  {
+    "name": "John",
+    "description": "This is a bio of John Doe.",
+  }
+  ```
+
+  Default value is `default`. You can create `default.json` as the default author.
+
+- `description`
+  
+  Description of the post.
+
+- `image`
+  
+  Cover image of the post. Use a relative file path to the markdown file. Any path that can't be resolved will be reserved as is.
+
+- `tags`
+  
+  Tags of the post. Tags is a set without hierarchical structure. **One post can have multiple tags.** For example, `[Astro, Blog, Markdown]` means the post is tagged with `Astro`, `Blog`, and `Markdown`.
+
+- `category`
+  
+  Category of the post. Categories is a tree structure. **One post must have only one category.** For example, `[Web Development, Frontend, Astro]` means the post is in the `Web Development/Frontend/Astro` category. If not provided, the post will be in the `Uncategorized` category.
+
+- `draft`
+  
+  Whether the post is a draft. default is `false`. Any file or folder starts with `_` will be ignored in astro's content collection.
+
+- `cardVariant`
+  
+  Card style of the post shown in the home page. It can be `blur`, `material`, `full`, or `plain`. default is `blur`.
+  
+  Still working in progress.
+
 ## Configuration
 
 ### Example
@@ -213,7 +299,7 @@ Description of your site. This will be used in the meta data of your site.
 
 **Type**: `string`
 
-Author of the site. This will be used in the meta data of your site.
+Author name of the site. This will be used in the meta data of your site.
 
 #### favicon
 
