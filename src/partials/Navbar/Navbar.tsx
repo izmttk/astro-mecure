@@ -165,42 +165,40 @@ export default function CustomNavbar({
   const onNavCollapseOpenChange = useCallback((open: boolean) => set('collapse', open), []);
 
   return (
-    <Navbar ref={ref} position='floating' {...rest} hideOnScroll transparentOnTop show={show} onShowChange={onShowChange}>
-      <NoSSR>
-        <div className={twMerge(
-          'flex items-center w-full h-full text-sm',
-          styles.navbarContainer,
-          containerClassName
-        )}>
-          {!isMd && (
-            <Navbar.Content className='md:ml-3 space-x-2'>
-              <Navbar.Trigger className={twMerge(
-                'p-2 rounded-full bg-gray-400/30 dark:bg-600/30',
-              )}>
-                {map['collapse'] ? <IconX className='h-5 w-5' /> : <IconMenu2 className='h-5 w-5' />}
-              </Navbar.Trigger>
-            </Navbar.Content>
-          )}
-          <Navbar.Logo as='a' href={url('/')} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
-            <Logo className='h-10' />
-          </Navbar.Logo>
-          {isMd && (
-            <Navbar.Content className='mr-auto w-0 flex-1' variant='filled'>
-              {navMenu}
-            </Navbar.Content>
-          )}
-          <Navbar.Content className='md:ml-3 space-x-2'>
-            {hasSearchToggle && isMd && <SearchToggle />}
-            {hasThemeToggle && isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={onThemeMenuOpenChange} />}
-            {!isMd && <SideToggle />}
-          </Navbar.Content>
-        </div>
+    <Navbar ref={ref} position='floating' {...rest} hideOnScroll={isMd} transparentOnTop show={show} onShowChange={onShowChange}>
+      <div className={twMerge(
+        'flex items-center w-full h-full text-sm',
+        styles.navbarContainer,
+        containerClassName
+      )}>
         {!isMd && (
-          <Navbar.Collapse open={map['collapse'] ?? false} onOpenChange={onNavCollapseOpenChange}>
-            {navCollapse}
-          </Navbar.Collapse>
+          <Navbar.Content className='md:ml-3 space-x-2'>
+            <Navbar.Trigger className={twMerge(
+              'p-2 rounded-full bg-gray-400/30 dark:bg-600/30',
+            )}>
+              {map['collapse'] ? <IconX className='h-5 w-5' /> : <IconMenu2 className='h-5 w-5' />}
+            </Navbar.Trigger>
+          </Navbar.Content>
         )}
-      </NoSSR>
+        <Navbar.Logo as='a' href={url('/')} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
+          <Logo className='h-10' />
+        </Navbar.Logo>
+        {isMd && (
+          <Navbar.Content className='mr-auto w-0 flex-1' variant='filled'>
+            {navMenu}
+          </Navbar.Content>
+        )}
+        <Navbar.Content className='md:ml-3 space-x-2'>
+          {hasSearchToggle && isMd && <SearchToggle />}
+          {hasThemeToggle && isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={onThemeMenuOpenChange} />}
+          {!isMd && <SideToggle />}
+        </Navbar.Content>
+      </div>
+      {!isMd && (
+        <Navbar.Collapse open={map['collapse'] ?? false} onOpenChange={onNavCollapseOpenChange}>
+          {navCollapse}
+        </Navbar.Collapse>
+      )}
     </Navbar>
   )
 }

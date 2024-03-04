@@ -141,14 +141,14 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
 >
   <slot name="head" slot="head" />
   {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar} client:load />}
-  {hasHero && heroConfig && heroConfig.background && <BlurredBackdrop image={heroConfig.background} class='h-[22rem] absolute left-0 right-0 top-0 -z-10' />}
+  {hasHero && heroConfig && heroConfig.background && <BlurredBackdrop image={heroConfig.background} class="h-[22rem] absolute left-0 right-0 top-0 -z-10" transition:animate="fade" />}
   {hasHero && heroConfig && <Hero class={twMerge(
     'mx-auto w-full lg:max-w-[74rem] p-3',
     heroConfig.background && 'h-72 md:h-96'
   )} config={heroConfig} transition:animate="fade" />}
   <main class="mx-auto w-full lg:max-w-[74rem] md:my-1 flex-grow flex" transition:animate="fade">
     <div class={twMerge(
-      "p-3 min-w-0 w-full",
+      "p-3 md:pr-0 lg:pr-3 min-w-0 w-full",
       hasSidebar && sidebarConfig && "md:w-[calc(100%_-_17rem)]",
     )}>
       <slot />

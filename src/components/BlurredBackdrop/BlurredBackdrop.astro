@@ -6,21 +6,23 @@ interface BlurredBackdropProps {
   class?: string;
   image: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   blur?: number;
+  saturate?: number;
 }
 export type Props = BlurredBackdropProps;
 const {
   class: className,
   image,
   blur = 180,
+  saturate = 1.5,
   ...rest
 } = Astro.props;
 
 ---
 <div class={twMerge(
-  'opacity-75 overflow-hidden select-none',
+  'opacity-50 dark:opacity-70 overflow-hidden select-none',
   className,
 )} style={{
-  filter: `blur(${blur}px)`,
+  filter: `blur(${blur}px) saturate(${saturate})`,
   ...rest,
 }}>
   <Image src={image} alt='backdrop' class='object-fill h-full w-full' role='none' loading='eager' />

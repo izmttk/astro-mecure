@@ -35,7 +35,7 @@ const {
     <a class={twMerge(
       'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink',
       imagePosition === 'left' ? 'clip-left' : 'clip-right'
-    )} href={url} aria-label='cover'>
+    )} href={url} aria-label='cover' tabindex="-1">
       <Image src={image} alt='cover' class='h-full w-full scale-[1.025]' />
     </a>
   )}

@@ -57,7 +57,9 @@ import ProgressBar from "@/components/ProgressBar";
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">
-    <noscript><b>Enable JavaScript to run this website.</b></noscript>
+    <noscript>
+      <div class="pt-16 text-center font-bold text-xl" >Enable JavaScript to run this website.</div>
+    </noscript>
     <slot />
     <ProgressBar client:load transition:persist="progress-bar" />
   </body>
