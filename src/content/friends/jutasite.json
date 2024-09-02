@@ -2,7 +2,7 @@
   "name": "JutasITe",
   "description": "令人头秃的IT开发",
   "link": "https://jutasite.top/",
-  "avatar": "https://jutasite.top/favicon.ico",
-  "bgColor": "#1e1e1e",
-  "textColor": "#666"
+  "avatar": "https://jutasite.top/assets/avatar.png",
+  "bgColor": "#6495ed",
+  "textColor": "#000000"
 }
