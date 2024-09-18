@@ -33,7 +33,7 @@ const {
   image && 'text-white',
   className
 )} {...rest}>
-  {image && <Image src={image} onlyBlur class={twMerge(
+  {image && <Image src={image} height={100} width={200} onlyBlur class={twMerge(
     'absolute top-0 left-0 brightness-[.8]',
     'w-full h-full',
     'select-none pointer-events-none',

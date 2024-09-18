@@ -49,7 +49,7 @@ if (image.options.format !== 'svg' && isESMImportedImage(src)) {
 }
 ---
 {onlyBlur ? (
-  blurhash && (
+  blurhash ? (
     <BlurHash
       className={className ?? undefined}
       src={image.src}
@@ -57,6 +57,10 @@ if (image.options.format !== 'svg' && isESMImportedImage(src)) {
       fadeOut={false}
       client:load
     />
+  ) : (
+    <div class={className}>
+      <img src={image.src} class='h-full w-full object-cover blur-xl scale-125' {...additionalAttributes} {...image.attributes} />
+    </div>
   )
 ) : (
   <div class={twMerge(

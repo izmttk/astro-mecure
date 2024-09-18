@@ -35,7 +35,7 @@ import "katex/dist/katex.min.css";
   <div class="flex flex-wrap my-4 gap-4">
     {prev ? (
       <a href={prev.url} class="relative w-full md:flex-1 p-4 plate-bg plate-shadow border-highlight rounded-xl text-lg font-bold overflow-hidden group">
-        {prev.image && <Image src={prev.image} alt="Prev Post Cover" class="absolute inset-0 select-none group-hover:brightness-75 group-hover:scale-110 transition" />}
+        {prev.image && <Image src={prev.image} height={84} width={430} alt="Prev Post Cover" class="absolute inset-0 select-none group-hover:brightness-75 group-hover:scale-110 transition" />}
         <div class:list={[
           'relative flex flex-col z-10',
           prev.image && 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,.3)]'
@@ -51,7 +51,7 @@ import "katex/dist/katex.min.css";
     )}
     {next ? (
       <a href={next.url} class="relative w-full md:flex-1 p-4 plate-bg plate-shadow border-highlight rounded-xl text-lg font-bold overflow-hidden group">
-        {next.image && <Image src={next.image} alt="Next Post Cover" class="absolute inset-0 select-none group-hover:brightness-75 group-hover:scale-110 transition" />}
+        {next.image && <Image src={next.image} height={84} width={430} alt="Next Post Cover" class="absolute inset-0 select-none group-hover:brightness-75 group-hover:scale-110 transition" />}
         <div class:list={[
           'relative flex flex-col md:items-end z-10',
           next.image && 'text-white drop-shadow-[0_2px_2px_rgba(0,0,0,.3)]'
