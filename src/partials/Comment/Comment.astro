@@ -27,8 +27,8 @@ const {
 ---
 {config && (
   <>
-    {config.provider === 'giscus' && <Giscus {...config.options} client:only />}
-    {config.provider === 'waline' && <Waline {...config.options} client:only />}
+    {config.provider === 'giscus' && <Giscus {...config.options} client:only="react" />}
+    {config.provider === 'waline' && <Waline {...config.options} client:only="react" />}
   </>
 )}
 

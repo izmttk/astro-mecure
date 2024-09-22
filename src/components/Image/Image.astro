@@ -13,6 +13,7 @@ import { assetsDir } from 'astro:assets';
 type ExtraProps = {
   src: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   alt?: string;
+  inferSize?: boolean;
   onlyBlur?: boolean;
 };
 type LocalImageProps = Omit<AstroLocalImageProps, keyof ExtraProps> & ExtraProps;

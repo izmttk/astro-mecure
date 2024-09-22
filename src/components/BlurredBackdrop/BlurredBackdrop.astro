@@ -16,8 +16,6 @@ const {
   image,
   blur = 180,
   saturate = 1.5,
-  height = 100,
-  width = 200,
   ...rest
 } = Astro.props;
 
@@ -29,5 +27,5 @@ const {
   filter: `blur(${blur}px) saturate(${saturate})`,
   ...rest,
 }}>
-  <Image src={image} height={height} width={width} alt='backdrop' class='object-fill h-full w-full' role='none' loading='eager' />
+  <Image src={image} inferSize alt='backdrop' class='object-fill h-full w-full' role='none' loading='eager' />
 </div>
