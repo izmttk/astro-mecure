@@ -311,6 +311,27 @@ Path to the favicon of your site. You need to put your favicon in the `public` f
 
 Navbar is always floating on top of viewport. It can be disabled by setting `navbar` to `false`, or you should provide a `navbar` object with the following options.
 
+#### navbar.logo
+
+**Type**: `Image | AstroComponentFactory | undefined`
+
+**Default**: `undefined`
+
+Brand logo of the site. It will be shown at the left side of the navbar.
+
+To customize the logo, you can provide an astro component as the logo. For example:
+
+```ts
+import LogoWithAnimation from '@/custom/NavLogo.astro';
+const config = {
+  navbar: {
+    logo: LogoWithAnimation,
+    // or you can use dynamic import
+    // logo: import('@/custom/NavLogo.astro'),
+  }
+}
+```
+
 #### navbar.menu
 
 **Type**: `MenuConfig`
@@ -416,21 +437,26 @@ Background image of the hero section.
 
 Description in hero section. It will be shown below the title or logo.
 
-#### hero.logo
-
-**Type**: `Image | undefined`
-
-**Default**: `undefined`
-
-Logo in hero section. This option is mutually exclusive to `hero.title`.
-
 #### hero.title
 
-**Type**: `string | undefined`
+**Type**: `string | AstroComponentFactory |undefined`
 
 **Default**: `undefined`
 
-Title in hero section. This option is mutually exclusive to `hero.logo`.
+Title in hero section. Title will be only displayed in homepage. If not provided, the title of the site(see `title` in site options) will be used.
+
+To customize the title, you can provide an astro component as the title. For example:
+
+```ts
+import LogoWithAnimation from '@/custom/Logo.astro';
+const config = {
+  hero: {
+    title: LogoWithAnimation,
+    // or you can use dynamic import
+    // title: import('@/custom/Logo.astro'),
+  }
+}
+```
 
 ### Sidebar Options
 
