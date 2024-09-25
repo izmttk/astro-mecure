@@ -8,6 +8,7 @@ const config: Config = {
   author: 'Wider',
   favicon: url('favicon.ico'),
   navbar: {
+    logo: import('@/custom/NavLogo.astro'),
     menu: [
       {
         label: '首页',
@@ -62,9 +63,8 @@ const config: Config = {
   },
   hero: {
     background: import('src/assets/hero-bg.jpg'),
-    // title: '银河渡舟',
     description: '欢迎来到银河渡舟的记事簿，看看最近我在折腾啥吧。',
-    logo: import('src/assets/logo.svg'),
+    title: import('@/custom/HeroLogo.astro'),
   },
   sidebar: {
     widgets: [

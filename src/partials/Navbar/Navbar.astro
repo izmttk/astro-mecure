@@ -1,0 +1,24 @@
+---
+import CustomNavbar from "./CustomNavbar";
+import type { NavbarConfig } from '.';
+export interface Props {
+  config: NavbarConfig;
+  class?: string;
+}
+const { 
+  config,
+  class: className,
+} = Astro.props;
+const {
+  logo,
+  ...rest
+} = config;
+const Logo = (logo && typeof logo != 'string') ? ('then' in logo ? (await logo).default : logo) : null;
+---
+<CustomNavbar containerClassName={className} {...rest} client:load>
+  <Fragment slot="logo">
+    {typeof logo === 'string' ? (
+      <span class="text-xl font-bold">{logo}</span>
+    ) : (Logo && <Logo />)}
+  </Fragment>
+</CustomNavbar>

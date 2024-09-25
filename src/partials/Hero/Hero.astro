@@ -9,6 +9,7 @@ import type { HTMLAttributes } from 'astro/types';
 // import Background from './Background';
 import Category from '@/components/Category';
 import Tag from '@/components/Tag';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 interface HeroPostInfo {
   type: 'post',
   category: Post['category'],
@@ -40,16 +41,14 @@ type HeroInfo = HeroPostInfo | HeroCategoriesInfo | HeroTagsInfo | HeroPostsInfo
 
 export interface HeroConfig {
   background?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
-  title?: string;
   description?: string;
-  logo?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  title?: string | AstroComponentFactory | Promise<{ default: AstroComponentFactory }>;
   info?: HeroInfo,
 }
 
 export interface HeroProps extends HTMLAttributes<'div'> {
   config: HeroConfig;
 }
-
 
 export type Props = HeroProps;
 
@@ -61,11 +60,12 @@ const {
 
 const {
   background,
-  title,
   description,
-  logo,
+  title,
   info
 } = config;
+
+const Title = (title && typeof title != 'string') ? ('then' in title ? (await title).default : title) : null;
 ---
 <header class={twMerge(
   className
@@ -74,12 +74,9 @@ const {
     <div class='w-full h-full overflow-hidden rounded-xl relative plate-bg plate-shadow border-highlight'>
       <Image src={background} inferSize class='w-full h-full select-none' alt='background' />
       <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white'>
-        {title 
+        {typeof title === 'string'
           ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{title}</h1> 
-          : (logo && (
-              <Image src={logo} inferSize alt='cover' class='h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]' />
-            )
-          )
+          : Title && <Title />
         }
         {!info && description && <div class='mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>{description}</div>}
         {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
@@ -88,22 +85,22 @@ const {
         </div>}
         {info?.type === 'categories' && (
           <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div class=''>共{info.count}个分类</div>
+            <div>共{info.count}个分类</div>
           </div>
         )}
         {info?.type === 'tags' && (
           <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div class=''>共{info.count}个标签</div>
+            <div>共{info.count}个标签</div>
           </div>
         )}
         {info?.type === 'posts' && (
           <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div class=''>共{info.count}篇文章</div>
+            <div>共{info.count}篇文章</div>
           </div>
         )}
         {info?.type === 'archive' && (
           <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div class=''>共{info.count}篇文章</div>
+            <div>共{info.count}篇文章</div>
           </div>
         )}
       </div>
@@ -111,12 +108,9 @@ const {
   ) : (
     <div class='w-full h-full text-primary'>
       <div class='py-4 md:py-6 md:pt-8 flex flex-col justify-center items-center'>
-        {title 
-          ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words'>{title}</h1> 
-          : (logo && (
-              <Image src={logo} inferSize alt='cover' class='h-24 md:h-28' />
-            )
-          )
+        {typeof title === 'string'
+          ? <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center break-words'>{title}</h1>
+          : Title && <Title />
         }
         {!info && description && <div class='mt-4 text-sm leading-4'>{description}</div>}
         {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
@@ -125,22 +119,22 @@ const {
         </div>}
         {info?.type === 'categories' && (
           <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div class=''>共{info.count}个分类</div>
+            <div>共{info.count}个分类</div>
           </div>
         )}
         {info?.type === 'tags' && (
           <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div class=''>共{info.count}个标签</div>
+            <div>共{info.count}个标签</div>
           </div>
         )}
         {info?.type === 'posts' && (
           <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div class=''>共{info.count}篇文章</div>
+            <div>共{info.count}篇文章</div>
           </div>
         )}
         {info?.type === 'archive' && (
           <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div class=''>共{info.count}篇文章</div>
+            <div>共{info.count}篇文章</div>
           </div>
         )}
       </div>

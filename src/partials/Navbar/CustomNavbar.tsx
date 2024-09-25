@@ -1,16 +1,14 @@
 import Navbar from '@/components/Navbar';
-import Logo from './Logo';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useCallback, useEffect, useState } from 'react';
 
 import { useMap } from 'react-use';
-import type { MenuConfig } from '@/components/Menu';
 
 import IconChevronDown from '~icons/tabler/chevron-down';
 import IconSidebarExpand from '~icons/tabler/layout-sidebar-right-expand'
 import useBreakpoints from '@/hooks/useBreakpoints';
 import usePath from '@/hooks/usePath';
-import Menu from '@/components/Menu';
+import Menu, { type MenuConfig } from '@/components/Menu';
 import NoSSR from '@/components/NoSSR';
 
 import IconMenu2 from '~icons/tabler/menu-2';
@@ -49,15 +47,13 @@ function SideToggle() {
 }
 
 
-export interface NavbarConfig {
-  menu?: MenuConfig;
-  hasThemeToggle?: boolean;
-  hasSearchToggle?: boolean;
-}
 
 export interface CustomNavbarProps extends React.PropsWithChildren<React.ComponentPropsWithoutRef<'nav'>>{
   containerClassName?: string;
-  config: NavbarConfig;
+  logo?: React.ReactNode;
+  menu?: MenuConfig;
+  hasThemeToggle?: boolean;
+  hasSearchToggle?: boolean;
 }
 
 
@@ -74,14 +70,12 @@ function pathEqual(source: string, target: string) {
 
 export default function CustomNavbar({
   containerClassName,
-  config,
+  menu = [],
+  hasThemeToggle = true,
+  hasSearchToggle = true,
+  logo,
   ...rest
 }: CustomNavbarProps) {
-  const {
-    menu = [],
-    hasThemeToggle = true,
-    hasSearchToggle = true,
-  } = config;
   const [map, {set, setAll}] = useMap<{[key: string]: boolean}>({});
 
   const [show, setShow] = useAtom(navbarVisibleAtom);
@@ -180,9 +174,11 @@ export default function CustomNavbar({
             </Navbar.Trigger>
           </Navbar.Content>
         )}
-        <Navbar.Logo as='a' href={url('/')} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
-          <Logo className='h-10' />
-        </Navbar.Logo>
+        {logo && (
+          <Navbar.Logo as='a' href={url('/')} aria-label="logo" className={isMd ? 'mr-3' : 'mx-auto'}>
+            {logo}
+          </Navbar.Logo>
+        )}
         {isMd && (
           <Navbar.Content className='mr-auto w-0 flex-1' variant='filled'>
             {navMenu}

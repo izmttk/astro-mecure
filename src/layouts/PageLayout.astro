@@ -82,9 +82,8 @@ if (hero) {
   const heroBg = page.image ?? hero.background;
   heroConfig = {
     background: heroBg,
-    title: page.type === 'index' ? hero.title : page.title,
     description: page.type === 'index' ? hero.description : page.description,
-    logo: hero.logo,
+    title: page.type === 'index' ? (hero.title ?? config.title) : page.title,
     info: getHeroInfo(page),
   }
 }
@@ -140,7 +139,7 @@ const sidebarConfig: SidebarConfig | false = sidebar ? {
   favicon={config.favicon}
 >
   <slot name="head" slot="head" />
-  {hasNavbar && navbar && <Navbar containerClassName='px-3 mx-auto lg:max-w-[74rem]' config={navbar} client:load />}
+  {hasNavbar && navbar && <Navbar class='px-3 mx-auto lg:max-w-[74rem]' config={navbar} />}
   {hasHero && heroConfig && heroConfig.background && <BlurredBackdrop image={heroConfig.background} class="h-[22rem] absolute left-0 right-0 top-0 -z-10" transition:animate="fade" />}
   {hasHero && heroConfig && <Hero class={twMerge(
     'mx-auto w-full lg:max-w-[74rem] p-3',
