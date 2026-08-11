@@ -2,7 +2,7 @@ import type { ProfileProps } from '@/components/Profile';
 import type { TagCloudProps } from '@/components/TagCloud';
 import type { CategoryTreeProps } from '@/components/CategoryTree';
 import type { TocProps } from '@/components/Toc';
-import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import type { AstroComponent } from '@/types';
 
 export interface WidgetConfig {
   name: string;
@@ -12,7 +12,7 @@ export interface WidgetConfig {
 
 export interface ComponentConfig extends WidgetConfig {
   name: 'component',
-  component: AstroComponentFactory | Promise<{default: AstroComponentFactory}>;
+  component: AstroComponent;
 }
 
 export interface TocConfig extends TocProps, WidgetConfig {

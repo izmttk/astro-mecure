@@ -87,7 +87,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
         className={twMerge(
           pageNumber !== 'dots' && 'cursor-pointer px-2 text-sm',
           pageNumber !== 'dots' && pageNumber !== active && 'plate-bg plate-shadow border-highlight',
-          pageNumber === active && '!bg-primary-500 text-white shadow-primary-800/50 shadow-lg',
+          pageNumber === active && 'bg-primary-500! text-white shadow-primary-800/50 shadow-lg',
           itemClassName
         )}
         aria-current={pageNumber === active ? 'page' : undefined}
@@ -103,7 +103,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === 1 && 'cursor-not-allowed text-disabled !shadow-none',
+        active === 1 && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronsLeft className='inline' /></div>
@@ -115,7 +115,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       disabled={active === 1}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === 1 && 'cursor-not-allowed text-disabled !shadow-none',
+        active === 1 && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronsLeft className='inline' /></BtnComponent>
@@ -125,7 +125,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === 1 && 'cursor-not-allowed text-disabled !shadow-none',
+        active === 1 && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronLeft /></div>
@@ -137,7 +137,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       disabled={active === 1}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === 1 && 'cursor-not-allowed text-disabled !shadow-none',
+        active === 1 && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronLeft /></BtnComponent>
@@ -147,7 +147,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === total && 'cursor-not-allowed text-disabled !shadow-none',
+        active === total && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronRight className='inline' /></div>
@@ -159,7 +159,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       disabled={active === total}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === total && 'cursor-not-allowed text-disabled !shadow-none',
+        active === total && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronRight className='inline' /></BtnComponent>
@@ -169,7 +169,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       aria-disabled='true'
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === total && 'cursor-not-allowed text-disabled !shadow-none',
+        active === total && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronsRight className='inline' /></div>
@@ -181,7 +181,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
       disabled={active === total}
       className={twMerge(
         'plate-bg plate-shadow border-highlight cursor-pointer flex justify-center items-center',
-        active === total && 'cursor-not-allowed text-disabled !shadow-none',
+        active === total && 'cursor-not-allowed text-disabled shadow-none!',
         itemClassName
       )}
     ><IconChevronsRight className='inline' /></BtnComponent>

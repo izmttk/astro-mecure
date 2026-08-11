@@ -1,4 +1,11 @@
 import type { ImageMetadata, MarkdownHeading, MarkdownInstance } from 'astro';
+import type { SvgComponent } from "astro/types";
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
+export type ImageType  = string | ImageMetadata;
+export type ImageOrSvgType = ImageType | SvgComponent;
+export type AstroComponent = AstroComponentFactory;
+
 export interface Tag {
   slug: string;
   label: string;
@@ -15,7 +22,7 @@ export interface Category {
 
 export interface Author {
   name: string;
-  avatar?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  avatar?: ImageType;
   description?: string;
 }
 
@@ -31,7 +38,7 @@ export interface Post {
   author: Author;
 
   excerpt?: string;
-  image?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  image?: ImageType;
   permalink?: string;
   readingTime?: number;
   wordCount?: number;
@@ -57,7 +64,7 @@ export interface Paginator {
 export interface BasePage {
   title: string;
   description?: string;
-  image?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  image?: ImageType;
   type?: never;
 }
 

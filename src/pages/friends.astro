@@ -4,10 +4,11 @@ import type { Page } from '@/types';
 import Friend from '@/components/Friend';
 import { getCollection } from 'astro:content';
 import { FRIENDS_COLLECTION_NAME } from '@/constants';
+import friendsBackground from '@/assets/friends-bg.jpg';
 const page: Page = {
   title: '友情链接',
   description: '「花径不曾缘客扫，蓬门今始为君开」',
-  image: import('src/assets/friends-bg.jpg'),
+  image: friendsBackground,
 }
 const friendEntries = await getCollection(FRIENDS_COLLECTION_NAME);
 ---
@@ -31,7 +32,7 @@ const friendEntries = await getCollection(FRIENDS_COLLECTION_NAME);
     <p>虽然小站的建立不以传播为目的，但是仍然欢迎各位志同道合的朋友，如果你想要申请友链，这里有两种途径：</p>
     <ol>
       <li>在本文下方留言，留下你的名称、网址、描述、头像链接、主题色、字体色；</li>
-      <li>在本站 <a href="https://github.com/izmttk/astro-mecure/pulls" target="_blank">github仓库</a> 提交一个 PR，在<code>\src\content\friends\</code>目录下添加一个<code>&ltyour-name&gt</your-name>.json</code>，参考其他人的文件内容即可；</li>
+      <li>在本站 <a href="https://github.com/izmttk/astro-mecure/pulls" target="_blank">github仓库</a> 提交一个 PR，在<code>\blog\friends\</code>目录下添加一个<code>&lt;your-name&gt;.json</code>，参考其他人的文件内容即可；</li>
     </ol>
   </section>
 </PageLayout>

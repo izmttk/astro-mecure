@@ -1,4 +1,4 @@
-import type { RehypePlugin, MarkdownAstroData } from '@astrojs/markdown-remark';
+import type { RehypePlugin } from '@astrojs/markdown-remark';
 import { toText as hastToText } from 'hast-util-to-text';
 
 export interface Result {
@@ -115,7 +115,8 @@ function count(target: string, options: Options = {}): Result {
 
 const rehypePostWordCount: RehypePlugin = () => {
   return (tree, file) => {
-    const { frontmatter } = file.data.astro as MarkdownAstroData;
+    const astroData = file.data.astro ??= {};
+    const frontmatter = astroData.frontmatter ??= {};
     frontmatter.wordCount = count(hastToText(tree)).characters;
   };
 };

@@ -20,6 +20,7 @@ declare module 'micromark-util-types' {
 }
 
 const tokenizeSpoiler: Tokenizer = function(effects, ok, nok) {
+  // console.log(this.events)
   const self = this;
   const start: State = function(code) {
     effects.enter('spoiler');

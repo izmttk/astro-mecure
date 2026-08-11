@@ -2,13 +2,21 @@ import type { Config } from './types';
 import { getYear } from 'date-fns';
 import { url } from '@/utils/url';
 
+
+import navLogo from '@/assets/nav-logo.svg';
+import heroBg from '@/assets/hero-bg.jpg';
+import heroLogo from '@/assets/hero-logo.svg';
+import profileBg from '@/assets/profile-bg.jpg';
+import avatar from '@/assets/avatar.png';
+import Recommend from '@/components/custom/Recommend.astro';
+
 const config: Config = {
   title: '银河渡舟',
   description: '浊以静之徐清，安以动之徐生。',
   author: 'Wider',
   favicon: url('favicon.ico'),
   navbar: {
-    logo: import('@/custom/NavLogo.astro'),
+    logo: navLogo,
     menu: [
       {
         label: '首页',
@@ -62,9 +70,9 @@ const config: Config = {
     hasThemeToggle: true,
   },
   hero: {
-    background: import('src/assets/hero-bg.jpg'),
+    background: heroBg,
     description: '欢迎来到银河渡舟的记事簿，看看最近我在折腾啥吧。',
-    title: import('@/custom/HeroLogo.astro'),
+    logo: heroLogo,
   },
   sidebar: {
     widgets: [
@@ -72,8 +80,8 @@ const config: Config = {
         name: 'profile',
         author: '银河渡舟',
         description: '浊以静之徐清，安以动之徐生',
-        avatar: import('src/assets/avatar.png'),
-        background: import('src/assets/profile-bg.jpg'),
+        avatar: avatar,
+        background: profileBg,
         socialIcons: [
           {
             label: 'github',
@@ -121,7 +129,7 @@ const config: Config = {
       },
       {
         name: 'component',
-        component: import('@/components/custom/Recommend.astro'),
+        component: Recommend,
       },
     ]
   },

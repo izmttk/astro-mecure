@@ -1,9 +1,10 @@
-import type { RehypePlugin, MarkdownAstroData } from '@astrojs/markdown-remark';
+import type { RehypePlugin } from '@astrojs/markdown-remark';
 import { readingTime } from 'hast-util-reading-time';
 
 const rehypeReadingTime: RehypePlugin = () => {
   return (tree, file) => {
-    const { frontmatter } = file.data.astro as MarkdownAstroData;
+    const astroData = file.data.astro ??= {};
+    const frontmatter = astroData.frontmatter ??= {};
     frontmatter.readingTime = readingTime(tree);
   }
 }

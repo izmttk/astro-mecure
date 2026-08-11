@@ -20,7 +20,7 @@ import Icon from '../Icon';
 import { twMerge } from 'tailwind-merge';
 
 const itemClassName = twMerge(
-  'outline-none cursor-pointer flex items-center',
+  'outline-hidden cursor-pointer flex items-center',
   'relative',
   'data-[highlighted]:bg-primary-400/20 dark:data-[highlighted]:bg-primary-600/30 data-[highlighted]:text-primary-600 dark:data-[highlighted]:text-primary-300',
   'data-[state=checked]:text-primary-600 dark:data-[state=checked]:text-primary-300'

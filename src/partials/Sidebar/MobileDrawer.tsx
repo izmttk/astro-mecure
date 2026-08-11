@@ -31,7 +31,7 @@ export default function MobileDrawer({
           <Drawer.Close className='ml-auto' />
         </div>
         <aside className={twMerge(
-          'h-[calc(100%_-_3.5rem)]',
+          'h-[calc(100%-3.5rem)]',
           className
         )} {...rest}>
           <ScrollArea type='scroll' className='h-full'>

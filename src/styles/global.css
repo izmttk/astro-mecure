@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@config "/tailwind.config.ts";
+
 :root {
   color-scheme: light dark;
   @apply antialiased scroll-pt-16 scroll-smooth;
@@ -59,7 +62,7 @@ main {
   /* checkbox and radio styles */
   [type=checkbox],
   [type=radio] {
-    @apply appearance-none !outline-none checked:bg-current dark:checked:bg-current checked:border-none border align-middle inline-block;
+    @apply appearance-none outline-hidden! checked:bg-current dark:checked:bg-current checked:border-none border align-middle inline-block;
     @apply focus-visible:ring-primary-500 dark:focus-visible:ring-primary-600 dark:ring-offset-gray-800 dark:focus-visible:ring-offset-gray-800 focus-visible:ring-2 focus-visible:ring-offset-2;
   }
   [type=checkbox] {
@@ -75,12 +78,12 @@ main {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3C/svg%3E");
   }
   [type=range] {
-    @apply h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 !outline-none;
+    @apply h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 outline-hidden!;
     @apply focus-visible:ring-primary-500 dark:focus-visible:ring-primary-600 dark:ring-offset-gray-800 dark:focus-visible:ring-offset-gray-800 focus-visible:ring-2 focus-visible:ring-offset-2;
   }
   [type=range]::-webkit-slider-thumb,
   [type=range]::-moz-range-thumb {
-    @apply appearance-none w-4 h-4 bg-primary-600 rounded-full shadow cursor-pointer border-none;
+    @apply appearance-none w-4 h-4 bg-primary-600 rounded-full shadow-sm cursor-pointer border-none;
   }
   [type=range]:disabled::-webkit-slider-thumb,
   [type=range]:disabled::-moz-range-thumb {
@@ -89,7 +92,7 @@ main {
 
   /* input styles */
   input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea {
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus-visible:ring-primary-500 focus-visible:ring-1 focus-visible:border-primary-500 px-2 py-1.5 appearance-none !outline-none;
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus-visible:ring-primary-500 focus-visible:ring-1 focus-visible:border-primary-500 px-2 py-1.5 appearance-none outline-hidden!;
     @apply dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus-visible:ring-primary-500 dark:focus-visible:border-primary-500;
   }
   [type=checkbox]:disabled + label, 

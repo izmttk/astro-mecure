@@ -1,10 +1,8 @@
 // tailwind.config.ts
 import type { Config } from 'tailwindcss'
-import type { PluginUtils } from 'tailwindcss/types/config'
+import type { PluginUtils } from 'tailwindcss/plugin'
 
-import tailwindScrollbar from 'tailwind-scrollbar'
 import typography from '@tailwindcss/typography'
-// import clipPath from 'tailwind-clip-path'
 
 import plugin from 'tailwindcss/plugin'
 import colors from 'tailwindcss/colors'
@@ -23,7 +21,7 @@ const em = (px: number, base: number) => `${round(px / base)}em`
 
 export default {
 	content: [
-    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,svg}',
     './plugins/**/*.{js,ts}',
   ],
   darkMode: 'class',
@@ -299,7 +297,6 @@ export default {
     },
   },
   plugins: [
-    tailwindScrollbar({ nocompatible: true }),
     typography(),
     // add a "ring-highlight" utility
     // which sets a top border highlight using box-shadow

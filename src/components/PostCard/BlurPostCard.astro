@@ -30,10 +30,10 @@ const {
     <Image src={image} alt='cover' class={twMerge(
       'absolute brightness-[0.8] md:brightness-[0.7]',
       'w-full h-full',
-      'scale-y-[200%] md:scale-y-100 origin-bottom md:origin-center',
+      'scale-y-200 md:scale-y-100 origin-bottom md:origin-center',
     )} inferSize onlyBlur />
     <a class={twMerge(
-      'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-none md:h-full md:w-72 md:shrink',
+      'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-0 md:h-full md:w-72 md:shrink',
       imagePosition === 'left' ? 'clip-left' : 'clip-right'
     )} href={url} aria-label='cover' tabindex="-1">
       <Image src={image} alt='cover' inferSize class='h-full w-full scale-[1.025]' />
@@ -58,7 +58,7 @@ const {
 
 
 <style>
-@screen md {
+@media (width >= 48rem) {
   .clip-left {
     clip-path: polygon(0 0, 100% 0%, 94% 100%, 0% 100%);
   }

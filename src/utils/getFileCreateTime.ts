@@ -4,7 +4,7 @@ const COMMITER_DATE_ISO_FORMAT = "%cI";
 
 export default function getFileCreateTime(filePath: string): Date {
   try {
-    const result = execSync(`git log --pretty=format:"${COMMITER_DATE_ISO_FORMAT}" ${filePath}`).toString();
+    const result = execSync(`git log --pretty=format:"${COMMITER_DATE_ISO_FORMAT}" -- ${filePath}`).toString();
     if (!result) {
       throw new Error('Git command failed to execute');
     }

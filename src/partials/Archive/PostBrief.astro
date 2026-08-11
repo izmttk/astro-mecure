@@ -1,13 +1,13 @@
 ---
 import { twMerge } from 'tailwind-merge';
 import Image from '@/components/Image';
-import type { ImageMetadata } from 'astro';
+import type { ImageType } from '@/types';
 import type { HTMLAttributes } from 'astro/types';
 import DateTime from '@/components/DateTime';
 
 export interface ArchivePostBrief {
   title: string;
-  image?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  image?: ImageType;
   date: Date;
   description?: string;
   url: string;

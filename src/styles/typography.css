@@ -1,6 +1,8 @@
+@reference "/src/styles/global.css";
+
 .prose {
   .astro-code {
-    @apply dark:!bg-gray-900;
+    @apply dark:bg-gray-900!;
   }
   /* code block line number for shiki */
   @supports (counter-reset: step) {
@@ -21,9 +23,7 @@
   .math {
     overflow: auto;
   }
-  table {
-  
-  }
+
   .contains-task-list {
     /* padding-left: 0; */
     list-style: none;

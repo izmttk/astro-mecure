@@ -1,3 +1,5 @@
+@reference "/src/styles/global.css";
+
 .note {
   @apply text-slate-600 bg-slate-400/20 ring-1 ring-slate-500/30;
 }

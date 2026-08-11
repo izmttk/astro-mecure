@@ -1,6 +1,6 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import generateRssFeed from '@/utils/generateRSSFeed';
-import config from '@/config'
+import config from '@/site.config'
 
 export const GET: APIRoute = async ({params, site}) => {
   if (!site) {

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useDocSearchKeyboardEvents, DocSearchModal } from '@docsearch/react';
 import '@docsearch/css';
@@ -55,6 +55,7 @@ export default function Search({
   indexName,
 }: SearchProps) {
   const [searchModalOpen, setSearchModalOpen] = useAtom(searchModelOpenAtom);
+  const searchButtonRef = useRef<HTMLButtonElement>(null);
 
   const onOpen = useCallback(() => {
     setSearchModalOpen(true);
@@ -68,6 +69,7 @@ export default function Search({
     isOpen: searchModalOpen,
     onOpen,
     onClose,
+    searchButtonRef,
   });
   
   return (

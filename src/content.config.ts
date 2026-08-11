@@ -1,7 +1,9 @@
-import { z, defineCollection, reference } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
 
 export const authors = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/[^_]*.json', base: "./blog/authors" }),
   schema: ({ image }) => z.object({
     name: z.string(),
     avatar: z.union([
@@ -13,7 +15,7 @@ export const authors = defineCollection({
 })
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./blog/posts" }),
   schema: ({ image }) => z.object({
     title: z.string(),
     image: z.union([
@@ -23,24 +25,22 @@ const blog = defineCollection({
     date: z.date().optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().default(false),
-    author: reference('authors').default('default'),
+    author: reference('authors').default({collection: 'authors', id: 'default'}),
     tags: z.string().array().default([]),
     category: z.string().array().default([]),
     permalink: z.string().optional(),
     cardVariant: z.enum(['blur', 'material', 'full', 'plain']).default('blur')
   }).refine(
     val => val.tags.every((item, index) => val.tags.indexOf(item) === index),
-    val => ({ 
-      message: `Tag "${val.tags.find((item, index) => val.tags.indexOf(item) !== index)}" is duplicated in post "${val.title}".`
-    })
+    { error: 'Duplicated tags are not allowed in the same post.' }
   ),
 })
 
 export const friends = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/[^_]*.json', base: "./blog/friends" }),
   schema: ({ image }) => z.object({
     name: z.string(),
-    link: z.string().url(),
+    link: z.url(),
     bgColor: z.string(),
     textColor: z.string(),
     avatar: z.union([

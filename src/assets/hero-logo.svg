@@ -1,5 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1114 470" fill="#fff" id="logo-root"
-  filter="url(#logo-filter)" class="h-24 md:h-28 drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1114 470" fill="#fff" id="logo-root" filter="url(#logo-filter)">
   <defs>
     <filter id="logo-filter">
       <feTurbulence type="fractalNoise" baseFrequency="0 0" numOctaves="1" result="warp" seed="1">
@@ -98,6 +97,7 @@
   <style>
     #logo {
       animation: logo__to 3000ms forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+      filter: drop-shadow(0px 2px 3px rgb(31,41,55,.5));
     }
 
     #yin-1,

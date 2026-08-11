@@ -19,7 +19,7 @@ const TimelineItem = forwardRef<HTMLDivElement, TimelineItemProps>(({
     <div ref={ref} className={twMerge(
       'pl-4 relative',
       'before:absolute before:left-0 before:top-0 before:-translate-x-1/2 before:h-full before:border-l-2 before:mt-4',
-      'last:before:h-[calc(100%_-_1rem)]',
+      'last:before:h-[calc(100%-1rem)]',
       'before:border-gray-300 dark:before:border-gray-700',
       className,
     )} {...rest}>

@@ -1,5 +1,5 @@
 ---
-import Giscus from './Giscus'
+import Giscus from './Giscus';
 import Waline from './Waline';
 import type { GiscusOptions } from './Giscus';
 import type { WalineOptions } from './Waline';
@@ -24,6 +24,7 @@ export type Props = CommentProps;
 const {
   config
 } = Astro.props;
+
 ---
 {config && (
   <>

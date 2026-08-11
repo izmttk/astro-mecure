@@ -19,9 +19,11 @@ const {
 import "@fontsource-variable/inter";
 import "@fontsource-variable/fira-code";
 import "@/styles/global.css";
+import "/plugins/remark/remark-admonition/styles.css";
+
 // import "/styles/ch-style.css"
 
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import ProgressBar from "@/components/ProgressBar";
 ---
 
@@ -53,7 +55,7 @@ import ProgressBar from "@/components/ProgressBar";
         }
       })()
     </script>
-    <ViewTransitions />
+    <ClientRouter />
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">

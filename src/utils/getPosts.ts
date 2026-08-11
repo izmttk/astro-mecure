@@ -1,6 +1,6 @@
 import type { Author, Post } from '@/types';
-import config from '@/config';
-import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
+import config from '@/site.config';
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
 
 // import { slug } from 'github-slugger';
 
@@ -23,7 +23,8 @@ function countTags(posts: CollectionEntry<'blog'>[]) {
   const bucket = new Map<string, number>();
   posts.map(post => {
     post.data.tags.forEach(tag => {
-      bucket.set(tag, (bucket.get(tag) ?? 0) + 1);
+      const tagSlug = transformTags([tag])[0].slug;
+      bucket.set(tagSlug, (bucket.get(tagSlug) ?? 0) + 1);
     });
   })
   return bucket;
@@ -54,14 +55,14 @@ async function getPosts(): Promise<Post[]> {
   const categoriesBucket = countCategories(posts);
   
   cache = await Promise.all(posts.map(async post => {
-    const { Content, headings, remarkPluginFrontmatter } = await post.render();
+    const { Content, headings, remarkPluginFrontmatter } = await render(post);
     const author = (await getEntry(post.data.author)).data ?? {name: config.author};
     const date = post.data.date ?? getFileCreateTime(getPostPath(post.id));
     const updateDate = post.data.updateDate ?? getFileUpdateTime(getPostPath(post.id));
     return {
-      slug: post.data.permalink ?? post.slug,
+      slug: post.data.permalink ?? post.id,
       title: post.data.title ?? '无标题',
-      url: postUrl(post.slug),
+      url: postUrl(post.id),
       author: author,
       image: post.data.image,
       date: post.data.date ?? date,
@@ -73,7 +74,7 @@ async function getPosts(): Promise<Post[]> {
       },
       tags: transformTags(post.data.tags).map(tag => ({ 
         ...tag, 
-        count: tagsBucket.get(tag.label) ?? 1,
+        count: tagsBucket.get(tag.slug) ?? 1,
       })),
       cardVariant: post.data.cardVariant,
       raw: remarkPluginFrontmatter.raw,

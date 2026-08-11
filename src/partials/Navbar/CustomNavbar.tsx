@@ -113,7 +113,7 @@ export default function CustomNavbar({
   }, [size]);
 
   const navMenu = (
-    <ScrollArea className='w-full h-full' containerClassName='!flex items-center px-2'>
+    <ScrollArea className='w-full h-full' containerClassName='flex! items-center px-2'>
       {menu.map((item, index) => {
         if ('url' in item) {
           return (

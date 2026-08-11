@@ -2,10 +2,10 @@
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 import Image from '@/components/Image';
-import type { ImageMetadata } from 'astro';
+import type { ImageType } from '@/types';
 
 export interface FriendProps extends HTMLAttributes<'a'> {
-  avatar: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  avatar: ImageType;
   name: string;
   description: string;
   link: string;

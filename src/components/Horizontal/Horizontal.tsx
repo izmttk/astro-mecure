@@ -102,7 +102,7 @@ function IconButton({
       'w-6 h-6 rounded-full p-[0.1875rem] flex justify-center items-center',
       // 'plate-bg plate-shadow border-highlight text-black dark:text-white',
       'hover:bg-gray-400/30',
-      'outline-none',
+      'outline-hidden',
       className
     )} {...rest}>
       {icon}

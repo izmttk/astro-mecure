@@ -30,7 +30,7 @@ export const fromMarkdown = (): FromMarkdownExtension => {
       ...node.data,
       hName: 'span',
       hProperties: {
-        className: 'bg-current hover:bg-transparent transition-colors duration-200 rounded px-0.5 mx-0.5',
+        className: ['bg-current', 'hover:bg-transparent', 'transition-colors', 'duration-200', 'rounded-sm', 'px-0.5', 'mx-0.5'],
       },
     }
   }

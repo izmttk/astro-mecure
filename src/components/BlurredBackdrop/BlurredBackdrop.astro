@@ -1,10 +1,11 @@
 ---
+import type { ImageType } from '@/types';
+
 import { twMerge } from 'tailwind-merge';
-import type { ImageMetadata } from 'astro';
 import Image from '../Image';
 interface BlurredBackdropProps {
   class?: string;
-  image: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  image: ImageType;
   blur?: number;
   saturate?: number;
   height?: number;

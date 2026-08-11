@@ -24,6 +24,6 @@ export default function Category({
       !onlyText && 'dark:bg-gray-900/50 dark:hover:text-black dark:hover:bg-gray-200',
       !onlyText && 'border border-gray-500/25 dark:border-white/15',
       className
-    )}><IconGridFill width='1em' height='1em' className='flex-none mr-0.5' /><span className='min-w-0 break-words'>{category.label}</span></Chip>
+    )}><IconGridFill width='1em' height='1em' className='flex-none mr-0.5' /><span className='min-w-0 wrap-break-word'>{category.label}</span></Chip>
   )
 }

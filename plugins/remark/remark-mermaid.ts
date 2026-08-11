@@ -31,7 +31,7 @@ const remarkMermaid: RemarkPlugin = () => {
 
   return (root) => {
     visit(root, 'code', (node: Code, index, parent) => {
-      if (node.lang === 'mermaid' && parent !== null && index !== null) {
+      if (node.lang === 'mermaid' && parent !== undefined && index !== undefined) {
         parent.children.splice(index, 1, {
           type: 'mermaidCodeBlock',
           data: {

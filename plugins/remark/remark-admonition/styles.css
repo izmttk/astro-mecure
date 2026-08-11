@@ -1,39 +1,41 @@
-.note {
+@reference "/src/styles/global.css";
+
+.admonition-note {
   @apply text-slate-600 bg-slate-400/20 ring-1 ring-slate-500/30;
 }
 
-:global(.dark) .note {
+:root.dark .admonition-note {
   @apply text-slate-400 bg-slate-500/20 ring-slate-400/30;
 }
 
-.info {
+.admonition-info {
   @apply text-blue-600 bg-blue-400/20 ring-1 ring-blue-500/40;
 }
 
-:global(.dark) .info {
+:root.dark .admonition-info {
   @apply text-blue-400 bg-blue-600/20;
 }
 
-.tip {
+.admonition-tip {
   @apply text-green-600 bg-green-400/20 ring-1 ring-green-500/40;
 }
 
-:global(.dark) .tip {
+:root.dark .admonition-tip {
   @apply text-green-400 bg-green-600/20;
 }
 
-.caution {
+.admonition-caution {
   @apply text-amber-600 bg-amber-400/20 ring-1 ring-amber-500/40;
 }
 
-:global(.dark) .caution {
+:root.dark .admonition-caution {
   @apply text-amber-400 bg-amber-600/20;
 }
 
-.danger {
+.admonition-danger {
   @apply text-red-600 bg-red-400/20 ring-1 ring-red-500/40;
 }
 
-:global(.dark) .danger {
+:root.dark .admonition-danger {
   @apply text-red-400 bg-red-600/20;
 }

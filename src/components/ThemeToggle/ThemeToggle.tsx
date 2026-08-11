@@ -10,7 +10,7 @@ import { twMerge } from 'tailwind-merge';
 import Menu from '../Menu';
 
 const itemClassName = twMerge(
-  'px-2 py-0.5 outline-none cursor-pointer flex items-center rounded',
+  'px-2 py-0.5 outline-hidden cursor-pointer flex items-center rounded',
   'data-[highlighted]:bg-primary-400/20 dark:data-[highlighted]:bg-primary-600/30 data-[highlighted]:text-primary-600 dark:data-[highlighted]:text-primary-300',
   'data-[state=checked]:text-primary-600 dark:data-[state=checked]:text-primary-300'
 );
@@ -34,8 +34,8 @@ function ThemeToggle({
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>
         <button aria-label='Theme Toggle' className={twMerge(
-          'h-[2.125rem] w-[2.125rem] flex items-center justify-center',
-          'rounded-full bg-gradient-to-b from-gray-100/50 to-white/50 ring-1 ring-gray-900/5 dark:from-gray-500/30 dark:to-gray-400/30 dark:ring-white/20 shadow-lg shadow-gray-800/10',
+          'h-[2.125rem] w-[2.125rem] flex items-center justify-center cursor-pointer',
+          'rounded-full bg-linear-to-b from-gray-100/50 to-white/50 ring-1 ring-gray-900/5 dark:from-gray-500/30 dark:to-gray-400/30 dark:ring-white/20 shadow-lg shadow-gray-800/10',
           className,
         )} {...rest}>{stateIcon}</button>
       </DropdownMenu.Trigger>

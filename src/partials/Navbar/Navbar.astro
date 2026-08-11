@@ -1,6 +1,10 @@
 ---
 import CustomNavbar from "./CustomNavbar";
 import type { NavbarConfig } from '.';
+import type { ImageOrSvgType } from "@/types";
+import type { SvgComponent } from "astro/types";
+import Image from '@/components/Image';
+
 export interface Props {
   config: NavbarConfig;
   class?: string;
@@ -13,12 +17,17 @@ const {
   logo,
   ...rest
 } = config;
-const Logo = (logo && typeof logo != 'string') ? ('then' in logo ? (await logo).default : logo) : null;
+
+function isLocalSvg(value: ImageOrSvgType): value is SvgComponent {
+  return typeof value !== 'string' && 'src' in value && value.format === 'svg';
+}
+
+const logoImg = logo && !isLocalSvg(logo) ? logo : null;
+const LogoSvg = logo && isLocalSvg(logo) ? logo : null;
 ---
 <CustomNavbar containerClassName={className} {...rest} client:load>
   <Fragment slot="logo">
-    {typeof logo === 'string' ? (
-      <span class="text-xl font-bold">{logo}</span>
-    ) : (Logo && <Logo />)}
+    {logoImg && <Image src={logoImg} inferSize alt='navbar logo' disableBlur class="h-10" />}
+    {LogoSvg && <LogoSvg class="h-10" />}
   </Fragment>
 </CustomNavbar>

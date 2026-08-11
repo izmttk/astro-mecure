@@ -32,7 +32,7 @@ const { widgets } = config;
         switch (widget.name) {
           case 'component':
             const { name, title, show, ...props} = widget;
-            const Component = 'then' in widget.component ? (await widget.component).default : widget.component;
+            const Component = widget.component;
             return (
               <Component {...props} />
             );
@@ -78,7 +78,7 @@ const { widgets } = config;
       switch (widget.name) {
         case 'component':
           const { name, title, show, ...props} = widget;
-          const Component = 'then' in widget.component ? (await widget.component).default : widget.component;
+          const Component = widget.component;
           return (
             <Component {...props} />
           );

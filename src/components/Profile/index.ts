@@ -1,8 +1,8 @@
-import type { ImageMetadata } from 'astro';
+import type { ImageType } from '@/types';
 
 export interface ProfileProps {
-  avatar?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
-  background?: string | ImageMetadata | Promise<{default: ImageMetadata}>;
+  avatar?: ImageType;
+  background?: ImageType;
   author?: string;
   description?: string;
   socialIcons?: {

@@ -1,9 +1,9 @@
 ---
-import Mermaid from './Mermaid';
+import ReactMermaid from './Mermaid';
 import type { MermaidProps } from './Mermaid';
 
 export interface Props extends MermaidProps {}
 
 const props = Astro.props;
 ---
-<Mermaid {...props} client:only='react' />
+<ReactMermaid {...props} client:only='react' />

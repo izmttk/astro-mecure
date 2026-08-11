@@ -63,8 +63,8 @@ export default function ScrollArea({
           scrollRef.current = e;
         }
       }} className={twMerge(
-        '!block w-full h-full',
-        !hasThumb && '!overflow-scroll',
+        'block! w-full h-full',
+        !hasThumb && 'overflow-scroll!',
         edgeShadow && useMask && styles.gradientMask,
         edgeShadow && useMask && !isAtTop && styles.topMask,
         edgeShadow && useMask && !isAtBottom && styles.bottomMask,
@@ -74,10 +74,10 @@ export default function ScrollArea({
       )} asChild>
         {children}
       </RadixScrollArea.Viewport>
-      {edgeShadow && !useMask && !isAtTop && <div className={twMerge('top-0 h-8 inset-x-0 bg-gradient-to-b', edgeClass, edgeClassName)}></div>}
-      {edgeShadow && !useMask && !isAtBottom && <div className={twMerge('bottom-0 h-8 inset-x-0 bg-gradient-to-t', edgeClass, edgeClassName)}></div>}
-      {edgeShadow && !useMask && !isAtLeft && <div className={twMerge('left-0 w-8 inset-y-0 bg-gradient-to-r', edgeClass, edgeClassName)}></div>}
-      {edgeShadow && !useMask && !isAtRight && <div className={twMerge('right-0 w-8 inset-y-0 bg-gradient-to-l', edgeClass, edgeClassName)}></div>}
+      {edgeShadow && !useMask && !isAtTop && <div className={twMerge('top-0 h-8 inset-x-0 bg-linear-to-b', edgeClass, edgeClassName)}></div>}
+      {edgeShadow && !useMask && !isAtBottom && <div className={twMerge('bottom-0 h-8 inset-x-0 bg-linear-to-t', edgeClass, edgeClassName)}></div>}
+      {edgeShadow && !useMask && !isAtLeft && <div className={twMerge('left-0 w-8 inset-y-0 bg-linear-to-r', edgeClass, edgeClassName)}></div>}
+      {edgeShadow && !useMask && !isAtRight && <div className={twMerge('right-0 w-8 inset-y-0 bg-linear-to-l', edgeClass, edgeClassName)}></div>}
       {hasThumb && (
         <>
           <RadixScrollArea.Scrollbar orientation='vertical' className={scrollBarClass}>

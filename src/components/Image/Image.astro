@@ -1,20 +1,20 @@
 ---
 import BlurHash from './BlurHash';
-import { getImage  } from 'astro:assets';
-import { DEV, FS_PREFIX } from '@/constants';
+import { getImage } from 'astro:assets';
+import { DEV, DIST_DIR, FS_PREFIX } from '@/constants';
 import { imageToHashBase64 } from './converter';
 import { twMerge } from 'tailwind-merge';
 import type { RemoteImageProps as AstroRemoteImageProps, LocalImageProps as AstroLocalImageProps } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
-import { fileURLToPath } from 'node:url';
-// hack method to get the assetsDir, this member is not exported by astro:assets but is used internally
-import { assetsDir } from 'astro:assets';
+import type { UnresolvedImageTransform } from 'astro';
+import { join } from '@/utils/url';
 
 type ExtraProps = {
   src: string | ImageMetadata | Promise<{default: ImageMetadata}>;
   alt?: string;
   inferSize?: boolean;
   onlyBlur?: boolean;
+  disableBlur?: boolean;
 };
 type LocalImageProps = Omit<AstroLocalImageProps, keyof ExtraProps> & ExtraProps;
 type RemoteImageProps = Omit<AstroRemoteImageProps, keyof ExtraProps> & ExtraProps;
@@ -23,6 +23,8 @@ const {
   src,
   class: className,
   onlyBlur = false,
+  disableBlur = false,
+  inferSize,
   ...rest
 } = Astro.props;
 
@@ -30,22 +32,28 @@ function isESMImportedImage(src: any): src is ImageMetadata |  Promise<{default:
   return typeof src === "object";
 }
 
-const image = await getImage({
+const isRemoteImage = typeof src === 'string' && URL.canParse(src);
+// Remote images are intentionally left unoptimized. Many legacy post images
+// are hosted on third-party domains that may be unavailable during a build.
+const image = isRemoteImage ? undefined : await getImage({
   src,
+  inferSize,
   ...rest,
-})
+} as UnresolvedImageTransform);
+const renderedSrc = image?.src ?? src as string;
+const renderedAttributes = image?.attributes ?? rest;
 
 const additionalAttributes: HTMLAttributes<'img'> = {};
-if (image.srcSet.values.length > 0) {
+if (image && image.srcSet.values.length > 0) {
   additionalAttributes.srcset = image.srcSet.attribute;
 }
 
 let blurhash: string | undefined = undefined;
-if (image.options.format !== 'svg' && isESMImportedImage(src)) {
+if (image && image.options.format !== 'svg' && isESMImportedImage(src) && !disableBlur) {
   const resolvedSrc = 'then' in src ? (await src).default : src;
   const filePath = DEV
 		? new RegExp(`^${FS_PREFIX}([^?#]*)`).exec(resolvedSrc.src)?.[1] ?? ''
-		: fileURLToPath(new URL('.' + resolvedSrc.src, assetsDir));
+		: join('.' , DIST_DIR, resolvedSrc.src);
   blurhash = await imageToHashBase64(filePath);
 }
 ---
@@ -53,14 +61,14 @@ if (image.options.format !== 'svg' && isESMImportedImage(src)) {
   blurhash ? (
     <BlurHash
       className={className ?? undefined}
-      src={image.src}
+      src={renderedSrc}
       blurhash={blurhash}
       fadeOut={false}
       client:load
     />
   ) : (
     <div class={className}>
-      <img src={image.src} class='h-full w-full object-cover blur-xl scale-125' {...additionalAttributes} {...image.attributes} />
+      <img src={renderedSrc} class='h-full w-full object-cover blur-xl scale-125' {...additionalAttributes} {...renderedAttributes} />
     </div>
   )
 ) : (
@@ -68,11 +76,11 @@ if (image.options.format !== 'svg' && isESMImportedImage(src)) {
     "relative inline-block overflow-hidden",
     className
   )}>
-    {<img src={image.src} class="w-full h-full object-cover" {...additionalAttributes} {...image.attributes} />}
+    {<img src={renderedSrc} class="w-full h-full object-cover" {...additionalAttributes} {...renderedAttributes} />}
     {blurhash && (
       <BlurHash
         className="absolute inset-0"
-        src={image.src}
+        src={renderedSrc}
         blurhash={blurhash}
         client:load
       />
