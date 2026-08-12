@@ -5,9 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "prod": "astro build && astro preview",
+    "prod": "npm run build && astro preview",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build --force",
+    "check": "astro check --minimumSeverity warning",
+    "verify": "npm run check && npm run build",
     "preview": "astro preview",
     "astro": "astro",
     "create-post": "node scripts/create-post.js",

@@ -7,17 +7,8 @@ import { type CollectionEntry, getCollection, getEntry, render } from 'astro:con
 import transformTags from './transformTags';
 import transformCategory from './transformCategory';
 import { url } from './url';
-import getFileCreateTime from './getFileCreateTime';
-import getFileUpdateTime from './getFileUpdateTime';
-import { CONTENT_DIR, BLOG_COLLECTION_NAME as collection } from '@/constants';
-
-function getPostPath(id: string) {
-  let path = url(CONTENT_DIR, collection, id);
-  if (path.startsWith('/')) {
-    path = path.slice(1)
-  }
-  return path;
-}
+import getFileCommitDates from './getFileCommitDates';
+import { BLOG_COLLECTION_NAME as collection } from '@/constants';
 
 function countTags(posts: CollectionEntry<'blog'>[]) {
   const bucket = new Map<string, number>();
@@ -57,16 +48,19 @@ async function getPosts(): Promise<Post[]> {
   cache = await Promise.all(posts.map(async post => {
     const { Content, headings, remarkPluginFrontmatter } = await render(post);
     const author = (await getEntry(post.data.author)).data ?? {name: config.author};
-    const date = post.data.date ?? getFileCreateTime(getPostPath(post.id));
-    const updateDate = post.data.updateDate ?? getFileUpdateTime(getPostPath(post.id));
+    const gitDates = post.data.date && post.data.updateDate
+      ? null
+      : getFileCommitDates(post.filePath ?? `blog/posts/${post.id}`);
+    const date = post.data.date ?? gitDates!.createdAt;
+    const updateDate = post.data.updateDate ?? gitDates!.updatedAt;
     return {
       slug: post.data.permalink ?? post.id,
       title: post.data.title ?? '无标题',
       url: postUrl(post.id),
       author: author,
       image: post.data.image,
-      date: post.data.date ?? date,
-      updateDate: post.data.updateDate ?? updateDate,
+      date,
+      updateDate,
       draft: post.data.draft,
       category: {
         ...transformCategory(post.data.category),

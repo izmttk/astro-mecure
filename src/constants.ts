@@ -5,7 +5,6 @@ export const DIST_DIR = '/dist'
 export const DEV = import.meta.env.DEV
 
 // content collection
-export const CONTENT_DIR = '/src/content'
 export const BLOG_COLLECTION_NAME = 'blog'
 export const FRIENDS_COLLECTION_NAME = 'friends'
 export const AUTHORS_COLLECTION_NAME = 'authors'

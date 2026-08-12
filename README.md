@@ -72,9 +72,11 @@ All commands are run from the root of the project, from a terminal:
 | :------------------------- | :------------------------------------------------- |
 | `npm install`              | Installs dependencies                              |
 | `npm run dev`              | Starts local dev server                            |
-| `npm run build`            | Build your production site to `/dist/`             |
+| `npm run build`            | Clean the content cache and build to `/dist/`       |
+| `npm run check`            | Run Astro and TypeScript diagnostics                |
+| `npm run verify`           | Run diagnostics and a clean production build        |
 | `npm run preview`          | Preview your build locally, before deploying       |
-| `npm run create-post`      | Create a new post in `/src/content/blog/`          |
+| `npm run create-post`      | Create a new post in `/blog/posts/`                 |
 | `npm run create-component` | Create a new component in `/src/components/`       |
 
 ## Tech Stack
@@ -166,6 +168,7 @@ cardVariant: blur
 - `date`
   
   Date of the post. If not provided, it will use the first git commit date of the post file.
+  A build that relies on this fallback must have the full Git history available.
   
   You can use a relaxed format like `2022-01-01`, `2022-01-01 08:00:00`, or ISO 8601 format. e.g. `2022-01-01T08:00:00Z`.
 
@@ -175,12 +178,12 @@ cardVariant: blur
 
 - `author`
   
-  Author id of the post. The author should be defined in `src/content/authors/` previously. If author id can't be found, `config.author` will be used as the default author name.
+  Author id of the post. The author should be defined in `blog/authors/` previously. If author id can't be found, `config.author` will be used as the default author name.
 
-  Authors in `src/content/authors/` should be defined in `json` format. The file name is the corresponding author id.
+  Authors in `blog/authors/` should be defined in `json` format. The file name is the corresponding author id.
   
   ```json
-  // src/content/authors/john.json
+  // blog/authors/john.json
   {
     "name": "John",
     "description": "This is a bio of John Doe.",

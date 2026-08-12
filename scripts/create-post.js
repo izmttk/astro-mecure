@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import chalk from 'chalk';
-const contentDir = 'src/content/blog';
+const contentDir = 'blog/posts';
 
 const generateFrontmatter = ({
   title,
