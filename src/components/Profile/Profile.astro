@@ -19,9 +19,9 @@ const {
     <Image src={background} inferSize class={twMerge(
       'absolute top-0 left-0 w-full h-32 select-none',
       styles.profileBg
-    )} alt='background' />
+    )} alt='' aria-hidden="true" />
   )}
-  {avatar && <Image src={avatar} inferSize class="block relative w-28 h-28 rounded-full mt-8 mx-auto ring-white ring-8 dark:ring-gray-800" alt='avatar' />}
+  {avatar && <Image src={avatar} inferSize class="block relative w-28 h-28 rounded-full mt-8 mx-auto ring-white ring-8 dark:ring-gray-800" alt={author ? `${author}的头像` : '博主头像'} />}
   <div class="text-center my-4">
     {author && <div class='text-2xl font-bold'>{author}</div>}
     {description && <div class='text-sm mt-2'>{description}</div>}
@@ -29,7 +29,7 @@ const {
   {socialIcons && (
     <div class='flex flex-wrap justify-center items-center gap-2'>
       {socialIcons.map(({ label, color, icon, url }) => (
-        <a href={url} title={label} class={twMerge(
+        <a href={url} title={label} aria-label={label} rel="me noopener noreferrer" class={twMerge(
           'h-[2.125rem] w-[2.125rem] flex items-center justify-center',
           styles.socialIcon
         )} style={{

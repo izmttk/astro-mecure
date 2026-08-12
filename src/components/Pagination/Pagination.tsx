@@ -194,6 +194,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
         className
       )}
       role="navigation"
+      aria-label="文章分页"
       ref={ref}
     >
       {hasEdges && prevEdgeComponent}

@@ -39,7 +39,7 @@ function DrawerContent({
         'min-w-[16rem]',
         styles.drawerContent,
         className,
-      )} {...rest}>
+      )} aria-label="侧栏" {...rest}>
         {children}
       </Dialog.Content>
     </Dialog.Portal>
@@ -57,9 +57,9 @@ function DrawerClose({
 }: DrawerCloseProps) {
   return (
     <Dialog.Close className={twMerge(
-      'bg-gray-400/20 rounded-md w-7 h-7 flex justify-center items-center',
+      'bg-gray-400/20 rounded-md w-10 h-10 flex justify-center items-center',
       className,
-    )} aria-label='close' {...rest}>
+    )} aria-label='关闭侧栏' {...rest}>
       {children ? children : <IconX />}
     </Dialog.Close>
   )

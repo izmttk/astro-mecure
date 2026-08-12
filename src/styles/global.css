@@ -7,6 +7,29 @@
   @apply text-[15px] md:text-[16px];
 }
 
+.skip-link {
+  @apply fixed left-3 top-3 z-[100] -translate-y-20 rounded-md bg-primary-600 px-4 py-2 text-white shadow-lg;
+  @apply focus-visible:translate-y-0;
+}
+
+/* :where(a, button, [role='button'], input, select, textarea, [tabindex]:not([tabindex='-1'])) {
+  @apply outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
+  @apply dark:focus-visible:ring-primary-400 dark:focus-visible:ring-offset-gray-900;
+} */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   @apply bg-background-light dark:bg-background-dark text-primary;
   @apply flex flex-col min-h-screen;

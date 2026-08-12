@@ -28,7 +28,7 @@ export default function SearchToggle({
     setSearchModalOpen(true);
   }, []);
   return (
-    <button onClick={handleClick} aria-label='Search Toggle' className={twMerge(
+    <button type="button" onClick={handleClick} aria-label='打开搜索' className={twMerge(
       'h-[2.125rem] w-[2.125rem] flex items-center justify-center cursor-pointer',
       'rounded-full bg-linear-to-b from-gray-100/50 to-white/50 ring-1 ring-gray-900/5 dark:from-gray-500/30 dark:to-gray-400/30 dark:ring-white/20 shadow-lg shadow-gray-800/10',
       className,

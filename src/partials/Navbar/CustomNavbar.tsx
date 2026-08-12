@@ -40,8 +40,8 @@ function SideToggle() {
     }
   }
   return (
-    <button aria-label='Sidebar Toggle' className={twMerge(
-      'p-2 rounded-full bg-gray-400/30 dark:bg-600/30',
+    <button type="button" aria-label='打开侧栏' className={twMerge(
+      'h-10 w-10 flex items-center justify-center rounded-full bg-gray-400/30 dark:bg-600/30',
     )} onClick={handleClick}><IconSidebarExpand className='h-5 w-5' /></button>
   )
 }
@@ -112,37 +112,47 @@ export default function CustomNavbar({
     setNavbarSize(size);
   }, [size]);
 
-  const navMenu = (
+  const renderMenuItems = (mobile = false) => menu.map((item, index) => {
+    if ('url' in item) {
+      return (
+        <Navbar.Item as='a' href={item.url} isActive={active === index} aria-current={active === index ? 'page' : undefined} className={twMerge(
+          mobile ? 'min-h-11 justify-center rounded-lg px-3 py-2' : 'px-3 py-1 flex-none transition-transform duration-100 ease-out hover:-translate-y-1'
+        )} key={item.url}>
+          {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
+          {item.label}
+        </Navbar.Item>
+      );
+    }
+
+    return (
+      <Menu menu={item.children} open={map[index.toString()] ?? false} onOpenChange={(open: boolean) => set(index, open)} key={index}>
+        <Navbar.Item as='button' type='button' className={twMerge(
+          'cursor-pointer',
+          mobile ? 'min-h-11 w-full justify-center rounded-lg px-3 py-2' : 'px-3 py-1 flex-none'
+        )}>
+          {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
+          {item.label}
+          <IconChevronDown className='ml-1' />
+        </Navbar.Item>
+      </Menu>
+    );
+  });
+
+  const desktopNavMenu = (
     <ScrollArea className='w-full h-full' containerClassName='flex! items-center px-2'>
-      {menu.map((item, index) => {
-        if ('url' in item) {
-          return (
-            <Navbar.Item as='a' href={item.url}  isActive={active === index} className={twMerge(
-              'px-3 py-1 flex-none',
-              'transition-transform duration-100 ease-out hover:-translate-y-1'
-             )} key={index}>
-              {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
-              {item.label}
-            </Navbar.Item>
-          );
-        } else {
-          return (
-            <Menu menu={item.children} open={map[index.toString()] ?? false} onOpenChange={(open: boolean) => set(index, open)} key={index}>
-              <Navbar.Item as='button' className='px-3 py-1 cursor-pointer flex-none'>
-                {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
-                {item.label}
-                <IconChevronDown className='ml-1' />
-              </Navbar.Item>
-            </Menu>
-          )
-        }
-      })}
+      {renderMenuItems()}
     </ScrollArea>
   );
 
+  const mobileNavMenu = (
+    <div className='grid grid-cols-2 gap-2 p-3'>
+      {renderMenuItems(true)}
+    </div>
+  );
+
   const navCollapse = (
-    <Navbar.Content className='h-16 text-sm' variant='filled'>
-      {navMenu}
+    <Navbar.Content className='block h-auto text-sm' variant='filled'>
+      {mobileNavMenu}
     </Navbar.Content>
   );
 
@@ -168,8 +178,8 @@ export default function CustomNavbar({
         {!isMd && (
           <Navbar.Content className='md:ml-3 space-x-2'>
             <Navbar.Trigger className={twMerge(
-              'p-2 rounded-full bg-gray-400/30 dark:bg-600/30',
-            )}>
+              'h-10 w-10 flex items-center justify-center rounded-full bg-gray-400/30 dark:bg-600/30',
+            )} aria-label={map['collapse'] ? '关闭主导航' : '打开主导航'}>
               {map['collapse'] ? <IconX className='h-5 w-5' /> : <IconMenu2 className='h-5 w-5' />}
             </Navbar.Trigger>
           </Navbar.Content>
@@ -181,7 +191,7 @@ export default function CustomNavbar({
         )}
         {isMd && (
           <Navbar.Content className='mr-auto w-0 flex-1' variant='filled'>
-            {navMenu}
+            {desktopNavMenu}
           </Navbar.Content>
         )}
         <Navbar.Content className='md:ml-3 space-x-2'>

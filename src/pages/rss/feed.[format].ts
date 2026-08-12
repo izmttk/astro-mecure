@@ -14,7 +14,13 @@ export const GET: APIRoute = async ({params, site}) => {
     author: config.author,
     favicon: config.favicon,
     format: format,
-  }))
+  }), {
+    headers: {
+      'Content-Type': format === 'xml'
+        ? 'application/rss+xml; charset=utf-8'
+        : 'application/feed+json; charset=utf-8',
+    },
+  })
   // return rss({
   //   title: 'Title',
   //   description: 'A humble Astronaut’s guide to the stars',

@@ -27,7 +27,7 @@ const {
   className
 )} {...rest}>
   {image && (
-    <Image src={image} alt='cover' class={twMerge(
+    <Image src={image} alt='' aria-hidden="true" class={twMerge(
       'absolute brightness-[0.8] md:brightness-[0.7]',
       'w-full h-full',
       'scale-y-200 md:scale-y-100 origin-bottom md:origin-center',
@@ -35,8 +35,8 @@ const {
     <a class={twMerge(
       'z-10 flex-none w-full h-40 overflow-hidden select-none md:order-0 md:h-full md:w-72 md:shrink',
       imagePosition === 'left' ? 'clip-left' : 'clip-right'
-    )} href={url} aria-label='cover' tabindex="-1">
-      <Image src={image} alt='cover' inferSize class='h-full w-full scale-[1.025]' />
+    )} href={url} aria-label={`阅读《${title}》`} tabindex="-1">
+      <Image src={image} alt='' inferSize class='h-full w-full scale-[1.025]' />
     </a>
   )}
   <PostDetails

@@ -186,7 +186,15 @@ const NavbarCollapseTrigger = forwardRef<HTMLButtonElement, NavbarCollapseTrigge
     })
   }
   return (
-    <button ref={ref} className={className} {...rest} onClick={handleClick}>{children}</button>
+    <button
+      ref={ref}
+      type="button"
+      className={className}
+      aria-expanded={states.open}
+      aria-controls="mobile-navigation"
+      {...rest}
+      onClick={handleClick}
+    >{children}</button>
   )
 });
 
@@ -270,7 +278,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({
               )}>
                 <div className='flex h-[3.75rem]'>{children}</div>
                 {states.node && (
-                  <animated.div style={collapseSpring} className='overflow-hidden'>
+                  <animated.div id="mobile-navigation" style={collapseSpring} className='overflow-hidden'>
                     <div ref={collapseContentRef}>
                       {states.node}
                     </div>

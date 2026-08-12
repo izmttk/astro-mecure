@@ -1,20 +1,32 @@
 ---
 export interface Props {
   title?: string;
+  headline?: string;
   favicon?: string;
   description?: string;
   author?: string;
   generator?: string;
   canonical?: string;
+  image?: string;
+  pageType?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  tags?: string[];
 }
 
 const {
   title,
+  headline,
   description,
   favicon,
   author,
   generator,
-  canonical = decodeURI(Astro.url.href)
+  canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href,
+  image,
+  pageType = 'website',
+  publishedTime,
+  modifiedTime,
+  tags = [],
 } = Astro.props;
 import "@fontsource-variable/inter";
 import "@fontsource-variable/fira-code";
@@ -25,6 +37,28 @@ import "/plugins/remark/remark-admonition/styles.css";
 
 import { ClientRouter } from "astro:transitions";
 import ProgressBar from "@/components/ProgressBar";
+
+const structuredData = pageType === 'article' ? {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: headline ?? title,
+  description,
+  image,
+  datePublished: publishedTime?.toISOString(),
+  dateModified: modifiedTime?.toISOString(),
+  author: author ? {
+    '@type': 'Person',
+    name: author,
+  } : undefined,
+  mainEntityOfPage: canonical,
+} : {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: title,
+  description,
+  url: canonical,
+};
+const structuredDataJson = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
 ---
 
 <html lang="zh-CN">
@@ -37,9 +71,28 @@ import ProgressBar from "@/components/ProgressBar";
     {author && <meta name="author" content={author} />}
     {generator && <meta name="generator" content={generator} />}
     {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
+    <link rel="alternate" type="application/rss+xml" title={`${title ?? 'Blog'} RSS Feed`} href={new URL('/rss/feed.xml', Astro.site ?? Astro.url.origin).href} />
+    <meta property="og:type" content={pageType} />
+    {title && <meta property="og:title" content={title} />}
+    {description && <meta property="og:description" content={description} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    {title && <meta name="twitter:title" content={title} />}
+    {description && <meta name="twitter:description" content={description} />}
+    {image && <meta name="twitter:image" content={image} />}
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    {tags.map(tag => <meta property="article:tag" content={tag} />)}
+    <script type="application/ld+json" set:html={structuredDataJson} />
     <script is:inline>
       (function() {
-        const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
+        const storedValue = window.localStorage.getItem('theme');
+        const storedTheme = storedValue === '"light"' || storedValue === '"dark"' || storedValue === '"auto"'
+          ? storedValue.slice(1, -1)
+          : 'auto';
         let presetTheme;
         if (storedTheme === 'auto') {
           presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -59,6 +112,7 @@ import ProgressBar from "@/components/ProgressBar";
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="skip-link">跳到正文</a>
     <noscript>
       <div class="pt-16 text-center font-bold text-xl" >Enable JavaScript to run this website.</div>
     </noscript>
@@ -70,7 +124,10 @@ import ProgressBar from "@/components/ProgressBar";
 <script>
   // prevent flash when using view transitions in astro
   const setDarkMode = () => {
-    const storedTheme = JSON.parse(window.localStorage.getItem('theme') ?? '"auto"');
+    const storedValue = window.localStorage.getItem('theme');
+    const storedTheme = storedValue === '"light"' || storedValue === '"dark"' || storedValue === '"auto"'
+      ? storedValue.slice(1, -1)
+      : 'auto';
     let presetTheme;
     if (storedTheme === 'auto') {
       presetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
