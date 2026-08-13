@@ -1,55 +1,53 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export default function useToc(headings: string[], topMargin: number = 0) {
-  const [visibleList, setVisibleList] = useState<string[]>([]);
+export default function useToc(headings: string[], topMargin = 0) {
   const [active, setActive] = useState<string | null>(null);
+  const activeRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = decodeURI(entry.target.id);
-        if (entry.intersectionRatio > 0) {
-          setVisibleList(value => {
-            if (value.includes(id)) {
-              return value;
-            }
-            return [...value, id];
-          });
-        } else {
-          setVisibleList(value => {
-            if (!value.includes(id)) {
-              return value;
-            }
-            return value.filter(item => item !== id)
-          });
-        }
-      })
-    }, {
-      threshold: [0, 1],
-      rootMargin: `${-topMargin}px 0px -66% 0px`,
-    });
+    const elements = headings
+      .map(heading => document.getElementById(heading))
+      .filter((element): element is HTMLElement => element !== null);
 
-    headings.forEach(heading => {
-      const element = document.querySelector(`#${CSS.escape(heading)}`);
-      if (element) {
-        observer.observe(element);
-      }
-    })
+    if (elements.length === 0) {
+      setActive(null);
+      return;
+    }
+
+    let frame = 0;
+    const updateActive = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const threshold = Math.max(topMargin, 72) + 24;
+        let nextActive = elements[0].id;
+
+        for (const element of elements) {
+          if (element.getBoundingClientRect().top <= threshold) {
+            nextActive = element.id;
+          } else {
+            break;
+          }
+        }
+
+        if (activeRef.current !== nextActive) {
+          activeRef.current = nextActive;
+          setActive(nextActive);
+        }
+      });
+    };
+
+    updateActive();
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive);
+    document.addEventListener('astro:after-swap', updateActive);
 
     return () => {
-      observer.disconnect();
-    }
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', updateActive);
+      window.removeEventListener('resize', updateActive);
+      document.removeEventListener('astro:after-swap', updateActive);
+    };
   }, [headings, topMargin]);
-  const visible = headings.filter(heading => visibleList.includes(heading));
 
-  useEffect(() => {
-    if (visible.length > 0) {
-      setActive(visible[0]);
-    }
-  }, [visible]);
-
-  return {
-    active: active,
-    visible: visible
-  };
+  return { active };
 }

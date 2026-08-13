@@ -30,6 +30,26 @@
   }
 }
 
+.sidebar-scroll {
+  scrollbar-color: rgb(107 114 128 / 35%) transparent;
+  scrollbar-width: thin;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  border: 0.125rem solid transparent;
+  border-radius: 9999px;
+  background-clip: padding-box;
+  background-color: rgb(107 114 128 / 35%);
+}
+
 body {
   @apply bg-background-light dark:bg-background-dark text-primary;
   @apply flex flex-col min-h-screen;

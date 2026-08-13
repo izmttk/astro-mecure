@@ -5,6 +5,7 @@ import Profile from '@/components/Profile';
 import TagCloud from '@/components/TagCloud';
 import CategoryTree from '@/components/CategoryTree';
 import Toc from '@/components/Toc';
+import DesktopSidebar from './DesktopSidebar';
 import type { SidebarConfig } from '.';
 import { twMerge } from 'tailwind-merge';
 export interface Props {
@@ -22,9 +23,8 @@ const {
 const { widgets } = config;
 ---
 {show && (
-  <aside class="relative hidden md:block" data-sidebar-container>
-    <div data-sidebar-space></div>
-    <div class={twMerge("flex flex-col gap-3 p-3", className)} data-sidebar-content>
+  <DesktopSidebar className={className} client:load>
+    <div class="flex w-full flex-col gap-3 p-3">
       {widgets?.map(async widget => {
         if (widget.show === false) {
           return null;
@@ -67,7 +67,7 @@ const { widgets } = config;
         }
       })}
     </div>
-  </aside>
+  </DesktopSidebar>
 )}
 <MobileDrawer className={className} client:load>
   <div class="flex flex-col gap-3 p-3">
@@ -114,43 +114,3 @@ const { widgets } = config;
     })}
   </div>
 </MobileDrawer>
-
-<script>
-  let prevY = window.scrollY;
-  const stickyMarginTop = 64;
-  function handler() {
-    const { scrollY } = window;
-    const containerEl = document?.querySelector<HTMLElement>('[data-sidebar-container]');
-    const contentEl = containerEl?.querySelector<HTMLElement>('[data-sidebar-content]');
-    const spaceEl = containerEl?.querySelector<HTMLElement>('[data-sidebar-space]');
-    if (!containerEl || !contentEl || !spaceEl) {
-      return;
-    }
-    const containerRect = containerEl.getBoundingClientRect();
-    const contentRect = contentEl.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    contentEl.style.position = 'sticky';
-    if (contentRect.height <= viewportHeight - stickyMarginTop) {
-      spaceEl.style.marginTop = '';
-      contentEl.style.top = `${stickyMarginTop}px`;
-      contentEl.style.bottom = '';
-      return;
-    }
-    if (scrollY > prevY) {
-      // scroll down
-      contentEl.style.bottom = '';
-      contentEl.style.top = `${-(contentRect.height - viewportHeight)}px`;
-    } else if (scrollY < prevY) {
-      // scroll up
-      const contentOffset = Math.max(0, contentRect.top - containerRect.top);
-      spaceEl.style.marginTop = `${contentOffset}px`;
-      contentEl.style.top = '';
-      contentEl.style.bottom = `${-(contentRect.height - viewportHeight + stickyMarginTop)}px`;
-    }
-    prevY = scrollY;
-  };
-  window.addEventListener('scroll', handler, {
-    capture: false,
-    passive: true,
-  });
-</script>
