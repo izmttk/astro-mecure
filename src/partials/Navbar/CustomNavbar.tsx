@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import ThemeToggle from '@/components/ThemeToggle';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { useMap } from 'react-use';
 
@@ -28,6 +28,14 @@ import useElementSize from '@/hooks/useElementSize';
 import SearchToggle from '@/components/SearchToggle';
 import styles from './Navbar.module.css';
 import { url } from '@/utils/url';
+import { animated, useSpring } from '@react-spring/web';
+
+interface IndicatorGeometry {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
 
 
 function SideToggle() {
@@ -90,6 +98,12 @@ export default function CustomNavbar({
   }, [hasThemeToggle]);
 
   const [active, setActive] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [focused, setFocused] = useState<number | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const desktopMenuRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef(new Map<number, HTMLElement>());
+  const [indicator, setIndicator] = useState<IndicatorGeometry | null>(null);
 
   const path = usePath();
   useEffect(() => {
@@ -106,6 +120,75 @@ export default function CustomNavbar({
   }, [path]);
 
   const isMd = useBreakpoints('md');
+  const indicatorIndex = hovered ?? focused ?? active;
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateReducedMotion = () => setReducedMotion(media.matches);
+
+    updateReducedMotion();
+    if (media.addEventListener) {
+      media.addEventListener('change', updateReducedMotion);
+      return () => media.removeEventListener('change', updateReducedMotion);
+    }
+
+    media.addListener(updateReducedMotion);
+    return () => media.removeListener(updateReducedMotion);
+  }, []);
+
+  const measureIndicator = useCallback(() => {
+    const container = desktopMenuRef.current;
+    const item = indicatorIndex === null
+      ? null
+      : itemRefs.current.get(indicatorIndex);
+
+    if (!container || !item) {
+      setIndicator(null);
+      return;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+
+    setIndicator({
+      left: itemRect.left - containerRect.left + container.scrollLeft,
+      top: itemRect.top - containerRect.top + container.scrollTop,
+      width: itemRect.width,
+      height: itemRect.height,
+    });
+  }, [indicatorIndex]);
+
+  useLayoutEffect(() => {
+    measureIndicator();
+  }, [isMd, measureIndicator]);
+
+  useEffect(() => {
+    const container = desktopMenuRef.current;
+    if (!container) {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(measureIndicator);
+    resizeObserver.observe(container);
+    itemRefs.current.forEach(item => resizeObserver.observe(item));
+
+    return () => resizeObserver.disconnect();
+  }, [isMd, measureIndicator, menu]);
+
+  const indicatorSpring = useSpring({
+    left: indicator?.left ?? 0,
+    top: indicator?.top ?? 0,
+    width: indicator?.width ?? 0,
+    height: indicator?.height ?? 0,
+    opacity: indicator ? 1 : 0,
+    immediate: reducedMotion,
+    config: {
+      tension: hovered === null ? 340 : 420,
+      friction: hovered === null ? 32 : 30,
+      clamp: false,
+    },
+  });
+
   const [ref, size] = useElementSize<HTMLElement>();
 
   useEffect(() => {
@@ -113,10 +196,25 @@ export default function CustomNavbar({
   }, [size]);
 
   const renderMenuItems = (mobile = false) => menu.map((item, index) => {
+    const interactionProps = mobile ? {} : {
+      ref: (element: HTMLElement | null) => {
+        if (element) {
+          itemRefs.current.set(index, element);
+        } else {
+          itemRefs.current.delete(index);
+        }
+      },
+      onPointerEnter: () => setHovered(index),
+      onFocus: () => setFocused(index),
+      onBlur: () => setFocused(null),
+    };
+
     if ('url' in item) {
       return (
-        <Navbar.Item as='a' href={item.url} isActive={active === index} aria-current={active === index ? 'page' : undefined} className={twMerge(
-          mobile ? 'min-h-11 justify-center rounded-lg px-3 py-2' : 'px-3 py-1 flex-none transition-transform duration-100 ease-out hover:-translate-y-1'
+        <Navbar.Item {...interactionProps} as='a' href={item.url} isActive={active === index} aria-current={active === index ? 'page' : undefined} className={twMerge(
+          mobile
+            ? 'min-h-11 justify-center rounded-lg px-3 py-2'
+            : 'z-10 min-h-9 px-3 py-1 flex-none rounded-full bg-transparent! text-current! transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400/80 focus-visible:ring-offset-1 focus-visible:ring-offset-transparent'
         )} key={item.url}>
           {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
           {item.label}
@@ -126,9 +224,9 @@ export default function CustomNavbar({
 
     return (
       <Menu menu={item.children} open={map[index.toString()] ?? false} onOpenChange={(open: boolean) => set(index, open)} key={index}>
-        <Navbar.Item as='button' type='button' className={twMerge(
+        <Navbar.Item {...interactionProps} as='button' type='button' className={twMerge(
           'cursor-pointer',
-          mobile ? 'min-h-11 w-full justify-center rounded-lg px-3 py-2' : 'px-3 py-1 flex-none'
+          mobile ? 'min-h-11 w-full justify-center rounded-lg px-3 py-2' : 'z-10 min-h-9 px-3 py-1 flex-none rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400/80 focus-visible:ring-offset-1 focus-visible:ring-offset-transparent'
         )}>
           {item.icon && <Icon name={item.icon} width={18} height={18} className='mr-0.5' />}
           {item.label}
@@ -139,8 +237,26 @@ export default function CustomNavbar({
   });
 
   const desktopNavMenu = (
-    <ScrollArea className='w-full h-full' containerClassName='flex! items-center px-2'>
-      {renderMenuItems()}
+    <ScrollArea className='w-full h-full' containerClassName='flex! items-center px-2' edgeShadow={false}>
+      <div
+        ref={desktopMenuRef}
+        className='relative flex h-full w-max min-w-full items-center'
+        onPointerLeave={() => setHovered(null)}
+      >
+        <animated.div
+          aria-hidden="true"
+          data-navbar-indicator
+          className={styles.glassIndicator}
+          style={{
+            left: indicatorSpring.left,
+            top: indicatorSpring.top,
+            width: indicatorSpring.width,
+            height: indicatorSpring.height,
+            opacity: indicatorSpring.opacity,
+          }}
+        />
+        {renderMenuItems()}
+      </div>
     </ScrollArea>
   );
 
@@ -195,8 +311,8 @@ export default function CustomNavbar({
           </Navbar.Content>
         )}
         <Navbar.Content className='md:ml-3 space-x-2'>
-          {hasSearchToggle && isMd && <SearchToggle />}
-          {hasThemeToggle && isMd && <ThemeToggle open={map['theme'] ?? false} onOpenChange={onThemeMenuOpenChange} />}
+          {hasSearchToggle && isMd && <SearchToggle className={styles.glassAction} />}
+          {hasThemeToggle && isMd && <ThemeToggle className={styles.glassAction} open={map['theme'] ?? false} onOpenChange={onThemeMenuOpenChange} />}
           {!isMd && <SideToggle />}
         </Navbar.Content>
       </div>

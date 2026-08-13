@@ -34,8 +34,7 @@ function ThemeToggle({
     <DropdownMenu.Root modal={false} open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>
         <button type="button" aria-label='切换颜色主题' className={twMerge(
-          'h-[2.125rem] w-[2.125rem] flex items-center justify-center cursor-pointer',
-          'rounded-full bg-linear-to-b from-gray-100/50 to-white/50 ring-1 ring-gray-900/5 dark:from-gray-500/30 dark:to-gray-400/30 dark:ring-white/20 shadow-lg shadow-gray-800/10',
+          'h-10 w-10 flex items-center justify-center cursor-pointer rounded-full',
           className,
         )} {...rest}>{stateIcon}</button>
       </DropdownMenu.Trigger>
