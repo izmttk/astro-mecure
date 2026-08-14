@@ -77,6 +77,24 @@
 body {
   @apply bg-background-light dark:bg-background-dark text-primary;
   @apply flex flex-col min-h-screen;
+  --site-grid-line: rgb(99 102 241 / 2.8%);
+  --site-glow-blue: rgb(59 130 246 / 22%);
+  --site-glow-violet: rgb(139 92 246 / 18%);
+  --site-glow-pink: rgb(236 72 153 / 10%);
+  background-image:
+    linear-gradient(to right, var(--site-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--site-grid-line) 1px, transparent 1px),
+    radial-gradient(42rem 30rem at 2% -2rem, var(--site-glow-blue), transparent 70%),
+    radial-gradient(38rem 27rem at 102% 14rem, var(--site-glow-violet), transparent 72%),
+    radial-gradient(32rem 23rem at 54% 36rem, var(--site-glow-pink), transparent 74%);
+  background-position:
+    1.5rem 1.5rem,
+    1.5rem 1.5rem,
+    0 0,
+    0 0,
+    0 0;
+  background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 3rem 3rem, 3rem 3rem, auto, auto, auto;
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
@@ -101,23 +119,49 @@ body {
   }
 }
 
-/* @media screen(md) {
-  body::before {
-    content: '';
-    position: fixed;
-    z-index: -1;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background:
-      url(/assets/left-bottom-bg.svg) no-repeat bottom left/20rem,
-      url(/assets/right-top-bg.svg) no-repeat top right/20rem;
+.dark body {
+  --site-grid-line: rgb(148 163 184 / 4.5%);
+  --site-glow-blue: rgb(37 99 235 / 29%);
+  --site-glow-violet: rgb(124 58 237 / 24%);
+  --site-glow-pink: rgb(219 39 119 / 13%);
+}
+
+@media (max-width: 40rem) {
+  body {
+    --site-grid-line: rgb(99 102 241 / 1.8%);
+    --site-glow-blue: rgb(59 130 246 / 13%);
+    --site-glow-violet: rgb(139 92 246 / 10%);
+    --site-glow-pink: transparent;
   }
-  .dark body::before {
-    opacity: 0.3;
+
+  .dark body {
+    --site-grid-line: rgb(148 163 184 / 3%);
+    --site-glow-blue: rgb(37 99 235 / 18%);
+    --site-glow-violet: rgb(124 58 237 / 14%);
+    --site-glow-pink: transparent;
   }
-} */
+}
+
+@media (prefers-contrast: more) {
+  body {
+    --site-grid-line: transparent;
+    --site-glow-blue: transparent;
+    --site-glow-violet: transparent;
+    --site-glow-pink: transparent;
+  }
+}
+
+@media (forced-colors: active) {
+  body {
+    background-image: none;
+  }
+}
+
+@media print {
+  body {
+    background-image: none;
+  }
+}
 
 /* FireFox ScrollBar Thin Style */
 :root, :root * {

@@ -274,7 +274,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({
                 'bg-white/80 dark:bg-gray-800/75',
                 'backdrop-blur-md backdrop-saturate-150',
                 'transition-[background-color,backdrop-filter,border-color,box-shadow] duration-300',
-                shouldTransparent && 'bg-transparent! border-transparent! backdrop-blur-0! backdrop-saturate-100! shadow-none!'
+                shouldTransparent && 'bg-transparent! border-transparent! backdrop-blur-none! backdrop-saturate-100! shadow-none!'
               )}>
                 <div className='flex h-[3.75rem]'>{children}</div>
                 {states.node && (

@@ -3,7 +3,6 @@ import Navbar from '@/partials/Navbar';
 import Footer from '@/partials/Footer';
 import Sidebar from '@/partials/Sidebar';
 import Fabs from '@/components/Fabs';
-import BlurredBackdrop from '@/components/BlurredBackdrop';
 import type { SidebarConfig, TocConfig } from '@/partials/Sidebar';
 import getTags from '@/utils/getTags';
 import getCategories from '@/utils/getCategories';
@@ -165,7 +164,6 @@ const isPost = page.type === 'post';
 >
   <slot name="head" slot="head" />
   {hasNavbar && navbar && <Navbar class='px-3 mx-auto lg:max-w-[74rem]' config={navbar} />}
-  {hasHero && heroConfig && heroConfig.background && <BlurredBackdrop image={heroConfig.background} class="h-[22rem] absolute left-0 right-0 top-0 -z-10" transition:animate="fade" />}
   {hasHero && heroConfig && <Hero class={twMerge(
     'mx-auto w-full lg:max-w-[74rem] p-3',
     heroConfig.background && 'h-72 md:h-96'
