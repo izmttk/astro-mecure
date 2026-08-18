@@ -78,11 +78,11 @@ function getHeroInfo(page: Page): HeroConfig['info'] {
 
 let heroConfig: HeroConfig | false = false;
 if (hero) {
-  const heroBg = page.image ?? hero.background;
   heroConfig = {
-    background: heroBg,
+    background: page.image ?? hero.background,
     description: page.type === 'index' ? hero.description : page.description,
     logo: page.type === 'index' ? hero.logo : undefined,
+    visual: page.type === 'index' ? hero.visual : undefined,
     title: page.type === 'index' ? (hero.logo ? undefined : hero.title ?? config.title) : page.title,
     accessibleTitle: page.type === 'index' ? config.title : undefined,
     info: getHeroInfo(page),
@@ -166,7 +166,7 @@ const isPost = page.type === 'post';
   {hasNavbar && navbar && <Navbar class='px-3 mx-auto lg:max-w-[74rem]' config={navbar} />}
   {hasHero && heroConfig && <Hero class={twMerge(
     'mx-auto w-full lg:max-w-[74rem] p-3',
-    heroConfig.background && 'h-72 md:h-96'
+    heroConfig.visual || heroConfig.logo ? 'h-[20rem] md:h-[30rem]' : 'h-72 md:h-96'
   )} config={heroConfig} transition:animate="fade" />}
   <main id="main-content" tabindex="-1" class="mx-auto w-full lg:max-w-[74rem] md:my-1 grow flex" transition:animate="fade">
     <div class={twMerge(

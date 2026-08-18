@@ -1,0 +1,45 @@
+.root {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: #000;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.root:active {
+  cursor: grabbing;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+.ready .canvas {
+  opacity: 1;
+}
+
+.failed .canvas {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .root {
+    background: Canvas;
+  }
+
+  .canvas {
+    display: none;
+  }
+}

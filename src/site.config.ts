@@ -4,7 +4,6 @@ import { url } from '@/utils/url';
 
 
 import navLogo from '@/assets/nav-logo.svg';
-import heroBg from '@/assets/hero-bg.jpg';
 import heroLogo from '@/assets/hero-logo.svg';
 import profileBg from '@/assets/profile-bg.jpg';
 import avatar from '@/assets/avatar.png';
@@ -70,9 +69,9 @@ const config: Config = {
     hasThemeToggle: true,
   },
   hero: {
-    background: heroBg,
     description: '欢迎来到银河渡舟的记事簿，看看最近我在折腾啥吧。',
     logo: heroLogo,
+    visual: 'prismatic-cube',
   },
   sidebar: {
     widgets: [

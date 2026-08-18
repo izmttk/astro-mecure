@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1114 470" fill="#fff" id="logo-root" filter="url(#logo-filter)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1114 470" fill="url(#hero-logo-tone)" id="logo-root">
   <defs>
     <filter id="logo-filter">
       <feTurbulence type="fractalNoise" baseFrequency="0 0" numOctaves="1" result="warp" seed="1">
@@ -23,7 +23,7 @@
       <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgb(0,0,0)" flood-opacity="0.2"></feDropShadow>
     </filter>
   </defs>
-  <g id="logo" opacity="0">
+  <g id="logo" opacity="1">
     <rect id="triggerbox" width="1114" height="470" fill="rgba(0,0,0,0)"></rect>
     <g id="yin">
       <g id="yin-1">
@@ -209,6 +209,25 @@
       100% {
         transform: translate(0, 0)
       }
+    }
+
+    #logo,
+    #yin-1,
+    #yin-2,
+    #yin-3,
+    #he-1,
+    #he-2,
+    #du-1,
+    #du-2,
+    #zhou-1,
+    #zhou-2 {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    #logo {
+      opacity: 1 !important;
+      filter: none !important;
     }
   </style>
 </svg>

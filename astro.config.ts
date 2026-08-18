@@ -92,6 +92,7 @@ const config: AstroUserConfig = {
       // }),
     ],
     resolve: {
+      dedupe: ['three'],
       alias: {
         '@': '/src'
       }

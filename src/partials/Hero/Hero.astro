@@ -2,50 +2,50 @@
 import { twMerge } from 'tailwind-merge';
 
 import Image from '@/components/Image';
-
-import type { Page, Post, ImageType, ImageOrSvgType } from '@/types';
-import type { HTMLAttributes, SvgComponent } from 'astro/types';
-
-// import Background from './Background';
 import Category from '@/components/Category';
 import Tag from '@/components/Tag';
-import type { Title } from '@radix-ui/react-dialog';
+import heroMeshNoise from '@/assets/hero-mesh-noise.webp';
+import type { ImageOrSvgType, ImageType, Post } from '@/types';
+import type { HTMLAttributes, SvgComponent } from 'astro/types';
+
+import PrismaticGlassCubeCanvas from '@/components/PrismaticGlassCube/PrismaticGlassCubeCanvas';
+
 interface HeroPostInfo {
-  type: 'post',
-  category: Post['category'],
-  tags: Post['tags']
+  type: 'post';
+  category: Post['category'];
+  tags: Post['tags'];
 }
 
 interface HeroCategoriesInfo {
-  type: 'categories',
-  count: number,
+  type: 'categories';
+  count: number;
 }
 
 interface HeroTagsInfo {
-  type: 'tags',
-  count: number,
+  type: 'tags';
+  count: number;
 }
 
 interface HeroPostsInfo {
-  type: 'posts',
-  count: number,
+  type: 'posts';
+  count: number;
 }
 
 interface HeroArchiveInfo {
-  type: 'archive',
-  count: number,
+  type: 'archive';
+  count: number;
 }
 
 type HeroInfo = HeroPostInfo | HeroCategoriesInfo | HeroTagsInfo | HeroPostsInfo | HeroArchiveInfo;
-
 
 export interface HeroConfig {
   background?: ImageType;
   description?: string;
   logo?: ImageOrSvgType;
+  visual?: 'prismatic-cube';
   title?: string;
   accessibleTitle?: string;
-  info?: HeroInfo,
+  info?: HeroInfo;
 }
 
 export interface HeroProps extends HTMLAttributes<'div'> {
@@ -64,92 +64,550 @@ const {
   background,
   description,
   logo,
+  visual,
   title,
   accessibleTitle,
-  info
+  info,
 } = config;
 
+type LocalSvgComponent = SvgComponent & { src: string; format: 'svg' };
 
-function isLocalSvg(value: ImageOrSvgType): value is SvgComponent {
+function isLocalSvg(value: ImageOrSvgType): value is LocalSvgComponent {
   return typeof value !== 'string' && 'src' in value && value.format === 'svg';
 }
 
-const logoImg = logo && !title && !isLocalSvg(logo) ? logo : null;
+const logoImg: ImageType | null = logo && !title && !isLocalSvg(logo) ? logo as ImageType : null;
 const LogoSvg = logo && !title && isLocalSvg(logo) ? logo : null;
+const isPrismaticCube = visual === 'prismatic-cube';
+
+const countText = info?.type === 'categories'
+  ? `共${info.count}个分类`
+  : info?.type === 'tags'
+    ? `共${info.count}个标签`
+    : info?.type === 'posts' || info?.type === 'archive'
+      ? `共${info.count}篇文章`
+      : null;
 ---
-<header class={twMerge(
-  className
-)} {...rest}>
+
+<header class={twMerge(className)} {...rest}>
   {!title && accessibleTitle && <h1 class="sr-only">{accessibleTitle}</h1>}
-  {background ? (
-    <div class='w-full h-full overflow-hidden rounded-xl relative plate-bg plate-shadow border-highlight'>
-      <Image src={background} inferSize class='w-full h-full select-none' alt='' aria-hidden="true" />
-      <div class='absolute inset-0 p-4 md:p-8 flex flex-col justify-center items-center text-white'>
-        {title && <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center wrap-break-word drop-shadow-[0px_2px_3px_rgb(31,41,55,.5)]'>{title}</h1>}
-        {logoImg && <Image src={logoImg} inferSize alt='hero logo' disableBlur class="h-24 md:h-28" />}
-        {LogoSvg && <LogoSvg class="h-24 md:h-28" />}
 
-        {!info && description && <div class='mt-4 bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>{description}</div>}
-        {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
-          <Category className='bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-1 rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500' onlyText category={info.category} />
-          {info.tags.map(tag => <Tag className='bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] pl-1.5 pr-2 py-1 rounded-md text-primary leading-4 duration-75 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500' onlyText tag={tag} />)}
-        </div>}
-        {info?.type === 'categories' && (
-          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div>共{info.count}个分类</div>
-          </div>
-        )}
-        {info?.type === 'tags' && (
-          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div>共{info.count}个标签</div>
-          </div>
-        )}
-        {info?.type === 'posts' && (
-          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div>共{info.count}篇文章</div>
-          </div>
-        )}
-        {info?.type === 'archive' && (
-          <div class='flex flex-wrap justify-center mt-4 bg-white/65 backdrop-blur-sm dark:bg-black/65 shadow-md text-[0.8125rem] px-2 py-1 rounded-md text-primary leading-4'>
-            <div>共{info.count}篇文章</div>
-          </div>
-        )}
+  <div class:list={[
+    "hero-frame",
+    isPrismaticCube
+      ? "hero-frame--interactive"
+      : background
+        ? "hero-frame--image"
+        : "hero-frame--default",
+  ]}>
+    {isPrismaticCube ? (
+      <div class="hero-css-fallback" aria-hidden="true"></div>
+    ) : background ? (
+      <Image
+        src={background}
+        inferSize
+        class="hero-fallback-image"
+        alt=""
+        aria-hidden="true"
+      />
+    ) : (
+      <div
+        class="hero-mesh-background"
+        style={`--hero-mesh-noise: url("${heroMeshNoise.src}")`}
+        aria-hidden="true"
+      >
+        <span class="hero-mesh-node hero-mesh-node--1"></span>
+        <span class="hero-mesh-node hero-mesh-node--2"></span>
+        <span class="hero-mesh-node hero-mesh-node--3"></span>
+        <span class="hero-mesh-node hero-mesh-node--4"></span>
+        <span class="hero-mesh-node hero-mesh-node--5"></span>
+        <span class="hero-mesh-node hero-mesh-node--6"></span>
+        <span class="hero-mesh-node hero-mesh-node--7"></span>
+        <span class="hero-mesh-node hero-mesh-node--8"></span>
+        <span class="hero-mesh-node hero-mesh-node--9"></span>
       </div>
-    </div>
-  ) : (
-    <div class='w-full h-full text-primary'>
-      <div class='py-4 md:py-6 md:pt-8 flex flex-col justify-center items-center'>
-        {title && <h1 class='text-2xl md:text-4xl mb-2 font-bold text-center wrap-break-word'>{title}</h1>}
-        {logoImg && <Image src={logoImg} inferSize alt='hero logo' disableBlur class="h-24 md:h-28" />}
-        {LogoSvg && <LogoSvg class="h-24 md:h-28" />}
+    )}
+    {isPrismaticCube && (
+      <PrismaticGlassCubeCanvas client:only="react" />
+    )}
+    <div class="hero-scrim" aria-hidden="true"></div>
 
-        {!info && description && <div class='mt-4 text-sm leading-4'>{description}</div>}
-        {info?.type === 'post' && <div class='flex flex-wrap items-center justify-center mt-2 md:mt-4 gap-2'>
-          <Category className='text-[0.8125rem] pl-1.5 pr-2 py-[0.1875rem] plate-bg plate-shadow border-highlight rounded-md duration-75 leading-4 hover:bg-primary-500 hover:text-white' onlyText category={info.category} />
-          {info.tags.map(tag => <Tag className='text-[0.8125rem] pl-1.5 pr-2 py-[0.1875rem] plate-bg plate-shadow border-highlight rounded-md duration-75 leading-4 hover:bg-primary-500 hover:text-white' onlyText tag={tag} />)}
-        </div>}
-        {info?.type === 'categories' && (
-          <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div>共{info.count}个分类</div>
-          </div>
-        )}
-        {info?.type === 'tags' && (
-          <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div>共{info.count}个标签</div>
-          </div>
-        )}
-        {info?.type === 'posts' && (
-          <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div>共{info.count}篇文章</div>
-          </div>
-        )}
-        {info?.type === 'archive' && (
-          <div class='flex flex-wrap justify-center mt-4 text-sm'>
-            <div>共{info.count}篇文章</div>
-          </div>
-        )}
-      </div>
-    </div>
-  )}
+    <div class:list={["hero-content", LogoSvg && "hero-content--logo"]}>
+      {title && <h1 class="hero-title">{title}</h1>}
+      {logoImg && (
+        <Image src={logoImg} inferSize alt="hero logo" disableBlur class="hero-static-logo" />
+      )}
+      {LogoSvg && (
+        <div class="hero-logo-lockup">
+          <span class="hero-logo-rule" aria-hidden="true"></span>
+          <LogoSvg class="hero-logo-mark" />
+          <span class="hero-logo-rule" aria-hidden="true"></span>
+        </div>
+      )}
 
+      {!isPrismaticCube && !info && description && <div class="hero-description">{description}</div>}
+
+      {info?.type === 'post' && (
+        <div class="hero-meta-list">
+          <Category
+            className="hero-meta-chip"
+            onlyText
+            category={info.category}
+          />
+          {info.tags.map(tag => (
+            <Tag className="hero-meta-chip" onlyText tag={tag} />
+          ))}
+        </div>
+      )}
+
+      {countText && <div class="hero-description">{countText}</div>}
+    </div>
+  </div>
 </header>
+
+<style>
+  .hero-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgb(255 255 255 / 34%);
+    border-radius: 1.25rem;
+    background: #e9eff8;
+  }
+
+  :global(.dark) .hero-frame {
+    border-color: rgb(148 163 184 / 12%);
+    background: #080d18;
+  }
+
+  .hero-frame--default {
+    --hero-mesh-base: #dce8ef;
+    --hero-mesh-1: rgb(77 145 204 / 86%);
+    --hero-mesh-2: rgb(102 190 184 / 78%);
+    --hero-mesh-3: rgb(143 116 199 / 78%);
+    --hero-mesh-4: rgb(61 159 177 / 84%);
+    --hero-mesh-5: rgb(83 101 190 / 90%);
+    --hero-mesh-6: rgb(184 105 173 / 76%);
+    --hero-mesh-7: rgb(118 173 211 / 84%);
+    --hero-mesh-8: rgb(101 126 203 / 86%);
+    --hero-mesh-9: rgb(215 132 165 / 70%);
+    border-color: rgb(66 96 139 / 22%);
+    background: var(--hero-mesh-base);
+  }
+
+  :global(.dark) .hero-frame--default {
+    --hero-mesh-base: #020713;
+    --hero-mesh-1: rgb(8 49 119 / 90%);
+    --hero-mesh-2: rgb(22 96 218 / 82%);
+    --hero-mesh-3: rgb(55 65 187 / 74%);
+    --hero-mesh-4: rgb(4 109 160 / 76%);
+    --hero-mesh-5: rgb(18 72 190 / 88%);
+    --hero-mesh-6: rgb(78 40 174 / 76%);
+    --hero-mesh-7: rgb(6 37 91 / 92%);
+    --hero-mesh-8: rgb(15 101 194 / 76%);
+    --hero-mesh-9: rgb(45 30 120 / 82%);
+    border-color: rgb(118 150 224 / 24%);
+    background: var(--hero-mesh-base);
+  }
+
+  .hero-mesh-background {
+    position: absolute;
+    z-index: 0;
+    inset: -12%;
+    overflow: hidden;
+    background: var(--hero-mesh-base);
+    contain: paint;
+  }
+
+  .hero-mesh-background::after {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+    background-image: var(--hero-mesh-noise);
+    background-repeat: repeat;
+    background-size: 24rem 24rem;
+    mix-blend-mode: soft-light;
+    opacity: 0.38;
+  }
+
+  :global(.dark) .hero-mesh-background::after {
+    opacity: 0.44;
+  }
+
+  .hero-mesh-node {
+    position: absolute;
+    display: block;
+    width: 54%;
+    height: 68%;
+    border-radius: 44% 56% 58% 42% / 48% 42% 58% 52%;
+    background: radial-gradient(ellipse at center, var(--hero-mesh-color) 0 16%, transparent 70%);
+    filter: blur(clamp(2.25rem, 4.5vw, 4rem)) saturate(112%);
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .hero-mesh-node--1 {
+    --hero-mesh-color: var(--hero-mesh-1);
+    top: -21%;
+    left: -17%;
+    animation: hero-mesh-drift-a 14s ease-in-out -7s infinite alternate;
+  }
+
+  .hero-mesh-node--2 {
+    --hero-mesh-color: var(--hero-mesh-2);
+    top: -24%;
+    left: 23%;
+    animation: hero-mesh-drift-b 17s ease-in-out -14s infinite alternate;
+  }
+
+  .hero-mesh-node--3 {
+    --hero-mesh-color: var(--hero-mesh-3);
+    top: -18%;
+    right: -17%;
+    animation: hero-mesh-drift-c 15.5s ease-in-out -4s infinite alternate;
+  }
+
+  .hero-mesh-node--4 {
+    --hero-mesh-color: var(--hero-mesh-4);
+    top: 16%;
+    left: -20%;
+    animation: hero-mesh-drift-c 18.5s ease-in-out -11s infinite alternate-reverse;
+  }
+
+  .hero-mesh-node--5 {
+    --hero-mesh-color: var(--hero-mesh-5);
+    top: 14%;
+    left: 23%;
+    animation: hero-mesh-drift-a 16s ease-in-out -10s infinite alternate-reverse;
+  }
+
+  .hero-mesh-node--6 {
+    --hero-mesh-color: var(--hero-mesh-6);
+    top: 18%;
+    right: -20%;
+    animation: hero-mesh-drift-b 20s ease-in-out -16s infinite alternate;
+  }
+
+  .hero-mesh-node--7 {
+    --hero-mesh-color: var(--hero-mesh-7);
+    bottom: -24%;
+    left: -16%;
+    animation: hero-mesh-drift-b 17.5s ease-in-out -2s infinite alternate-reverse;
+  }
+
+  .hero-mesh-node--8 {
+    --hero-mesh-color: var(--hero-mesh-8);
+    bottom: -27%;
+    left: 23%;
+    animation: hero-mesh-drift-c 14.5s ease-in-out -12s infinite alternate;
+  }
+
+  .hero-mesh-node--9 {
+    --hero-mesh-color: var(--hero-mesh-9);
+    right: -16%;
+    bottom: -23%;
+    animation: hero-mesh-drift-a 19s ease-in-out -8s infinite alternate;
+  }
+
+  @keyframes hero-mesh-drift-a {
+    from {
+      opacity: 0.84;
+      transform: translate3d(-16%, -12%, 0) rotate(-9deg) scale(0.86, 1.14);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(19%, 15%, 0) rotate(12deg) scale(1.22, 0.83);
+    }
+  }
+
+  @keyframes hero-mesh-drift-b {
+    from {
+      opacity: 0.88;
+      transform: translate3d(14%, -15%, 0) rotate(10deg) scale(1.18, 0.86);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(-18%, 18%, 0) rotate(-12deg) scale(0.84, 1.22);
+    }
+  }
+
+  @keyframes hero-mesh-drift-c {
+    from {
+      opacity: 0.86;
+      transform: translate3d(-12%, 18%, 0) rotate(-8deg) scale(0.88, 1.18);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(16%, -17%, 0) rotate(14deg) scale(1.2, 0.86);
+    }
+  }
+
+  .hero-frame--interactive,
+  :global(.dark) .hero-frame--interactive {
+    border-color: rgb(148 190 255 / 16%);
+    background: #010205;
+  }
+
+  .hero-fallback-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.42;
+    filter: saturate(0.78) contrast(0.9);
+    transform: scale(1.025);
+  }
+
+  .hero-css-fallback {
+    position: absolute;
+    inset: 0;
+    background-color: #010205;
+  }
+
+  :global(.dark) .hero-css-fallback {
+    background-color: #000104;
+  }
+
+  :global(.dark) .hero-fallback-image {
+    opacity: 0.26;
+    filter: saturate(0.82) brightness(0.62) contrast(1.08);
+  }
+
+  .hero-frame--image .hero-fallback-image {
+    opacity: 1;
+    filter: saturate(0.92) contrast(0.96);
+    transform: none;
+  }
+
+  :global(.dark) .hero-frame--image .hero-fallback-image {
+    opacity: 1;
+    filter: saturate(0.88) brightness(0.72) contrast(1.05);
+  }
+
+  .hero-scrim {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom, transparent 48%, rgb(8 15 30 / 8%) 100%),
+      radial-gradient(70% 55% at 50% 45%, transparent 48%, rgb(15 23 42 / 4%) 100%);
+  }
+
+  :global(.dark) .hero-scrim {
+    background:
+      linear-gradient(to bottom, transparent 44%, rgb(0 0 0 / 18%) 100%),
+      radial-gradient(72% 58% at 50% 43%, transparent 44%, rgb(0 0 0 / 10%) 100%);
+  }
+
+  .hero-frame--interactive .hero-scrim,
+  :global(.dark) .hero-frame--interactive .hero-scrim,
+  .hero-frame--default .hero-scrim,
+  :global(.dark) .hero-frame--default .hero-scrim {
+    background: transparent;
+  }
+
+  .hero-content {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    color: white;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero-content--logo {
+    z-index: 3;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .hero-title {
+    max-width: min(48rem, 84%);
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    font-weight: 720;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    text-shadow: 0 3px 16px rgb(2 6 23 / 40%);
+  }
+
+  .hero-static-logo {
+    width: clamp(18rem, 48vw, 34rem);
+    max-width: 72%;
+    height: auto;
+    filter: drop-shadow(0 16px 30px rgb(15 23 42 / 28%));
+  }
+
+  .hero-logo-lockup {
+    display: grid;
+    width: min(72%, 44rem);
+    grid-template-columns: minmax(2rem, 1fr) auto minmax(2rem, 1fr);
+    align-items: center;
+    gap: clamp(0.875rem, 2vw, 1.5rem);
+  }
+
+  .hero-logo-rule {
+    width: 100%;
+    height: 1px;
+    background: #fff;
+  }
+
+  .hero-logo-mark {
+    display: block;
+    width: clamp(14.5rem, 23vw, 18.5rem);
+    max-width: 100%;
+    height: auto;
+    color: #fff;
+    fill: #fff;
+    filter: none;
+    opacity: 1;
+    mix-blend-mode: normal;
+  }
+
+  :global(.hero-meta-chip) {
+    border: 1px solid rgb(255 255 255 / 32%);
+    background: rgb(248 250 252 / 58%);
+    color: rgb(30 41 59 / 88%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 66%),
+      0 8px 22px -14px rgb(15 23 42 / 40%);
+    backdrop-filter: blur(14px) saturate(130%);
+  }
+
+  .hero-description {
+    max-width: min(42rem, 90%);
+    margin-top: 1rem;
+    padding: 0;
+    color: rgb(255 255 255 / 88%);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-wrap: balance;
+    text-shadow: 0 2px 12px rgb(15 23 42 / 28%);
+  }
+
+  :global(.dark .hero-meta-chip) {
+    border-color: rgb(255 255 255 / 15%);
+    background: rgb(3 8 20 / 48%);
+    color: rgb(226 232 240 / 92%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 11%),
+      0 9px 24px -14px rgb(0 0 0 / 65%);
+  }
+
+  .hero-meta-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    pointer-events: auto;
+  }
+
+  :global(.hero-meta-chip) {
+    padding: 0.3rem 0.55rem 0.3rem 0.4rem;
+    border-radius: 0.6rem;
+    font-size: 0.8125rem;
+    line-height: 1rem;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  :global(.hero-meta-chip:hover) {
+    border-color: rgb(255 255 255 / 62%);
+    background: rgb(255 255 255 / 76%);
+    color: rgb(29 78 216);
+  }
+
+  :global(.dark .hero-meta-chip:hover) {
+    border-color: rgb(96 165 250 / 48%);
+    background: rgb(30 64 175 / 52%);
+    color: white;
+  }
+
+  @media (max-width: 40rem) {
+    .hero-frame {
+      border-radius: 1rem;
+    }
+
+    .hero-content--logo {
+      padding: 1rem;
+    }
+
+    .hero-logo-lockup {
+      width: 92%;
+      grid-template-columns: minmax(1rem, 1fr) auto minmax(1rem, 1fr);
+      gap: 0.75rem;
+    }
+
+    .hero-logo-mark {
+      width: clamp(11rem, 48vw, 13rem);
+    }
+
+    .hero-title {
+      max-width: 92%;
+    }
+
+    .hero-description {
+      max-width: 94%;
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mesh-node {
+      animation: none;
+    }
+
+    .hero-mesh-node:nth-child(3n + 1) {
+      transform: translate3d(2%, 1%, 0) rotate(1deg);
+    }
+
+    .hero-mesh-node:nth-child(3n + 2) {
+      transform: translate3d(-2%, 2%, 0) rotate(-1deg);
+    }
+
+    .hero-mesh-node:nth-child(3n) {
+      transform: translate3d(1%, -2%, 0) rotate(1deg);
+    }
+
+    :global(.hero-meta-chip) {
+      transition: none;
+    }
+
+  }
+
+  @media (forced-colors: active) {
+    .hero-frame,
+    :global(.hero-meta-chip) {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+      box-shadow: none;
+    }
+
+    .hero-mesh-background {
+      display: none;
+    }
+
+    .hero-description {
+      color: CanvasText;
+      text-shadow: none;
+    }
+  }
+</style>
