@@ -1,92 +1,50 @@
-import { animated, useSpring } from '@react-spring/web';
-import { usePrevious } from 'react-use';
+import type { CSSProperties, ComponentPropsWithoutRef } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { forwardRef, useRef, useImperativeHandle } from 'react';
-import useUncontrolled from '@/hooks/useUncontrolled';
-export interface ProgressBarProps extends React.ComponentPropsWithoutRef<'div'> {
-  progress?: number;
-  onChange?: () => void;
+
+import styles from './ProgressBar.module.css';
+
+export interface ProgressBarComponentProps
+  extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
+  progress: number;
+  visible: boolean;
+  complete?: boolean;
 }
 
-export interface ProgressBarRef {
-  set(progress: number): void;
-  get(): number;
-  add(delta: number) : void;
-  complete() : void;
-  reset() : void;
-}
+type ProgressStyle = CSSProperties & {
+  '--progress-value': string;
+};
 
-const ProgressBar = forwardRef<ProgressBarRef>(({
+export default function ProgressBarComponent({
   progress,
-  style,
+  visible,
+  complete = false,
   className,
-  onChange,
+  style,
   ...rest
-}: ProgressBarProps, ref) => {
-  const [progressCtrl, setProgressCtrl] = useUncontrolled({
-    value: progress,
-    defaultValue: 0,
-    onChange: onChange,
-  });
-
-  const [spring, api] = useSpring(() => ({
-    from: {
-      width: '0%',
-      opacity: 0,
-    },
-    to: async (next, cancel) => {
-      await next({
-        width: `${progressCtrl}%`,
-        opacity: 1,
-        config: {
-          tension: 300,
-          friction: 30,
-        }
-      });
-      if (progressCtrl >= 100) {
-        await next({
-          opacity: 0,
-        })
-      }
-    },
-  }), [progressCtrl]);
-
-
-  useImperativeHandle(ref, () => {
-    return {
-      set(progress: number) {
-        setProgressCtrl(progress > 100 ? 100 : progress);
-      },
-      get() {
-        return progressCtrl;
-      },
-      add(delta: number) {
-        setProgressCtrl(progressCtrl + delta > 100 ? 100 : progressCtrl + delta);
-      },
-      reset() {
-        api.set({
-          width: '0%',
-          opacity: 0,
-        });
-        setProgressCtrl(0);
-      },
-      complete() {
-        setProgressCtrl(100);
-      },
-    };
-  }, [progressCtrl]);
+}: ProgressBarComponentProps) {
+  const normalizedProgress = Math.min(100, Math.max(0, progress));
+  const progressStyle = {
+    ...style,
+    '--progress-value': `${normalizedProgress}%`,
+  } as ProgressStyle;
 
   return (
-    progressCtrl > 0 ? <animated.div style={{
-      ...style,
-      ...spring
-    }} className={twMerge(
-      'fixed top-0 left-0 h-1 bg-linear-to-r from-secondary-500 to-primary-500 z-100 rounded-r-full',
-      'after:absolute after:w-12 after:h-1 after:right-0 after:top-0 after:bg-primary-700 after:blur-xs after:rotate-6 after:-translate-y-1/2',
-      ' dark:after:bg-primary-400',
-      className
-    )} {...rest}></animated.div> : null
-  ) 
-});
-
-export default ProgressBar
+    <div
+      {...rest}
+      className={twMerge(styles.root, className)}
+      style={progressStyle}
+      data-visible={visible}
+      data-complete={complete}
+      role="progressbar"
+      aria-hidden={!visible}
+      aria-label="页面加载进度"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(normalizedProgress)}
+      aria-valuetext={complete ? '页面加载完成' : '正在加载页面'}
+    >
+      <span className={styles.rail} aria-hidden="true" />
+      <span className={styles.bar} aria-hidden="true" />
+    </div>
+  );
+}
