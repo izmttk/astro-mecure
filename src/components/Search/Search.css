@@ -8,7 +8,7 @@
 }
 
 .DocSearch {
-  --docsearch-primary-color: var(--colors-blue-500); /* rgb(84, 104, 255) */
+  --docsearch-primary-color: var(--color-primary-500);
   --docsearch-text-color: rgb(28, 30, 33);
   --docsearch-spacing: 12px;
   --docsearch-icon-stroke-width: 1.4;

@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @config "/tailwind.config.ts";
 
+/* Keep the CSS color API available to component and third-party styles. */
+@theme {
+  --color-primary-400: var(--color-blue-400);
+  --color-primary-500: var(--color-blue-500);
+}
+
 :root {
   color-scheme: light dark;
   @apply antialiased scroll-pt-16 scroll-smooth;

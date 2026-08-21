@@ -80,6 +80,7 @@ const logoImg: ImageType | null = logo && !title && !isLocalSvg(logo) ? logo as 
 const LogoSvg = logo && !title && isLocalSvg(logo) ? logo : null;
 const isDreiRefractionCube = visual === 'prismatic-cube-drei';
 const isPrismaticCube = visual === 'prismatic-cube' || isDreiRefractionCube;
+const isPostHero = info?.type === 'post';
 
 const countText = info?.type === 'categories'
   ? `共${info.count}个分类`
@@ -104,13 +105,14 @@ const countText = info?.type === 'categories'
     {isPrismaticCube ? (
       <div class="hero-css-fallback" aria-hidden="true"></div>
     ) : background ? (
-      <Image
-        src={background}
-        inferSize
-        class="hero-fallback-image"
-        alt=""
-        aria-hidden="true"
-      />
+      <div class="hero-fallback-image" aria-hidden="true">
+        <Image
+          src={background}
+          inferSize
+          class="hero-fallback-media"
+          alt=""
+        />
+      </div>
     ) : (
       <div
         class="hero-mesh-background"
@@ -137,7 +139,7 @@ const countText = info?.type === 'categories'
     <div class="hero-scrim" aria-hidden="true"></div>
 
     <div class:list={["hero-content", LogoSvg && "hero-content--logo"]}>
-      {title && <h1 class="hero-title">{title}</h1>}
+      {title && <h1 class:list={["hero-title", isPostHero && "hero-title--post"]}>{title}</h1>}
       {logoImg && (
         <Image src={logoImg} inferSize alt="hero logo" disableBlur class="hero-static-logo" />
       )}
@@ -361,10 +363,29 @@ const countText = info?.type === 'categories'
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
     opacity: 0.42;
     filter: saturate(0.78) contrast(0.9);
     transform: scale(1.025);
+  }
+
+  .hero-fallback-image :global(.hero-fallback-media) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-fallback-image :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   .hero-css-fallback {
@@ -446,6 +467,15 @@ const countText = info?.type === 'categories'
     overflow-wrap: anywhere;
     text-wrap: balance;
     text-shadow: 0 3px 16px rgb(2 6 23 / 40%);
+    pointer-events: auto;
+    user-select: text;
+  }
+
+  .hero-title--post {
+    max-width: min(50rem, 88%);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
   }
 
   .hero-static-logo {
@@ -500,6 +530,8 @@ const countText = info?.type === 'categories'
     line-height: 1.5;
     text-wrap: balance;
     text-shadow: 0 2px 12px rgb(15 23 42 / 28%);
+    pointer-events: auto;
+    user-select: text;
   }
 
   :global(.dark .hero-meta-chip) {

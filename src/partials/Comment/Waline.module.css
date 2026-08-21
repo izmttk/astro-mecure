@@ -1,41 +1,41 @@
 @reference "/src/styles/global.css";
 
 .waline {
-  --waline-theme-color: var(--colors-primary-500);
-  --waline-active-color: var(--colors-primary-400);
+  --waline-theme-color: var(--color-primary-500);
+  --waline-active-color: var(--color-primary-400);
   --waline-border: 1px solid var(--waline-border-color);
-  --waline-info-color: var(--colors-gray-500);
+  --waline-info-color: var(--color-gray-500);
   --waline-border-color: #e5e7eb;
 
-  --waline-color: var(--colors-gray-700);
-  --waline-bgcolor-light: var(--colors-gray-200);
-  --waline-bgcolor-hover: var(--colors-gray-200);
-  --waline-light-grey: var(--colors-gray-400);
-  --waline-dark-grey: var(--colors-gray-600);
+  --waline-color: var(--color-gray-700);
+  --waline-bgcolor-light: var(--color-gray-200);
+  --waline-bgcolor-hover: var(--color-gray-200);
+  --waline-light-grey: var(--color-gray-400);
+  --waline-dark-grey: var(--color-gray-600);
 
-  --waline-disable-bgcolor: var(--colors-gray-300);
-  --waline-disable-color: var(--colors-gray-600);
+  --waline-disable-bgcolor: var(--color-gray-300);
+  --waline-disable-color: var(--color-gray-600);
 
-  --waline-code-bgcolor: var(--colors-gray-800);
+  --waline-code-bgcolor: var(--color-gray-800);
 
   --waline-avatar-radius: .25rem;
 }
 
 :global(.dark) .waline {
   --waline-border: none;
-  --waline-border-color: var(--colors-gray-700);
+  --waline-border-color: var(--color-gray-700);
 
-  --waline-color: var(--colors-gray-400);
-  --waline-bgcolor: var(--colors-gray-800);
-  --waline-bgcolor-light: var(--colors-gray-900);
-  --waline-bgcolor-hover: var(--colors-gray-700);
-  --waline-light-grey: var(--colors-gray-600);
-  --waline-dark-grey: var(--colors-gray-400);
+  --waline-color: var(--color-gray-400);
+  --waline-bgcolor: var(--color-gray-800);
+  --waline-bgcolor-light: var(--color-gray-900);
+  --waline-bgcolor-hover: var(--color-gray-700);
+  --waline-light-grey: var(--color-gray-600);
+  --waline-dark-grey: var(--color-gray-400);
 
-  --waline-disable-bgcolor: var(--colors-gray-600);
-  --waline-disable-color: var(--colors-gray-300);
+  --waline-disable-bgcolor: var(--color-gray-600);
+  --waline-disable-color: var(--color-gray-300);
 
-  --waline-code-bgcolor: var(--colors-gray-900);
+  --waline-code-bgcolor: var(--color-gray-900);
 }
 
 .waline :global(.wl-panel) {

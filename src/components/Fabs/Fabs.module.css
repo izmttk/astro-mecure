@@ -1,0 +1,359 @@
+.dock {
+  --fab-footer-gap: 12px;
+  --fab-footer-lift: 0px;
+  isolation: isolate;
+  transform: translate3d(0, calc(-1 * var(--fab-footer-lift)), 0);
+  will-change: transform;
+}
+
+.dock::before {
+  position: absolute;
+  inset: -0.25rem;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+  background: conic-gradient(
+    from 35deg,
+    rgb(34 211 238 / 78%),
+    rgb(59 130 246 / 48%) 24%,
+    rgb(124 58 237 / 74%) 48%,
+    rgb(236 72 153 / 62%) 70%,
+    rgb(251 146 60 / 42%) 84%,
+    rgb(34 211 238 / 78%)
+  );
+  border-radius: 999px;
+  opacity: 0.3;
+  filter: blur(6px) saturate(1.18);
+  transform: rotate(0deg) scale(0.94);
+  animation: fab-halo-orbit 7s linear infinite;
+  transition:
+    inset 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    filter 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dock:hover::before {
+    inset: -0.5rem;
+    opacity: 0.78;
+    filter: blur(10px) saturate(1.5);
+  }
+}
+
+.button {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  overflow: hidden;
+  color: rgb(30 41 59);
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 72% 5%, rgb(34 211 238 / 12%), transparent 38%) padding-box,
+    radial-gradient(circle at 18% 105%, rgb(236 72 153 / 8%), transparent 42%) padding-box,
+    radial-gradient(circle at 105% 58%, rgb(139 92 246 / 10%), transparent 44%) padding-box,
+    linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(245 248 255 / 88%)) padding-box;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 78%),
+    inset 0 -2px 6px rgb(76 92 135 / 12%),
+    -2px -1px 7px -4px rgb(34 211 238 / 24%),
+    3px 3px 8px -5px rgb(124 58 237 / 26%),
+    0 5px 9px -6px rgb(236 72 153 / 16%),
+    0 2px 6px -1px rgb(24 35 61 / 24%);
+  -webkit-backdrop-filter: blur(12px) saturate(132%);
+  backdrop-filter: blur(12px) saturate(132%);
+  transition:
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.button::before,
+.button::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+}
+
+.button::before {
+  inset: 0;
+  padding: 1px;
+  background: conic-gradient(
+    from 218deg,
+    rgb(255 255 255) 0deg 78deg,
+    rgb(220 246 255 / 68%) 112deg,
+    rgb(95 210 255 / 62%) 170deg,
+    rgb(76 139 255 / 68%) 218deg,
+    rgb(139 91 255 / 62%) 270deg,
+    rgb(216 169 255 / 50%) 310deg,
+    rgb(255 255 255 / 76%) 360deg
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.button::after {
+  right: 12%;
+  bottom: 0;
+  left: 12%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(34 211 238 / 34%) 24%,
+    rgb(96 165 250 / 72%) 52%,
+    rgb(168 85 247 / 42%) 78%,
+    transparent
+  );
+  box-shadow: 0 -1px 3px rgb(59 130 246 / 10%);
+  opacity: 0.74;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 88%),
+      inset 0 -2px 6px rgb(76 92 135 / 10%),
+      -4px -3px 13px -4px rgb(34 211 238 / 58%),
+      5px 5px 16px -5px rgb(124 58 237 / 64%),
+      0 8px 18px -7px rgb(236 72 153 / 48%),
+      0 3px 8px -1px rgb(24 35 61 / 28%);
+    filter: saturate(1.12) brightness(1.025);
+  }
+}
+
+.button:focus-visible {
+  outline: 2px solid rgb(96 165 250 / 76%);
+  outline-offset: 2px;
+}
+
+.progressRing,
+.icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.progressRing {
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+  transform: rotate(-90deg);
+}
+
+.progressGlow,
+.progressValue {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.progressGlow,
+.progressValue {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.progressGlow {
+  stroke-width: 4.8;
+  filter:
+    blur(3px)
+    drop-shadow(0 0 5px rgb(79 70 229 / 64%));
+}
+
+.progressValue {
+  stroke-width: 1.85;
+  filter: drop-shadow(0 0 2.5px rgb(79 70 229 / 48%));
+}
+
+.button[data-scrolled] .progressGlow {
+  opacity: 0.72;
+}
+
+.button[data-scrolled] .progressValue {
+  opacity: 0.62;
+}
+
+.icon {
+  z-index: 2;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: auto;
+  color: rgb(30 64 175);
+  stroke-width: 1.9;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 1px 0 rgb(255 255 255 / 80%))
+    drop-shadow(0 0 4px rgb(96 165 250 / 30%));
+  transition: color 180ms ease;
+}
+
+.dock[data-docked] .button {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 82%),
+    inset 0 -2px 6px rgb(76 92 135 / 12%),
+    -2px -1px 7px -4px rgb(34 211 238 / 22%),
+    3px 3px 8px -5px rgb(124 58 237 / 24%),
+    0 10px 22px -8px rgb(24 35 61 / 44%);
+}
+
+:global(.dark) .button {
+  color: rgb(241 245 249);
+  background:
+    radial-gradient(circle at 72% 5%, rgb(34 211 238 / 12%), transparent 38%) padding-box,
+    radial-gradient(circle at 18% 105%, rgb(236 72 153 / 7%), transparent 42%) padding-box,
+    radial-gradient(circle at 105% 58%, rgb(139 92 246 / 12%), transparent 44%) padding-box,
+    linear-gradient(180deg, rgb(22 31 49 / 95%), rgb(9 16 29 / 90%)) padding-box;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 42%),
+    inset 0 -2px 5px rgb(0 0 0 / 18%),
+    -2px -1px 7px -4px rgb(34 211 238 / 20%),
+    3px 3px 9px -5px rgb(124 58 237 / 26%),
+    0 5px 10px -6px rgb(236 72 153 / 14%),
+    0 4px 9px -5px rgb(0 0 0 / 56%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  backdrop-filter: blur(12px) saturate(130%);
+}
+
+:global(.dark) .button::before {
+  background: conic-gradient(
+    from 218deg,
+    rgb(255 255 255 / 38%) 0deg 78deg,
+    rgb(188 231 255 / 40%) 112deg,
+    rgb(72 187 255 / 54%) 170deg,
+    rgb(65 121 255 / 62%) 218deg,
+    rgb(125 81 255 / 58%) 270deg,
+    rgb(194 142 255 / 42%) 310deg,
+    rgb(255 255 255 / 38%) 360deg
+  );
+}
+
+:global(.dark) .button::after {
+  opacity: 0.62;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(.dark) .button:hover {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 52%),
+      inset 0 -2px 5px rgb(0 0 0 / 16%),
+      -4px -3px 13px -4px rgb(34 211 238 / 44%),
+      5px 5px 17px -5px rgb(124 58 237 / 56%),
+      0 8px 18px -7px rgb(236 72 153 / 36%),
+      0 5px 16px -3px rgb(0 0 0 / 62%);
+  }
+}
+
+:global(.dark) .dock[data-docked] .button {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 46%),
+    inset 0 -2px 5px rgb(0 0 0 / 16%),
+    -2px -1px 7px -4px rgb(34 211 238 / 18%),
+    3px 3px 9px -5px rgb(124 58 237 / 22%),
+    0 8px 18px -7px rgb(0 0 0 / 72%);
+}
+
+:global(.dark) .progressGlow {
+  filter:
+    blur(2.2px)
+    drop-shadow(0 0 4px rgb(79 70 229 / 72%));
+}
+
+:global(.dark) .progressValue {
+  filter:
+    drop-shadow(0 0 1px rgb(255 255 255 / 90%))
+    drop-shadow(0 0 2.5px rgb(79 70 229 / 68%));
+}
+
+:global(.dark) .button[data-scrolled] .progressGlow {
+  opacity: 0.52;
+}
+
+:global(.dark) .button[data-scrolled] .progressValue {
+  opacity: 1;
+}
+
+:global(.dark) .icon {
+  color: rgb(239 246 255);
+  filter:
+    drop-shadow(0 1px 2px rgb(0 0 0 / 52%))
+    drop-shadow(0 0 5px rgb(96 165 250 / 34%));
+}
+
+@keyframes fab-halo-orbit {
+  0% {
+    transform: rotate(0deg) scale(0.94);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.04);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(0.94);
+  }
+}
+
+@supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .button {
+    border-color: rgb(96 165 250 / 34%);
+  }
+
+  .button::before {
+    content: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .dock::before {
+    display: none;
+  }
+
+  .button {
+    color: ButtonText;
+    background: ButtonFace;
+    border: 2px solid Highlight;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .button::before,
+  .button::after,
+  .progressGlow {
+    display: none;
+  }
+
+  .progressValue {
+    stroke: Highlight;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock::before {
+    opacity: 0.3;
+    transform: none;
+    animation: none;
+  }
+
+  .button,
+  .progressGlow,
+  .progressValue,
+  .icon {
+    transition: none;
+  }
+}

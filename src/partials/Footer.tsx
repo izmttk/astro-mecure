@@ -43,7 +43,7 @@ export default function Footer({
   } = config;
 
   return (
-    <footer className={twMerge(
+    <footer data-site-footer className={twMerge(
       'bg-gray-200 dark:bg-gray-800 flex border-t border-gray-200/30 dark:border-gray-700/30',
       className
     )}>

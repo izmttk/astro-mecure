@@ -32,7 +32,6 @@ export default {
     },
     extend: {
       colors: {
-        gray: gray,
         primary: primary,
         secondary: secondary,
         background: {
