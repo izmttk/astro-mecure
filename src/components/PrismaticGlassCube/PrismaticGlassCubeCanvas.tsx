@@ -1,16 +1,16 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 
-import type { PrismaticPerformanceProfile } from './PrismaticPerformanceProbe';
+import type { DetectedGpuProfile } from './PrismaticGpuTierGate';
 import styles from './PrismaticGlassCubeCanvas.module.css';
 
 const AsciiPrismaticCube = lazy(() => import('./AsciiPrismaticCube'));
 const DreiRefractionCube = lazy(() => import('./DreiRefractionCube'));
-const PrismaticPerformanceProbe = lazy(() => import('./PrismaticPerformanceProbe'));
+const PrismaticGpuTierGate = lazy(() => import('./PrismaticGpuTierGate'));
 const RealtimePrismaticCube = lazy(() => import('./RealtimePrismaticCube'));
 
 type RenderMode =
   | 'checking'
-  | 'profiling'
+  | 'detecting-gpu'
   | 'raytraced'
   | 'drei-refraction'
   | 'ascii'
@@ -64,7 +64,7 @@ export default function PrismaticGlassCubeCanvas({
         }
 
         setConstrained(false);
-        setMode(renderer === 'drei-refraction' ? 'drei-refraction' : 'profiling');
+        setMode(renderer === 'drei-refraction' ? 'drei-refraction' : 'detecting-gpu');
         return;
       }
 
@@ -90,8 +90,9 @@ export default function PrismaticGlassCubeCanvas({
     return () => forcedColors.removeEventListener('change', detectCapability);
   }, [renderer]);
 
-  const handleProfile = useCallback((profile: PrismaticPerformanceProfile) => {
-    setMode(profile.recommendedMode === 'raytraced' ? 'raytraced' : 'ascii');
+  const handleGpuTier = useCallback((profile: DetectedGpuProfile) => {
+    setConstrained(profile.tier <= 1);
+    setMode(profile.tier >= 3 ? 'raytraced' : 'ascii');
   }, []);
 
   return (
@@ -122,9 +123,9 @@ export default function PrismaticGlassCubeCanvas({
           <DreiRefractionCube />
         </Suspense>
       )}
-      {mode === 'profiling' && (
+      {mode === 'detecting-gpu' && (
         <Suspense fallback={null}>
-          <PrismaticPerformanceProbe onComplete={handleProfile} />
+          <PrismaticGpuTierGate onComplete={handleGpuTier} />
         </Suspense>
       )}
       {mode === 'raytraced' && (
@@ -140,7 +141,7 @@ export default function PrismaticGlassCubeCanvas({
           <RealtimePrismaticCube />
         </Suspense>
       )}
-      {(mode === 'checking' || mode === 'profiling' || mode === 'fallback') && (
+      {(mode === 'checking' || mode === 'detecting-gpu' || mode === 'fallback') && (
         <div
           className={styles.root}
           data-render-mode={mode}

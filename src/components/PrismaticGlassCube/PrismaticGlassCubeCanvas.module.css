@@ -43,17 +43,6 @@
   text-shadow: 0 0 5px rgb(116 178 255 / 14%);
 }
 
-.probe {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .canvas {
     transition: none;
