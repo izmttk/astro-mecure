@@ -4,11 +4,14 @@
   z-index: 1;
   overflow: hidden;
   background: #000;
-  cursor: grab;
   touch-action: pan-y;
 }
 
-.root:active {
+.interactive {
+  cursor: grab;
+}
+
+.interactive:active {
   cursor: grabbing;
 }
 
@@ -24,8 +27,31 @@
   opacity: 1;
 }
 
-.failed .canvas {
-  display: none;
+.backgroundCanvas,
+.asciiCanvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.asciiCanvas > div {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent !important;
+  font-variant-ligatures: none;
+  text-rendering: geometricprecision;
+  text-shadow: 0 0 5px rgb(116 178 255 / 14%);
+}
+
+.probe {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

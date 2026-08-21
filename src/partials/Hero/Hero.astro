@@ -42,7 +42,7 @@ export interface HeroConfig {
   background?: ImageType;
   description?: string;
   logo?: ImageOrSvgType;
-  visual?: 'prismatic-cube';
+  visual?: 'prismatic-cube' | 'prismatic-cube-drei';
   title?: string;
   accessibleTitle?: string;
   info?: HeroInfo;
@@ -78,7 +78,8 @@ function isLocalSvg(value: ImageOrSvgType): value is LocalSvgComponent {
 
 const logoImg: ImageType | null = logo && !title && !isLocalSvg(logo) ? logo as ImageType : null;
 const LogoSvg = logo && !title && isLocalSvg(logo) ? logo : null;
-const isPrismaticCube = visual === 'prismatic-cube';
+const isDreiRefractionCube = visual === 'prismatic-cube-drei';
+const isPrismaticCube = visual === 'prismatic-cube' || isDreiRefractionCube;
 
 const countText = info?.type === 'categories'
   ? `共${info.count}个分类`
@@ -128,7 +129,10 @@ const countText = info?.type === 'categories'
       </div>
     )}
     {isPrismaticCube && (
-      <PrismaticGlassCubeCanvas client:only="react" />
+      <PrismaticGlassCubeCanvas
+        renderer={isDreiRefractionCube ? 'drei-refraction' : 'adaptive'}
+        client:only="react"
+      />
     )}
     <div class="hero-scrim" aria-hidden="true"></div>
 
